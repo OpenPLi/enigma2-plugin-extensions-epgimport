@@ -4,6 +4,7 @@ from xml.etree.cElementTree import ElementTree, Element, SubElement, tostring, i
 import cPickle as pickle
 import gzip
 import time
+import random
 
 # User selection stored here, so it goes into a user settings backup
 SETTINGS_FILE = '/etc/enigma2/epgimport.conf'
@@ -87,7 +88,8 @@ class EPGChannel:
 class EPGSource:
 	def __init__(self, path, elem):
 		self.parser = elem.get('type')
-		self.url = elem.findtext('url')
+		self.urls = [e.text for e in elem.findall('url')]
+		self.url = random.choice(self.urls)
 		self.description = elem.findtext('description')
 		if not self.description:
 			self.description = self.url
@@ -137,7 +139,7 @@ if __name__ == '__main__':
 	if len(sys.argv) > 1:
 	       path = sys.argv[1]
 	for p in enumSources(path):
-	    t = (p.description, p.url, p.parser, p.format, p.channels)
+	    t = (p.description, p.urls, p.parser, p.format, p.channels)
             l.append(t)  
 	    print t
 	    x.append(p.description)
@@ -145,7 +147,7 @@ if __name__ == '__main__':
 	assert loadUserSettings('settings.pkl') == {"sources": [1,"twee"]}
 	os.remove('settings.pkl')
 	for p in enumSources(path, x):
-	    t = (p.description, p.url, p.parser, p.format, p.channels)
+	    t = (p.description, p.urls, p.parser, p.format, p.channels)
 	    assert t in l
 	    l.remove(t)
 	assert not l 	
