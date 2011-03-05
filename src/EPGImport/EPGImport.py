@@ -103,17 +103,19 @@ class EPGImport:
         self.nextImport()
 
     def nextImport(self):
-    	self.closeReader()
-    	if not self.sources:
-    	    self.closeImport()
-    	    return
-    	self.source = self.sources.pop()
+        self.closeReader()
+        if not self.sources:
+            self.closeImport()
+            return
+        self.source = self.sources.pop()
         print>>log, "[EPGImport] nextImport, source=", self.source.description
- 	filename = self.source.url
-	if filename.startswith('http:') or filename.startswith('ftp:'):
-	    self.do_download(filename)
-	else:
-	    self.afterDownload(None, filename, deleteFile=False)
+        self.fetchUrl(self.source.url)
+
+    def fetchUrl(self, filename):
+        if filename.startswith('http:') or filename.startswith('ftp:'):
+            self.do_download(filename)
+        else:
+            self.afterDownload(None, filename, deleteFile=False)
 
     def createIterator(self):
 	self.source.channels.update(self.channelFilter)
@@ -220,8 +222,15 @@ class EPGImport:
     	print>>log, "[EPGImport] connectionLost", failure
 
     def downloadFail(self, failure):
-    	print>>log, "[EPGImport] download failed:", failure
-	self.nextImport()
+        print>>log, "[EPGImport] download failed:", failure
+        self.source.urls.remove(self.source.url)
+        if self.source.urls:
+            print>>log, "[EPGImport] Attempting alternative URL"
+            import random
+            self.source.url = random.choice(self.source.urls)
+            self.fetchUrl(self.source.url)
+        else:
+            self.nextImport()
     	
     def logPrefix(self):
     	return '[EPGImport]'
