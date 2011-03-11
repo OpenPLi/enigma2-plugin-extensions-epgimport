@@ -5,6 +5,7 @@ import cPickle as pickle
 import gzip
 import time
 import random
+import urllib
 
 # User selection stored here, so it goes into a user settings backup
 SETTINGS_FILE = '/etc/enigma2/epgimport.conf'
@@ -17,6 +18,8 @@ def isLocalFile(filename):
 
 def getChannels(path, name):
 	global channelCache
+	if name in channelCache:
+		return channelCache[name]
 	dirname, filename = os.path.split(path)
 	if name:
 		if isLocalFile(name):
@@ -32,28 +35,41 @@ def getChannels(path, name):
 	c = EPGChannel(channelfile)
 	channelCache[channelfile] = c
 	return c
-	
+
+# Override to make e.g. 404 errors be thrown as exceptions, while still handling
+# redirects and such.
+class ThrowingURLopener(urllib.FancyURLopener):
+	def http_error_default(self, url, fp, errcode, errmsg, headers):
+		print "URL=%s errcode=%s" % (url,errcode)
+		return urllib.URLopener.http_error_default(self, url, fp, errcode, errmsg, headers)
 
 class EPGChannel:
-	def __init__(self, filename):
+	def __init__(self, filename, urls=None):
 		self.mtime = None
-		self.filename = filename
+		self.name = filename
+		if urls is None:
+			self.urls = [filename]
+		else:
+			self.urls = urls
 		self.items = None
 	def openStream(self):
-		if not isLocalFile(self.filename):
-			# just returning urlopen() does not work, parser needs 'tell'
-			import urllib
-			filename,headers = urllib.urlretrieve(self.filename)
-		else:
-			filename = self.filename
-		fd = open(filename, 'rb')
-        	if self.filename.endswith('.gz'):
-            		fd = gzip.GzipFile(fileobj = fd, mode = 'rb')
-            	if filename != self.filename:
-            		os.unlink(filename)
-		return fd
+		# opener will remove tmp file when going out of scope
+		opener = ThrowingURLopener()
+		for url in self.urls:
+			try:
+				#filename, headers = urllib.FancyURLopener().retrieve(url)
+				filename, headers = opener.retrieve(url)
+				fd = open(filename, 'rb')
+				if not os.fstat(fd.fileno()).st_size:
+					raise Exception, "File is empty"
+				if filename.endswith('.gz'):
+					fd = gzip.GzipFile(fileobj = fd, mode = 'rb')
+				return fd
+			except Exception, ex:
+				print>>log,"[EPGImport] failed to open '%s': %s" % (url, ex)
+		raise Exception, "No valid channels found"
 	def parse(self, filterCallback):
-		print>>log,"[EPGImport] Parsing channels from '%s'" % self.filename
+		print>>log,"[EPGImport] Parsing channels from '%s'" % self.name
 		self.items = {}
 		for event, elem in iterparse(self.openStream()):
 			if elem.tag == 'channel':
@@ -69,8 +85,8 @@ class EPGChannel:
 				elem.clear()
 	def update(self, filterCallback = lambda x: True):
 		try:
-			if isLocalFile(self.filename):
-				mtime = os.path.getmtime(self.filename)
+			if (len(self.urls) == 1) and isLocalFile(self.urls[0]):
+				mtime = os.path.getmtime(self.urls[0])
 				if (not self.mtime) or (self.mtime < mtime):
 					self.parse(filterCallback)
 					self.mtime = mtime
@@ -81,14 +97,14 @@ class EPGChannel:
 					self.mtime = now
 					self.parse(filterCallback)
 		except Exception, e:
-			print>>log, "[EPGImport] Failed to parse channels from '%s':" % self.filename, e
+			print>>log, "[EPGImport] Failed to parse channels from '%s':" % self.name, e
 	def __repr__(self):
-		return "EPGChannel(file=%s, channels=%s, mtime=%s)" % (self.filename, self.items and len(self.items), self.mtime) 
+		return "EPGChannel(urls=%s, channels=%s, mtime=%s)" % (self.urls, self.items and len(self.items), self.mtime)
 	
 class EPGSource:
 	def __init__(self, path, elem):
 		self.parser = elem.get('type')
-		self.urls = [e.text for e in elem.findall('url')]
+		self.urls = [e.text.strip() for e in elem.findall('url')]
 		self.url = random.choice(self.urls)
 		self.description = elem.findtext('description')
 		if not self.description:
@@ -98,12 +114,21 @@ class EPGSource:
 
 
 def enumSourcesFile(sourcefile, filter=None):
-    for event, elem in iterparse(open(sourcefile, 'rb')):
-        if elem.tag == 'source':
-            s = EPGSource(sourcefile, elem)
-            elem.clear()
-            if (filter is None) or (s.description in filter):
-                yield s
+	global channelCache
+	for event, elem in iterparse(open(sourcefile, 'rb')):
+		if elem.tag == 'source':
+			s = EPGSource(sourcefile, elem)
+			elem.clear()
+			if (filter is None) or (s.description in filter):
+				yield s
+		elif elem.tag == 'channel':
+			name = elem.get('name')
+			urls = [e.text.strip() for e in elem.findall('url')]
+			if name in channelCache:
+				channelCache[name].urls = urls
+			else:
+				channelCache[name] = EPGChannel(name, urls)
+
 
 def enumSources(path, filter=None):
 	try:
@@ -151,4 +176,7 @@ if __name__ == '__main__':
 	    assert t in l
 	    l.remove(t)
 	assert not l 	
-	
+	for name,c in channelCache.items():
+		print "Update:", name
+		c.update()
+		print "# of channels:", len(c.items)
