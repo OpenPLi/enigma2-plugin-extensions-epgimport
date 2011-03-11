@@ -155,6 +155,12 @@ class EPGImport:
 
     def afterDownload(self, result, filename, deleteFile=False):
         print>>log, "[EPGImport] afterDownload", filename
+        try:
+	        if not os.path.getsize(filename):
+			raise Exception, "File is empty"
+	except Exception, e:
+		self.downloadFail(e)
+		return
         if self.source.parser == 'epg.dat':
 	    if twisted.python.runtime.platform.supportsThreads():
 		print>>log, "[EPGImport] Using twisted thread for DAT file"
