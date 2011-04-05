@@ -55,9 +55,9 @@ class EPGChannel:
 	def openStream(self):
 		# opener will remove tmp file when going out of scope
 		opener = ThrowingURLopener()
+		random.shuffle(self.urls)
 		for url in self.urls:
 			try:
-				#filename, headers = urllib.FancyURLopener().retrieve(url)
 				filename, headers = opener.retrieve(url)
 				fd = open(filename, 'rb')
 				if not os.fstat(fd.fileno()).st_size:
