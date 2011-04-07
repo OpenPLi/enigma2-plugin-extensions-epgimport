@@ -58,7 +58,10 @@ class EPGChannel:
 		random.shuffle(self.urls)
 		for url in self.urls:
 			try:
-				filename, headers = opener.retrieve(url)
+				if isLocalFile(url):
+					filename = url
+				else:
+					filename, headers = opener.retrieve(url)
 				fd = open(filename, 'rb')
 				if not os.fstat(fd.fileno()).st_size:
 					raise Exception, "File is empty"
