@@ -43,6 +43,13 @@ def getTimeFromHourAndMinutes(hour, minute):
 	return begin
 
 def bigStorage(minFree, default, *candidates):
+	try:
+            diskstat = os.statvfs(default)
+            free = diskstat.f_bfree * diskstat.f_bsize
+            if (free > minFree) and (free > 50000000):
+                return default
+        except Exception, e:
+            print>>log, "[EPGImport] Failed to stat %s:" % default, e
         mounts = open('/proc/mounts', 'rb').readlines()
 	# format: device mountpoint fstype options #
         mountpoints = [x.split(' ', 2)[1] for x in mounts]
