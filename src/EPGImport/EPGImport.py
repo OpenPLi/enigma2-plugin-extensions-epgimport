@@ -8,6 +8,7 @@ import time
 import os
 import gzip
 import log
+import random
 
 HDD_EPG_DAT = "/hdd/epg.dat" 
 
@@ -120,12 +121,12 @@ class EPGImport:
 
     def fetchUrl(self, filename):
         if filename.startswith('http:') or filename.startswith('ftp:'):
-            self.do_download(filename)
+            self.do_download(filename, self.afterDownload, self.downloadFail)
         else:
             self.afterDownload(None, filename, deleteFile=False)
 
-    def createIterator(self):
-	self.source.channels.update(self.channelFilter)
+    def createIterator(self, filename):
+	self.source.channels.update(self.channelFilter, filename)
 	return getParser(self.source.parser).iterator(self.fd, self.source.channels.items)
 
     def readEpgDatFile(self, filename, deleteFile=False):
@@ -179,26 +180,49 @@ class EPGImport:
             self.fd = gzip.open(filename, 'rb')
         else:
             self.fd = open(filename, 'rb')
-	if twisted.python.runtime.platform.supportsThreads():
-		print>>log, "[EPGImport] Using twisted thread!"
-		threads.deferToThread(self.doThreadRead).addCallback(lambda ignore: self.nextImport())
-	else:
-		self.iterator = self.createIterator()
-                reactor.addReader(self)
 	if deleteFile:
 		try:
 			print>>log, "[EPGImport] unlink", filename
 			os.unlink(filename)
 		except Exception, e:
 			print>>log, "[EPGImport] warning: Could not remove '%s' intermediate" % filename, e
+        self.channelFiles = self.source.channels.downloadables()
+        if not self.channelFiles:
+                self.afterChannelDownload(None, None)
+	else:
+	        filename = random.choice(self.channelFiles)
+	        self.channelFiles.remove(filename)
+	        self.do_download(filename, self.afterChannelDownload, self.channelDownloadFail)
+
+    def afterChannelDownload(self, result, filename, deleteFile=True):
+        print>>log, "[EPGImport] afterChannelDownload", filename
+        if filename:
+	        try:
+		        if not os.path.getsize(filename):
+				raise Exception, "File is empty"
+		except Exception, e:
+			self.channelDownloadFail(e)
+			return
+	if twisted.python.runtime.platform.supportsThreads():
+		print>>log, "[EPGImport] Using twisted thread"
+		threads.deferToThread(self.doThreadRead, filename).addCallback(lambda ignore: self.nextImport())
+	else:
+		self.iterator = self.createIterator(filename)
+                reactor.addReader(self)
+		if deleteFile and filename:
+			try:
+				os.unlink(filename)
+			except Exception, e:
+				print>>log, "[EPGImport] warning: Could not remove '%s' intermediate" % filename, e
+
 
     def fileno(self):
     	if self.fd is not None:
     		return self.fd.fileno()
     		
-    def doThreadRead(self):
+    def doThreadRead(self, filename):
     	'This is used on PLi with threading'
-    	for data in self.createIterator():
+    	for data in self.createIterator(filename):
     		if data is not None:
     		    self.eventCount += 1
 	            try:
@@ -209,7 +233,13 @@ class EPGImport:
 	            	self.storage.importEvents(r, (d,))
 	            except Exception, e:
 	        	print>>log, "[EPGImport] ### importEvents exception:", e
-	print>>log, "[EPGImport] ### thread is ready ### Events:", self.eventCount 
+	print>>log, "[EPGImport] ### thread is ready ### Events:", self.eventCount
+	if filename:
+		try:
+			os.unlink(filename)
+		except Exception, e:
+			print>>log, "[EPGImport] warning: Could not remove '%s' intermediate" % filename, e
+
 
     def doRead(self):
     	'called from reactor to read some data'
@@ -234,12 +264,21 @@ class EPGImport:
     	# This happens because enigma calls us after removeReader
     	print>>log, "[EPGImport] connectionLost", failure
 
+    def channelDownloadFail(self, failure):
+        print>>log, "[EPGImport] download channel failed:", failure
+        if self.channelFiles:
+        	filename = random.choice(self.channelFiles)
+        	self.channelFiles.remove(filename)
+        	self.do_download(filename, self.afterChannelDownload, self.channelDownloadFail)
+	else:
+	    print>>log, "[EPGImport] no more alternatives for channels"
+            self.nextImport()
+
     def downloadFail(self, failure):
         print>>log, "[EPGImport] download failed:", failure
         self.source.urls.remove(self.source.url)
         if self.source.urls:
             print>>log, "[EPGImport] Attempting alternative URL"
-            import random
             self.source.url = random.choice(self.source.urls)
             self.fetchUrl(self.source.url)
         else:
@@ -292,12 +331,12 @@ class EPGImport:
     def isImportRunning(self):
     	return self.source is not None
         
-    def do_download(self,sourcefile):
+    def do_download(self, sourcefile, afterDownload, downloadFail):
         path = bigStorage(9000000, '/tmp', '/media/cf', '/media/usb', '/media/hdd')
         filename = os.path.join(path, 'epgimport')
         if sourcefile.endswith('.gz'):
             filename += '.gz'
         sourcefile = sourcefile.encode('utf-8')
         print>>log, "[EPGImport] Downloading: " + sourcefile + " to local path: " + filename
-        downloadPage(sourcefile, filename).addCallbacks(self.afterDownload, self.downloadFail, callbackArgs=(filename,True))
+        downloadPage(sourcefile, filename).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
         return filename

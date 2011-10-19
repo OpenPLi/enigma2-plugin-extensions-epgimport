@@ -5,7 +5,6 @@ import cPickle as pickle
 import gzip
 import time
 import random
-import urllib
 
 # User selection stored here, so it goes into a user settings backup
 SETTINGS_FILE = '/etc/enigma2/epgimport.conf'
@@ -36,12 +35,6 @@ def getChannels(path, name):
 	channelCache[channelfile] = c
 	return c
 
-# Override to make e.g. 404 errors be thrown as exceptions, while still handling
-# redirects and such.
-class ThrowingURLopener(urllib.FancyURLopener):
-	def http_error_default(self, url, fp, errcode, errmsg, headers):
-		print "URL=%s errcode=%s" % (url,errcode)
-		return urllib.URLopener.http_error_default(self, url, fp, errcode, errmsg, headers)
 
 class EPGChannel:
 	def __init__(self, filename, urls=None):
@@ -52,29 +45,17 @@ class EPGChannel:
 		else:
 			self.urls = urls
 		self.items = None
-	def openStream(self):
-		# opener will remove tmp file when going out of scope
-		opener = ThrowingURLopener()
-		random.shuffle(self.urls)
-		for url in self.urls:
-			try:
-				if isLocalFile(url):
-					filename = url
-				else:
-					filename, headers = opener.retrieve(url)
-				fd = open(filename, 'rb')
-				if not os.fstat(fd.fileno()).st_size:
-					raise Exception, "File is empty"
-				if filename.endswith('.gz'):
-					fd = gzip.GzipFile(fileobj = fd, mode = 'rb')
-				return fd
-			except Exception, ex:
-				print>>log,"[EPGImport] failed to open '%s': %s" % (url, ex)
-		raise Exception, "No valid channels found"
-	def parse(self, filterCallback):
+	def openStream(self, filename):
+		fd = open(filename, 'rb')
+		if not os.fstat(fd.fileno()).st_size:
+			raise Exception, "File is empty"
+		if filename.endswith('.gz'):
+			fd = gzip.GzipFile(fileobj = fd, mode = 'rb')
+		return fd
+	def parse(self, filterCallback, downloadedFile):
 		print>>log,"[EPGImport] Parsing channels from '%s'" % self.name
 		self.items = {}
-		for event, elem in iterparse(self.openStream()):
+		for event, elem in iterparse(self.openStream(downloadedFile)):
 			if elem.tag == 'channel':
 				id = elem.get('id')
 				ref = elem.text
@@ -86,21 +67,25 @@ class EPGChannel:
 						else:
 							self.items[id] = [ref]
 				elem.clear()
-	def update(self, filterCallback = lambda x: True):
-		try:
-			if (len(self.urls) == 1) and isLocalFile(self.urls[0]):
-				mtime = os.path.getmtime(self.urls[0])
-				if (not self.mtime) or (self.mtime < mtime):
-					self.parse(filterCallback)
-					self.mtime = mtime
-			else:
-				# Check at most once a day
-				now = time.time()
-				if (not self.mtime) or (self.mtime + 86400 < now):
-					self.mtime = now
-					self.parse(filterCallback)
-		except Exception, e:
-			print>>log, "[EPGImport] Failed to parse channels from '%s':" % self.name, e
+	def update(self, filterCallback, downloadedFile=None):
+	        if downloadedFile is not None:
+	                self.mtime = time.time()
+	                return self.parse(filterCallback, downloadedFile)
+		elif (len(self.urls) == 1) and isLocalFile(self.urls[0]):
+			mtime = os.path.getmtime(self.urls[0])
+			if (not self.mtime) or (self.mtime < mtime):
+				self.parse(filterCallback, self.urls[0])
+				self.mtime = mtime
+	def downloadables(self):
+		if (len(self.urls) == 1) and isLocalFile(self.urls[0]):
+		        return None
+		else:
+			# Check at most once a day
+			now = time.time()
+			if (not self.mtime) or (self.mtime + 86400 < now):
+				return self.urls
+		return None
+
 	def __repr__(self):
 		return "EPGChannel(urls=%s, channels=%s, mtime=%s)" % (self.urls, self.items and len(self.items), self.mtime)
 	
