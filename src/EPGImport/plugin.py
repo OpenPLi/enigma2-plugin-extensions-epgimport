@@ -1,3 +1,5 @@
+# for localized messages
+from __init__ import _
 import time
 import os
 import enigma
