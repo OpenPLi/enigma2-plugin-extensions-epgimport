@@ -70,7 +70,7 @@ lastImportResult = None
 ##################################
 # Configuration GUI
 
-class Config(ConfigListScreen,Screen):
+class EPGImportConfig(ConfigListScreen,Screen):
 	skin = """
 <screen position="center,center" size="560,400" title="EPG Import Configuration" >
 	<ePixmap name="red"    position="0,0"   zPosition="2" size="140,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on" />
@@ -332,7 +332,7 @@ class EPGImportLog(Screen):
 
 
 def main(session, **kwargs):
-    session.openWithCallback(doneConfiguring, Config)
+    session.openWithCallback(doneConfiguring, EPGImportConfig)
 
 def doneConfiguring(session, retval):
     "user has closed configuration, check new values...."
