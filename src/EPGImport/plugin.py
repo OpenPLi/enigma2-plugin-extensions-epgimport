@@ -161,7 +161,7 @@ class EPGImportConfig(ConfigListScreen,Screen):
 		if epgimport.isImportRunning():
 			text = _("Importing:")
 			src = epgimport.source
-			text += " %s\n%s events" % (src.description, epgimport.eventCount)
+			text += _(" %s\n%s events") % (src.description, epgimport.eventCount)
 		self["status"].setText(text)
 		if lastImportResult and (lastImportResult != self.lastImportResult):
 			start, count = lastImportResult
