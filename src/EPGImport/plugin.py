@@ -129,6 +129,7 @@ class EPGImportConfig(ConfigListScreen,Screen):
 		self.updateTimer = enigma.eTimer()
 	    	self.updateTimer.callback.append(self.updateStatus)
 		self.updateTimer.start(2000)
+		self.importStatusTemplate = _("Importing: %s\n%s events")
 		self.updateStatus()
 	
 	# for summary:
@@ -159,9 +160,8 @@ class EPGImportConfig(ConfigListScreen,Screen):
 	def updateStatus(self):
 		text = ""
 		if epgimport.isImportRunning():
-			text = _("Importing:")
 			src = epgimport.source
-			text += _(" %s\n%s events") % (src.description, epgimport.eventCount)
+			text = self.importStatusTemplate % (src.description, epgimport.eventCount)
 		self["status"].setText(text)
 		if lastImportResult and (lastImportResult != self.lastImportResult):
 			start, count = lastImportResult
