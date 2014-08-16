@@ -22,11 +22,25 @@ import Components.PluginComponent
 from Tools.FuzzyDate import FuzzyTime
 import NavigationInstance
 
+def lastMACbyte():
+	try:
+		return int(open('/sys/class/net/eth0/address').readline().strip()[-2:], 16)
+	except:
+		return 256
+
+def calcDefaultStarttime():
+	try:
+		# Use the last MAC byte as time offset (half-minute intervals)
+		offset = lastMACbyte() * 30
+	except:
+		offset = 7680
+	return (5 * 60 * 60) + offset
+
 #Set default configuration
 config.plugins.epgimport = ConfigSubsection()
 config.plugins.epgimport.enabled = ConfigEnableDisable(default = True)
 config.plugins.epgimport.runboot = ConfigEnableDisable(default = False)
-config.plugins.epgimport.wakeup = ConfigClock(default = ((4*60) + 45) * 60) # 4:45
+config.plugins.epgimport.wakeup = ConfigClock(default = calcDefaultStarttime())
 config.plugins.epgimport.showinextensions = ConfigYesNo(default = True)
 config.plugins.epgimport.deepstandby = ConfigSelection(default = "skip", choices = [
 		("wakeup", _("Wake up and import")),
@@ -372,17 +386,17 @@ class AutoStartTimer:
 	def __init__(self, session):
 		self.session = session
 		self.timer = enigma.eTimer() 
-	    	self.timer.callback.append(self.onTimer)
-	    	self.update()
+		self.timer.callback.append(self.onTimer)
+		self.update()
 	def getWakeTime(self):
-	    if config.plugins.epgimport.enabled.value:
-	        clock = config.plugins.epgimport.wakeup.value
-	        nowt = time.time()
-		now = time.localtime(nowt)
-		return int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday,  
-	                   clock[0], clock[1], 0, 0, now.tm_yday, now.tm_isdst)))
-	    else:
-	        return -1 
+		if config.plugins.epgimport.enabled.value:
+			clock = config.plugins.epgimport.wakeup.value
+			nowt = time.time()
+			now = time.localtime(nowt)
+			return int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday,  
+				clock[0], clock[1], lastMACbyte()/5, 0, now.tm_yday, now.tm_isdst)))
+		else:
+			return -1
 	def update(self, atLeast = 0):
 	    self.timer.stop()
 	    wake = self.getWakeTime()
@@ -415,7 +429,7 @@ class AutoStartTimer:
 		if wake - now < 60:
 			self.runImport() 
 			atLeast = 60
-	        self.update(atLeast)
+		self.update(atLeast)
 
 def onBootStartCheck():
 	global autoStartTimer
