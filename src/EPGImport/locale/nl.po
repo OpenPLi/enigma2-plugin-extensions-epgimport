@@ -1,0 +1,145 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-15 22:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: plugin.py:32
+msgid "Wake up and import"
+msgstr "Aanzetten en importeren"
+
+#: plugin.py:34
+msgid "Skip the import"
+msgstr "Importeren overslaan"
+
+#: plugin.py:98
+msgid "EPG Import Configuration"
+msgstr "EPG Import instellingen"
+
+#: plugin.py:102
+msgid "Daily automatic import"
+msgstr "Elke dag automatisch importeren"
+
+#: plugin.py:103
+msgid "Automatic start time"
+msgstr "Aanvang automatische import"
+
+#: plugin.py:104
+msgid "When in deep standby"
+msgstr "Als de ontvanger uit staat"
+
+#: plugin.py:105
+msgid "Show in extensions"
+msgstr "Weergeven in extensie menu"
+
+#: plugin.py:106
+msgid "Start import after booting up"
+msgstr "Meteen starten na opstarten ontvanger"
+
+#: plugin.py:107
+msgid "Load long descriptions up to X days"
+msgstr "Aantal dagen voor uitgebreide beschrijvingen"
+
+#: plugin.py:112 plugin.py:238
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: plugin.py:113 plugin.py:239
+msgid "Ok"
+msgstr "OK"
+
+#: plugin.py:114
+msgid "Manual"
+msgstr "Handmatig"
+
+#: plugin.py:115
+msgid "Sources"
+msgstr "Bronnen"
+
+#: plugin.py:162
+msgid "Importing:"
+msgstr "Importeer:"
+
+#: plugin.py:164
+#, python-format
+msgid ""
+" %s\n"
+"%s events"
+msgstr ""
+" %s\n"
+"%s programma's"
+
+#: plugin.py:173
+#, python-format
+msgid "Last: %s %s, %d events"
+msgstr "Laatste: %s %s, %d programma's"
+
+#: plugin.py:179
+msgid ""
+"EPGImport Plugin\n"
+"Import of epg data is still in progress. Please wait."
+msgstr ""
+"EPGImport Plugin\n"
+"Nog bezig met importeren EPG data, even geduld A.U.B."
+
+#: plugin.py:184
+msgid "No active EPG sources found, nothing to do"
+msgstr "Geen actieve EPG bronnen, dus niets te doen"
+
+#: plugin.py:189
+msgid ""
+"EPGImport Plugin\n"
+"Import of epg data will start\n"
+"This may take a few minutes\n"
+"Is this ok?"
+msgstr ""
+"EPGImport Plugin\n"
+"Start importeren EPG data.\n"
+"Dit kan enkele minuten duren.\n"
+"Doorgaan?"
+
+#: plugin.py:199
+msgid ""
+"EPGImport Plugin\n"
+"Failed to start:\n"
+msgstr ""
+"EPGImport Plugin\n"
+"Mislukt:\n"
+
+#: plugin.py:294
+msgid "Clear"
+msgstr "Leeg maken"
+
+#: plugin.py:297
+msgid "Save"
+msgstr "Opslaan"
+
+#: plugin.py:346
+#, python-format
+msgid "EPG Import finished, %d events"
+msgstr "EPG Import klaar, %d programma's"
+
+#: plugin.py:346
+msgid ""
+"You must restart Enigma2 to load the EPG data,\n"
+"is this OK?"
+msgstr ""
+"Om de data te laden moet de gebruikersinterface opnieuw worden gestart,\n"
+"doorgaan?"
+
+#: plugin.py:481
+msgid "Automated EPG Importer"
+msgstr "Automatische EPG import"
