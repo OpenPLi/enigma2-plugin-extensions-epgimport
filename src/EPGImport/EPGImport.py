@@ -9,6 +9,7 @@ import os
 import gzip
 import log
 import random
+from Components.config import config
 
 HDD_EPG_DAT = "/hdd/epg.dat"
 
@@ -92,7 +93,16 @@ class EPGImport:
 		self.channelFilter = channelFilter
 
 	def beginImport(self, longDescUntil = None):
+		global HDD_EPG_DAT
 		'Starts importing using Enigma reactor. Set self.sources before calling this.'
+		HDD_EPG_DAT = config.misc.epgcache_filename.value
+		if config.plugins.epgimport.clear_oldepg.value and hasattr(self.epgcache, 'flushEPG'):
+			try:
+				os.system("rm -f %s" % (config.misc.epgcache_filename.value))
+				os.system("rm -f %s.backup" % (config.misc.epgcache_filename.value))
+				self.epgcache.flushEPG()
+			except:
+				pass
 		if hasattr(self.epgcache, 'importEvents'):
 			self.storage = self.epgcache
 		elif hasattr(self.epgcache, 'importEvent'):
@@ -319,6 +329,8 @@ class EPGImport:
 								pass # ignore...
 					except Exception, e:
 						print>>log, "[EPGImport] load() failed:", e
+			elif hasattr(self.epgcache, 'timeUpdated'):
+				self.epgcache.timeUpdated()
 			if self.onDone:
 				self.onDone(reboot=reboot, epgfile=needLoad)
 		self.eventCount = None
