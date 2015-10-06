@@ -169,7 +169,7 @@ try:
 		HD = True
 except:
 	pass
-class ConfigEPGImport(ConfigListScreen,Screen):
+class EPGImportConfig(ConfigListScreen,Screen):
 	if HD:
 		skin = """
 			<screen position="center,center" size="600,500" title="EPG Import Configuration" >
@@ -214,7 +214,7 @@ class ConfigEPGImport(ConfigListScreen,Screen):
 			</screen>"""
 	def __init__(self, session, args = 0):
 		self.session = session
-		self.skin = ConfigEPGImport.skin
+		self.skin = EPGImportConfig.skin
 		self.setup_title = _("EPG Import Configuration")
 		Screen.__init__(self, session)
 		self["status"] = Label()
@@ -287,7 +287,7 @@ class ConfigEPGImport(ConfigListScreen,Screen):
 		self.cfg_runboot_day = getConfigListEntry(_("Consider setting \"Days Profile\""), self.EPG.runboot_day)
 		self.cfg_runboot_restart = getConfigListEntry(_("Skip import on restart GUI"), self.EPG.runboot_restart)
 		self.cfg_showinextensions = getConfigListEntry(_("Show \"EPGImport\" in extensions"), self.EPG.showinextensions)
-		self.cfg_showinmainmenu = getConfigListEntry(_("Show \"EPG importer\" in main menu"), self.EPG.showinmainmenu)
+		self.cfg_showinmainmenu = getConfigListEntry(_("Show \"EPGImport\" in main menu"), self.EPG.showinmainmenu)
 		self.cfg_longDescDays = getConfigListEntry(_("Load long descriptions up to X days"), self.EPG.longDescDays)
 		self.cfg_parse_autotimer = getConfigListEntry(_("Run AutoTimer after import"), self.EPG.parse_autotimer)
 		self.cfg_clear_oldepg = getConfigListEntry(_("Clearing current EPG before import"), config.plugins.epgimport.clear_oldepg)
@@ -631,7 +631,7 @@ def start_import(session, **kwargs):
 	session.openWithCallback(msgClosed, EPGImportDownloader)
 
 def main(session, **kwargs):
-	session.openWithCallback(doneConfiguring, ConfigEPGImport)
+	session.openWithCallback(doneConfiguring, EPGImportConfig)
 
 def main_menu(menuid, **kwargs):
 	if menuid == "mainmenu" and config.plugins.epgimport.showinmainmenu.getValue():
