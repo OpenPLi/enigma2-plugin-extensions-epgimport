@@ -76,6 +76,12 @@ class OudeisImporter:
 		for service in services:
 			self.epgcache.importEvent(service, events)
 
+def unlink_if_exists(filename):
+	try:
+		os.unlink(filename)
+	except:
+		pass
+
 class EPGImport:
 	"""Simple Class to import EPGData"""
 
@@ -97,12 +103,9 @@ class EPGImport:
 		'Starts importing using Enigma reactor. Set self.sources before calling this.'
 		HDD_EPG_DAT = config.misc.epgcache_filename.value
 		if config.plugins.epgimport.clear_oldepg.value and hasattr(self.epgcache, 'flushEPG'):
-			try:
-				os.system("rm -f %s" % (config.misc.epgcache_filename.value))
-				os.system("rm -f %s.backup" % (config.misc.epgcache_filename.value))
-				self.epgcache.flushEPG()
-			except:
-				pass
+			unlink_if_exists(HDD_EPG_DAT)
+			unlink_if_exists(HDD_EPG_DAT + '.backup')
+			self.epgcache.flushEPG()
 		if hasattr(self.epgcache, 'importEvents'):
 			self.storage = self.epgcache
 		elif hasattr(self.epgcache, 'importEvent'):
@@ -142,10 +145,7 @@ class EPGImport:
 		if not hasattr(self.epgcache, 'load'):
 			print>>log, "[EPGImport] Cannot load EPG.DAT files on unpatched enigma. Need CrossEPG patch."
 			return
-		try:
-			os.unlink(HDD_EPG_DAT)
-		except:
-			pass # ignore...
+		unlink_if_exists(HDD_EPG_DAT)
 		try:
 			if filename.endswith('.gz'):
 				print>>log, "[EPGImport] Uncompressing", filename
@@ -162,10 +162,7 @@ class EPGImport:
 			print>>log, "[EPGImport] Importing", HDD_EPG_DAT
 			self.epgcache.load()
 			if deleteFile:
-				try:
-					os.unlink(filename)
-				except:
-					pass # ignore...
+				unlink_if_exists(filename)
 		except Exception, e:
 			print>>log, "[EPGImport] Failed to import %s:" % filename, e
 
@@ -323,10 +320,7 @@ class EPGImport:
 								os.symlink(needLoad, HDD_EPG_DAT)
 							self.epgcache.load()
 							reboot = False
-							try:
-								os.unlink(needLoad)
-							except:
-								pass # ignore...
+							unlink_if_exists(needLoad)
 					except Exception, e:
 						print>>log, "[EPGImport] load() failed:", e
 			elif hasattr(self.epgcache, 'timeUpdated'):
