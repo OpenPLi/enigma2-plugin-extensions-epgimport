@@ -99,12 +99,10 @@ class EPGImport:
 		self.channelFilter = channelFilter
 
 	def beginImport(self, longDescUntil = None):
-		global HDD_EPG_DAT
 		'Starts importing using Enigma reactor. Set self.sources before calling this.'
-		HDD_EPG_DAT = config.misc.epgcache_filename.value
 		if config.plugins.epgimport.clear_oldepg.value and hasattr(self.epgcache, 'flushEPG'):
-			unlink_if_exists(HDD_EPG_DAT)
-			unlink_if_exists(HDD_EPG_DAT + '.backup')
+			unlink_if_exists(config.misc.epgcache_filename.value)
+			unlink_if_exists(config.misc.epgcache_filename.value + '.backup')
 			self.epgcache.flushEPG()
 		if hasattr(self.epgcache, 'importEvents'):
 			self.storage = self.epgcache
