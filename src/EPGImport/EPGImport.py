@@ -10,7 +10,7 @@ import gzip
 import log
 import random
 
-HDD_EPG_DAT = "/hdd/epg.dat"
+HDD_EPG_DAT = config.misc.epgcache_filename.value
 
 from twisted.internet import reactor, threads
 from twisted.web.client import downloadPage
