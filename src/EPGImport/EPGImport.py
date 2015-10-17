@@ -9,7 +9,6 @@ import os
 import gzip
 import log
 import random
-from Components.config import config
 
 HDD_EPG_DAT = "/hdd/epg.dat"
 
@@ -18,11 +17,8 @@ from twisted.web.client import downloadPage
 import twisted.python.runtime
 
 PARSERS = {
-#	'radiotimes': 'uk_radiotimes',
 	'xmltv': 'gen_xmltv',
 	'genxmltv': 'gen_xmltv',
-#	'mythxmltv': 'myth_xmltv',
-#	'nlwolf': 'nl_wolf'
 }
 
 def relImport(name):
@@ -100,10 +96,6 @@ class EPGImport:
 
 	def beginImport(self, longDescUntil = None):
 		'Starts importing using Enigma reactor. Set self.sources before calling this.'
-		if config.plugins.epgimport.clear_oldepg.value and hasattr(self.epgcache, 'flushEPG'):
-			unlink_if_exists(config.misc.epgcache_filename.value)
-			unlink_if_exists(config.misc.epgcache_filename.value + '.backup')
-			self.epgcache.flushEPG()
 		if hasattr(self.epgcache, 'importEvents'):
 			self.storage = self.epgcache
 		elif hasattr(self.epgcache, 'importEvent'):

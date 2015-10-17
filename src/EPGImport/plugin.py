@@ -161,6 +161,16 @@ epgimport = EPGImport.EPGImport(enigma.eEPGCache.getInstance(), channelFilter)
 
 lastImportResult = None
 
+def startImport():
+	EPGImport.HDD_EPG_DAT = config.misc.epgcache_filename.value
+	if config.plugins.epgimport.clear_oldepg.value and hasattr(epgimport.epgcache, 'flushEPG'):
+		EPGImport.unlink_if_exists(EPGImport.HDD_EPG_DAT)
+		EPGImport.unlink_if_exists(EPGImport.HDD_EPG_DAT + '.backup')
+		epgimport.epgcache.flushEPG()
+	epgimport.onDone = doneImport
+	epgimport.beginImport(longDescUntil = config.plugins.epgimport.longDescDays.value * 24 * 3600 + time.time())
+
+
 ##################################
 # Configuration GUI
 HD = False
@@ -408,8 +418,7 @@ class EPGImportConfig(ConfigListScreen,Screen):
 		if not confirmed:
 			return
 		try:
-			epgimport.onDone = doneImport
-			epgimport.beginImport(longDescUntil = config.plugins.epgimport.longDescDays.value * 24 * 3600 + time.time())
+			startImport()
 		except Exception, e:
 			print>>log, "[EPGImport] Error at start:", e
 			self.session.open(MessageBox, _("EPGImport Plugin\nFailed to start:\n") + str(e), MessageBox.TYPE_ERROR, timeout = 15, close_on_any_key = True)
@@ -784,8 +793,7 @@ class AutoStartTimer:
 		if sources:
 			sources.reverse()
 			epgimport.sources = sources
-			epgimport.onDone = doneImport
-			epgimport.beginImport(longDescUntil = config.plugins.epgimport.longDescDays.value * 24 * 3600 + time.time())
+			startImport()
 
 	def onTimer(self):
 		self.timer.stop()
@@ -906,8 +914,7 @@ def onBootStartCheck():
 				except:
 					print>>log, "Failed to create /tmp/.EPGImportAnswerBoot"
 		if config.plugins.epgimport.runboot_day.value:
-			from time import localtime as my_localtime
-			now = my_localtime()
+			now = time.localtime()
 			cur_day = int(now.tm_wday)
 			if not config.plugins.extra_epgimport.day_import[cur_day].value:
 				on_start = False
