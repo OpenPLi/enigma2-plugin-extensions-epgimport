@@ -6,12 +6,12 @@ plugdir = '/usr/lib/enigma2/python/Plugins/Extensions/EPGImport'
 dreamcrc = Extension('dreamcrc',
                     sources = ['dreamcrc.c'])
 
+pkg = 'EPGImport'
 setup (name = 'enigma2-plugin-extensions-xmltvimport',
        version = '0.9.12',
        description = 'C implementation of Dream CRC32 algorithm',
-       packages = ['EPGImport'],
-       package_data = {'EPGImport': ['EPGImport/*.png', 'EPGImport/locale/*/LC_MESSAGES/*.mo']},
-#	data_files = [('etc/epgimport', ['*.xml'])],
+       packages = [pkg],
+       package_data = {pkg: ['*.png', 'locale/*/LC_MESSAGES/*.mo']},
        ext_modules = [dreamcrc],
        cmdclass = setup_translate.cmdclass, # for translation
 )
