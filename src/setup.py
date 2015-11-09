@@ -1,15 +1,15 @@
 from distutils.core import setup, Extension
 import setup_translate
 
-plugdir = '/usr/lib/enigma2/python/Plugins/Extensions/EPGImport'
 
-dreamcrc = Extension('EPGImport/dreamcrc',
+dreamcrc = Extension('Extensions/EPGImport/dreamcrc',
                     sources = ['dreamcrc.c'])
 
-pkg = 'EPGImport'
+pkg = 'Extensions.EPGImport'
 setup (name = 'enigma2-plugin-extensions-xmltvimport',
        version = '0.9.12',
        description = 'C implementation of Dream CRC32 algorithm',
+       package_dir = {pkg: 'EPGImport'},
        packages = [pkg],
        package_data = {pkg: ['*.png', 'locale/*/LC_MESSAGES/*.mo']},
        ext_modules = [dreamcrc],
