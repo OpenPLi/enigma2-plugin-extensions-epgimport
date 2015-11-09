@@ -3,7 +3,7 @@ import setup_translate
 
 plugdir = '/usr/lib/enigma2/python/Plugins/Extensions/EPGImport'
 
-dreamcrc = Extension('dreamcrc',
+dreamcrc = Extension('EPGImport/dreamcrc',
                     sources = ['dreamcrc.c'])
 
 pkg = 'EPGImport'
