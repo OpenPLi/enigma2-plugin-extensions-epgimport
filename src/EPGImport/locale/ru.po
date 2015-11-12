@@ -155,7 +155,7 @@ msgstr "Суббота"
 msgid "Save"
 msgstr "Сохранить"
 
-msgid "Show \"EPG importer\" in main menu"
+msgid "Show \"EPG Importer\" in main menu"
 msgstr "Показать \"Импортер EPG\" в главном меню"
 
 msgid "Show \"EPGImport\" in extensions"
