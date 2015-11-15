@@ -131,7 +131,6 @@ def getBouquetChannelList():
 									if service.flags & altrernative:
 										altrernative_list = getAlternatives(service)
 										if altrernative_list:
-											print altrernative_list
 											for channel in altrernative_list:
 												refstr = ':'.join(channel.split(':')[:11])
 												if refstr not in channels:
