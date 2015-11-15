@@ -99,10 +99,17 @@ _session = None
 parse_autotimer = False
 BouquetChannelListList = None
 
+def getAlternatives(service):
+	if not service:
+		return None
+	alternativeServices = enigma.eServiceCenter.getInstance().list(service)
+	return alternativeServices and alternativeServices.getContent("S", True)
+
 def getBouquetChannelList():
 	channels = [ ]
 	serviceHandler = enigma.eServiceCenter.getInstance()
 	mask = (enigma.eServiceReference.isMarker | enigma.eServiceReference.isDirectory)
+	altrernative = enigma.eServiceReference.isGroup
 	if config.usage.multibouquet.value:
 		bouquet_rootstr = '1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "bouquets.tv" ORDER BY bouquet'
 		bouquet_root = enigma.eServiceReference(bouquet_rootstr)
@@ -121,7 +128,17 @@ def getBouquetChannelList():
 								service = clist.getNext()
 								if not service.valid(): break
 								if not (service.flags & mask):
-									channels.append(service.toString())
+									if service.flags & altrernative:
+										altrernative_list = getAlternatives(service)
+										if altrernative_list:
+											for channel in altrernative_list:
+												refstr = ':'.join(channel.split(':')[:11])
+												if refstr not in channels:
+													channels.append(refstr)
+									else:
+										refstr = ':'.join(service.toString().split(':')[:11])
+										if refstr not in channels:
+											channels.append(refstr)
 	else:
 		bouquet_rootstr = '1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.favourites.tv" ORDER BY bouquet'
 		bouquet_root = enigma.eServiceReference(bouquet_rootstr)
@@ -131,7 +148,17 @@ def getBouquetChannelList():
 				service = services.getNext()
 				if not service.valid(): break
 				if not (service.flags & mask):
-					channels.append(service.toString())
+					if service.flags & altrernative:
+						altrernative_list = getAlternatives(service)
+						if altrernative_list:
+							for channel in altrernative_list:
+								refstr = ':'.join(channel.split(':')[:11])
+								if refstr not in channels:
+									channels.append(refstr)
+					else:
+						refstr = ':'.join(service.toString().split(':')[:11])
+						if refstr not in channels:
+							channels.append(refstr)
 	return channels
 
 # Filter servicerefs that this box can display by starting a fake recording.
@@ -143,9 +170,9 @@ def channelFilter(ref):
 		global BouquetChannelListList
 		if BouquetChannelListList is None:
 			BouquetChannelListList = getBouquetChannelList()
-		print len(BouquetChannelListList)
-		if sref.toString() not in BouquetChannelListList:
-			print>>log, "Serviceref not in bouquets:", sref.toString()
+		refstr = ':'.join(sref.toString().split(':')[:11])
+		if refstr not in BouquetChannelListList:
+			print>>log, "Serviceref not in bouquets:", refstr
 			return False
 	fakeRecService = NavigationInstance.instance.recordService(sref, True)
 	if fakeRecService:
