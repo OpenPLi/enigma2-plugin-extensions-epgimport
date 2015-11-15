@@ -152,7 +152,7 @@ def getBouquetChannelList():
 						altrernative_list = getAlternatives(service)
 						if altrernative_list:
 							for channel in altrernative_list:
-								refstr = ':'.join(channel.toString().split(':')[:11])
+								refstr = ':'.join(channel.split(':')[:11])
 								if refstr not in channels:
 									channels.append(refstr)
 					else:
