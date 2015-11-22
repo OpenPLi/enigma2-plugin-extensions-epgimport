@@ -180,7 +180,7 @@ msgid "Save"
 msgstr ""
 
 #: plugin.py:290
-msgid "Show \"EPG importer\" in main menu"
+msgid "Show \"EPG Importer\" in main menu"
 msgstr ""
 
 #: plugin.py:289
