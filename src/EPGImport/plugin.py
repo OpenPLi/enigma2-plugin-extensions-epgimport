@@ -48,7 +48,7 @@ config.plugins.epgimport.runboot = ConfigSelection(default = "4", choices = [
 		("1", _("always")),
 		("2", _("only manual boot")),
 		("3", _("only automatic boot")),
-		("4", _("newer"))
+		("4", _("never"))
 		])
 config.plugins.epgimport.runboot_restart = ConfigYesNo(default = False)
 config.plugins.epgimport.runboot_day = ConfigYesNo(default = False)
