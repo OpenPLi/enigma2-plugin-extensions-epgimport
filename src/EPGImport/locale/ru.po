@@ -72,7 +72,7 @@ msgstr "Источники импорта EPG"
 msgid "EPG Import finished, %d events"
 msgstr "EPG импорт закончен, %d событий"
 
-msgid "EPG importer"
+msgid "EPG Importer"
 msgstr "Импортер EPG"
 
 msgid "EPGImport"
@@ -208,7 +208,7 @@ msgstr ""
 msgid "always"
 msgstr "всегда"
 
-msgid "newer"
+msgid "never"
 msgstr "никогда"
 
 msgid "only automatic boot"
