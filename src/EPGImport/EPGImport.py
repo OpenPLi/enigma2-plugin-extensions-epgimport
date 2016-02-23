@@ -48,19 +48,19 @@ def bigStorage(minFree, default, *candidates):
 			return default
 	except Exception, e:
 		print>>log, "[EPGImport] Failed to stat %s:" % default, e
-		mounts = open('/proc/mounts', 'rb').readlines()
-		# format: device mountpoint fstype options #
-		mountpoints = [x.split(' ', 2)[1] for x in mounts]
-		for candidate in candidates:
-			if candidate in mountpoints:
-				try:
-					diskstat = os.statvfs(candidate)
-					free = diskstat.f_bfree * diskstat.f_bsize
-					if free > minFree:
-						return candidate
-				except:
-					pass
-		return default
+	mounts = open('/proc/mounts', 'rb').readlines()
+	# format: device mountpoint fstype options #
+	mountpoints = [x.split(' ', 2)[1] for x in mounts]
+	for candidate in candidates:
+		if candidate in mountpoints:
+			try:
+				diskstat = os.statvfs(candidate)
+				free = diskstat.f_bfree * diskstat.f_bsize
+				if free > minFree:
+					return candidate
+			except:
+				pass
+	return default
 
 class OudeisImporter:
 	'Wrapper to convert original patch to new one that accepts multiple services'
