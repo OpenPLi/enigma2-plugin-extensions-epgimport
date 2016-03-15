@@ -194,6 +194,9 @@ class epgdat_class:
 	def preprocess_events_channel(self, services):
 		EPG_EVENT_DATA_id = 0
 		for service in services:
+			# skip empty lines, they make a mess
+			if not service.strip():
+				continue
 			# prepare and write CHANNEL INFO record
 			ssid = service.split(":")
 			# write CHANNEL INFO record (sid, onid, tsid, eventcount)

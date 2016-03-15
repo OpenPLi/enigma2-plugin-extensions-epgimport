@@ -55,18 +55,23 @@ class EPGChannel:
 	def parse(self, filterCallback, downloadedFile):
 		print>>log,"[EPGImport] Parsing channels from '%s'" % self.name
 		self.items = {}
-		for event, elem in iterparse(self.openStream(downloadedFile)):
-			if elem.tag == 'channel':
-				id = elem.get('id')
-				ref = elem.text
-				if id and ref:
-					ref = ref.encode('latin-1')
-					if filterCallback(ref):
-						if self.items.has_key(id):
-							self.items[id].append(ref)
-						else:
-							self.items[id] = [ref]
-				elem.clear()
+		try:
+			context = iterparse(self.openStream(downloadedFile))
+			for event, elem in context:
+				if elem.tag == 'channel':
+					id = elem.get('id')
+					ref = elem.text
+					if id and ref:
+						ref = ref.encode('latin-1')
+						if filterCallback(ref):
+							if self.items.has_key(id):
+								self.items[id].append(ref)
+							else:
+								self.items[id] = [ref]
+					elem.clear()
+		except Exception as e:
+			# We'll print this error when parsing the xml data itself
+			pass
 	def update(self, filterCallback, downloadedFile=None):
 		if downloadedFile is not None:
 			self.mtime = time.time()
