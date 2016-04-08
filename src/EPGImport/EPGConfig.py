@@ -70,7 +70,7 @@ class EPGChannel:
 								self.items[id] = [ref]
 					elem.clear()
 		except Exception as e:
-			# We'll print this error when parsing the xml data itself
+			print>>log, "[EPGImport] failed to parse", downloadedFile, "Error:", e
 			pass
 	def update(self, filterCallback, downloadedFile=None):
 		if downloadedFile is not None:
