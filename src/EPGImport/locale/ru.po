@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-28 19:54+0100\n"
-"PO-Revision-Date: 2015-09-21 19:43+0300\n"
+"PO-Revision-Date: 2016-05-27 22:10+0300\n"
 "Language-Team: LANGUAGE <Dima-73@inbox.lv>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -222,3 +222,36 @@ msgstr "пропускать импорт"
 
 msgid "wake up and import"
 msgstr "разбудить для импорта"
+
+msgid "Show log"
+msgstr "Показать лог"
+
+msgid "Ignore services list"
+msgstr "Список игногируемых сервисов"
+
+msgid "Select action"
+msgstr "Выбор действия"
+
+msgid "Add Provider"
+msgstr "Добавить провайдера"
+
+msgid "Add Channel"
+msgstr "Добавить канал"
+
+msgid "Ignore services list(press OK to save)"
+msgstr "Список игногируемых сервисов (ОК для сохранения)"
+
+msgid "Really delete all list?"
+msgstr "Удалить весь список?"
+
+msgid "Delete selected"
+msgstr "Удалить выбранное"
+
+msgid "Delete all"
+msgstr "Удалить все"
+
+msgid "Channel Selection"
+msgstr "Выбор каналов"
+
+msgid "All services provider"
+msgstr "Все сервисы провайдера"

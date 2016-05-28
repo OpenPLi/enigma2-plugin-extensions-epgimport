@@ -11,6 +11,7 @@ from Components.config import config, ConfigEnableDisable, ConfigSubsection, \
 			 ConfigSelection, ConfigNumber, ConfigSubDict, NoSave
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
+from Screens.ChoiceBox import ChoiceBox
 from Components.ConfigList import ConfigListScreen
 from Components.ActionMap import ActionMap
 from Components.Button import Button
@@ -26,6 +27,8 @@ try:
 except:
 	from Tools.DreamboxHardware import getFPWasTimerWakeup
 import NavigationInstance
+
+import filtersServices
 
 def lastMACbyte():
 	try:
@@ -98,6 +101,7 @@ autoStartTimer = None
 _session = None
 parse_autotimer = False
 BouquetChannelListList = None
+serviceIgnoreList = None
 
 def getAlternatives(service):
 	if not service:
@@ -166,14 +170,20 @@ def channelFilter(ref):
 	if not ref:
 		return False
 	sref = enigma.eServiceReference(ref)
+	refstr = ':'.join(sref.toString().split(':')[:11])
 	if config.plugins.epgimport.import_onlybouquet.value:
 		global BouquetChannelListList
 		if BouquetChannelListList is None:
 			BouquetChannelListList = getBouquetChannelList()
-		refstr = ':'.join(sref.toString().split(':')[:11])
 		if refstr not in BouquetChannelListList:
 			print>>log, "Serviceref not in bouquets:", refstr
 			return False
+	global serviceIgnoreList
+	if serviceIgnoreList is None:
+		serviceIgnoreList = filtersServices.filtersServicesList.servicesList()
+	if refstr in serviceIgnoreList:
+		print>>log, "Serviceref is in ignore list:", refstr
+		return False
 	fakeRecService = NavigationInstance.instance.recordService(sref, True)
 	if fakeRecService:
 		fakeRecResult = fakeRecService.start(True)
@@ -269,7 +279,7 @@ class EPGImportConfig(ConfigListScreen,Screen):
 			"cancel": self.keyRed,
 			"ok": self.keyOk,
 			"log": self.keyInfo,
-			"contextMenu": self.showLog,
+			"contextMenu": self.openMenu,
 		}, -1)
 		ConfigListScreen.__init__(self, [], session = self.session)
 		self.lastImportResult = None
@@ -459,6 +469,17 @@ class EPGImportConfig(ConfigListScreen,Screen):
 		print>>log, "sourcesDone(): ", confirmed, sources
 		if cfg is not None:
 			self.doimport(one_source=cfg)
+
+	def openMenu(self):
+		menu = [(_("Show log"), self.showLog), (_("Ignore services list"), self.openIgnoreList)]
+		text = _("Select action")
+		def setAction(choice):
+			if choice:
+				choice[1]()
+		self.session.openWithCallback(setAction, ChoiceBox, title=text, list=menu)
+
+	def openIgnoreList(self):
+		self.session.open(filtersServices.filtersServicesSetup)
 
 	def showLog(self):
 		self.session.open(EPGImportLog)
@@ -681,8 +702,9 @@ def doneConfiguring(session, retval):
 		autoStartTimer.update()
 
 def doneImport(reboot=False, epgfile=None):
-	global _session, lastImportResult, BouquetChannelListList, parse_autotimer
+	global _session, lastImportResult, BouquetChannelListList, parse_autotimer, serviceIgnoreList
 	BouquetChannelListList = None
+	serviceIgnoreList = None
 	lastImportResult = (time.time(), epgimport.eventCount)
 	try:
 		start, count = lastImportResult
