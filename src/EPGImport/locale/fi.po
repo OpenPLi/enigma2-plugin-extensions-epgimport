@@ -1,0 +1,269 @@
+# Finnish translations for plugins package.
+# Copyright (C) 2015 THE plugins'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the plugins package.
+# Automatically generated, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: plugins 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-19 00:49+0000\n"
+"PO-Revision-Date: 2016-05-17 12:41+0200\n"
+"Last-Translator: Samzam <http://www.world-of-satellite.com>\n"
+"Language-Team: none\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.7\n"
+
+msgid ""
+"\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+"\n"
+"EPG-tietojen lataus alkaa.\n"
+"Tämä voi kestää muutaman minuutin.\n"
+"Onko tämä OK?"
+
+msgid " events\n"
+msgstr " tapahtumia\n"
+
+msgid "Automated EPG Importer"
+msgstr "Automaattinen EPG:n lataus"
+
+msgid "Automatic import EPG"
+msgstr "Automaattinen EPG lataus"
+
+msgid "Automatic start time"
+msgstr "Aloitusaika"
+
+msgid "Cancel"
+msgstr "Poistu"
+
+msgid "Choice days for start import"
+msgstr "Valitse latauspäivät"
+
+msgid "Clear"
+msgstr "Tyhjennä"
+
+msgid "Clearing current EPG before import"
+msgstr "Tyhjennä nykyinen EPG ennen latausta"
+
+msgid "Consider setting \"Days Profile\""
+msgstr "Harkitse asetusta \"Valitse päivät\""
+
+msgid "Days Profile"
+msgstr "Valitse päivät"
+
+msgid "Friday"
+msgstr "Perjantai"
+
+msgid "Import current source"
+msgstr "Lataa tämä lähde"
+
+#, python-format
+msgid ""
+"Importing: %s\n"
+"%s events"
+msgstr ""
+"Lataa: %s\n"
+"%s events"
+
+msgid "Last import: "
+msgstr "Viimeisin lataus: "
+
+#, python-format
+msgid "Last import: %s events"
+msgstr "Viimeisin lataus: %s tapahtumaa"
+
+#, python-format
+msgid "Last: %s %s, %d events"
+msgstr "Ladattu: %s %s, %d tapahtumaa"
+
+msgid "Load EPG only services in bouquets"
+msgstr "Lataa EPG vain suosikkilistojen kanaville"
+
+msgid "Load long descriptions up to X days"
+msgstr "Lataa ohjelmakuvaukset X päivälle"
+
+msgid "Manual"
+msgstr "Lataa nyt"
+
+msgid "Monday"
+msgstr "Maanantai"
+
+msgid "No active EPG sources found, nothing to do"
+msgstr "Ei löytynyt aktiivisia EPG lähteitä"
+
+msgid "Press OK"
+msgstr "Paina OK"
+
+msgid "Return to deep standby after import"
+msgstr "Palaa virransäästötilaan latauksen jälkeen"
+
+msgid "Run AutoTimer after import"
+msgstr "Käynnistä automaattiajastusten haku latauksen jälkeen"
+
+msgid "Saturday"
+msgstr "Lauantai"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Show \"EPG Importer\" in main menu"
+msgstr "Näytä \"EPG:n lataus\" päävalikossa"
+
+msgid "Show \"EPGImport\" in extensions"
+msgstr "Näytä \"EPG:n lataus\" laajennusvalikossa"
+
+msgid "Skip import on restart GUI"
+msgstr "Ohita lataus uudelleenkäynnistyksessä"
+
+msgid "Sources"
+msgstr "Lähteet"
+
+msgid "Standby at startup"
+msgstr "Valmiustilassa lataus"
+
+msgid "Start import after booting up"
+msgstr "Lataa uudelleenkäynnistyksen jälkeen"
+
+msgid "Sunday"
+msgstr "Sunnuntai"
+
+msgid "Thursday"
+msgstr "Torstai"
+
+msgid "Tuesday"
+msgstr "Tiistai"
+
+msgid "Wednesday"
+msgstr "Keskiviikko"
+
+msgid "When in deep standby"
+msgstr "Virransäästötilassa lataus"
+
+msgid "Write to /tmp/EPGimport.log"
+msgstr "Kirjoita lokiin /tmp/EPGimport.log"
+
+msgid "EPG Import Configuration"
+msgstr "Asetukset"
+
+msgid "EPG Import Log"
+msgstr "Loki"
+
+msgid "EPG Import Sources"
+msgstr "Lähteet"
+
+#, python-format
+msgid "EPG Import finished, %d events"
+msgstr "Lataus valmis, %d tapahtumaa"
+
+msgid "EPG Importer"
+msgstr "EPG:n lataus"
+
+msgid "EPG-Importer"
+msgstr "EPG:n lataus"
+
+msgid ""
+"EPGImport\n"
+"Import of epg data is still in progress. Please wait."
+msgstr ""
+"EPG:n lataus\n"
+"EPG:n lataus käynnissä. Odota."
+
+msgid ""
+"EPGImport\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+"EPG:n lataus\n"
+"EPG:n lataus alkaa.\n"
+"Tämä voi kestää muutaman minuutin.\n"
+"Onko tämä OK?"
+
+msgid ""
+"EPGImport Plugin\n"
+"Failed to start:\n"
+msgstr ""
+"EPG lataus\n"
+" Käynnistys epäonnistui:\n"
+
+msgid ""
+"You may not use this settings!\n"
+"At least one day a week should be included!"
+msgstr ""
+"Et voi käyttää tätä asetusta!\n"
+"Vähintään yksi päivä pitää valita!"
+
+msgid ""
+"You must restart Enigma2 to load the EPG data,\n"
+"is this OK?"
+msgstr ""
+"Enigma2 on uudelleenkäynnistettävä,\n"
+" OK?"
+
+msgid "always"
+msgstr "aina"
+
+msgid "never"
+msgstr "ei koskaan"
+
+msgid "none"
+msgstr "0"
+
+msgid "only automatic boot"
+msgstr "vain automaattisessa uudelleenkäynnistyksessä"
+
+msgid "only manual boot"
+msgstr "vain manuaalisessa uudelleenkäynnistyksessä"
+
+msgid "skip the import"
+msgstr "ohita lataus"
+
+msgid "wake up and import"
+msgstr "herätä ja lataa"
+
+#~ msgid "Daily automatic import"
+#~ msgstr "Päivittäinen lataus"
+
+#~ msgid "Importing:"
+#~ msgstr "Ladataan:"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
+
+#~ msgid "Show in extensions"
+#~ msgstr "Näytä laajennusvalikossa"
+
+#~ msgid "Show in plugin browser"
+#~ msgstr "Näytä lisäosavalikossa"
+
+#~ msgid "Skip the import"
+#~ msgstr "Ohita lataus"
+
+#~ msgid "Wake up and import"
+#~ msgstr "Herätä ja lataa"
+
+#~ msgid ""
+#~ "EPGImport Plugin\n"
+#~ "Import of epg data is still in progress. Please wait."
+#~ msgstr ""
+#~ "EPG lataus\n"
+#~ "EPG tietojen lataus kesken. Odota."
+
+#~ msgid ""
+#~ "EPGImport Plugin\n"
+#~ "Import of epg data will start\n"
+#~ "This may take a few minutes\n"
+#~ "Is this ok?"
+#~ msgstr ""
+#~ "EPG lataus\n"
+#~ "EPG tietojen lataus alkaa\n"
+#~ "Tämä voi kestää muutaman minuutin\n"
+#~ "OK?"
