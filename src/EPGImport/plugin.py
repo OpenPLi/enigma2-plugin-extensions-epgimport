@@ -16,12 +16,12 @@ from Components.ConfigList import ConfigListScreen
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.Label import Label
-from Components.SelectionList import SelectionList, SelectionEntryComponent
 from Components.ScrollLabel import ScrollLabel
 import Components.PluginComponent
 from Tools import Notifications
 from Tools.FuzzyDate import FuzzyTime
 from Tools.Directories import fileExists
+import ExpandableSelectionList
 try:
 	from Tools.StbHardware import getFPWasTimerWakeup
 except:
@@ -512,14 +512,21 @@ class EPGImportSources(Screen):
 		cfg = EPGConfig.loadUserSettings()
 		filter = cfg["sources"]
 		sources = []
+		cat = None
 		for x in EPGConfig.enumSources(CONFIG_PATH, filter=None, categories=True):
 			if hasattr(x, 'description'):
-				sources.append(
-					# (description, value, index, selected)
-					SelectionEntryComponent(x.description, x.description, 0, (filter is None) or (x.description in filter)))
+				# (description, value, index, selected)
+				sel = (filter is None) or (x.description in filter)
+				entry = ExpandableSelectionList.SelectionEntryComponent(x.description, x.description, 0, sel)
+				sources.append(entry)
+				if cat is not None:
+					cat[0][2].append(entry)
+					if sel:
+						ExpandableSelectionList.expand(cat, True)
 			else:
-				pass # TODO: Category...
-		self["list"] = SelectionList(sources, enableWrapAround=True)
+				cat = ExpandableSelectionList.CategoryEntryComponent(x)
+				sources.append(cat)
+		self["list"] = ExpandableSelectionList.ExpandableSelectionList(sources, enableWrapAround=True)
 		list = self["list"].list
 		if list and len(list) > 0:
 			self["key_yellow"] = Button(_("Import current source"))
@@ -537,7 +544,7 @@ class EPGImportSources(Screen):
 		self.setTitle(_("EPG Import Sources"))
 
 	def save(self):
-		sources = [ item[0][1] for item in self["list"].list if item[0][3] ]
+		sources = [ item[0][1] for item in self["list"].list if (len(item[0]) == 4) and item[0][3] ]
 		print>>log, "[EPGImport] Selected sources:", sources
 		EPGConfig.storeUserSettings(sources=sources)
 		self.close(True, sources, None)
