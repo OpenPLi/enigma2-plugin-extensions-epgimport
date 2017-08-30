@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XMTV-Impoter for Enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-27 12:04+0000\n"
-"PO-Revision-Date: 2015-11-22 11:20+0200\n"
+"POT-Creation-Date: 2015-09-21 21:24+0300\n"
+"PO-Revision-Date: 2017-08-30 12:21+0300\n"
 "Last-Translator: rimas\n"
 "Language-Team: rimas\n"
 "Language: et\n"
@@ -12,85 +12,106 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 2.0.3\n"
 
+#: plugin.py:620
+msgid ""
+"\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+"\n"
+"Algab epg hankimine \n"
+"See võib kesta mõne minuti\n"
+"Kas see sobib?"
+
+#: plugin.py:620
+msgid " events\n"
+msgstr " saadet\n"
+
+#: plugin.py:966
 msgid "Automated EPG Importer"
-msgstr "Automaatne EPG hankija"
+msgstr "Automaatne EPG import"
 
+#: plugin.py:279
+msgid "Automatic import EPG"
+msgstr "Hangi EPG automaatselt"
+
+#: plugin.py:280
 msgid "Automatic start time"
 msgstr "Automaatse käivituse aeg"
 
+#: plugin.py:222 plugin.py:452 plugin.py:520
 msgid "Cancel"
 msgstr "Tühista"
 
+#: plugin.py:284
+msgid "Choice days for start import"
+msgstr "Päev EPG hankimiseks"
+
+#: plugin.py:574
 msgid "Clear"
 msgstr "Kustuta"
 
-msgid "Daily automatic import"
-msgstr "Automaatne EPG hankimine iga päev"
+#: plugin.py:293
+msgid "Clearing current EPG before import"
+msgstr "Aktiivse EPG eemaldamine enne importi"
 
-msgid "Importing:"
-msgstr "Hankimisel:"
+#: plugin.py:287
+msgid "Consider setting \"Days Profile\""
+msgstr "Seadista \"päevade profiil\""
 
-#, python-format
-msgid "Last: %s %s, %d events"
-msgstr "Viimane: %s %s, %d saadet"
+#: plugin.py:533
+msgid "Days Profile"
+msgstr "Päevade profiil"
 
-msgid "Load long descriptions up to X days"
-msgstr "Pikk saatetutvustus X päevaks"
-
-msgid "Manual"
-msgstr "Käsitsi"
-
-msgid "No active EPG sources found, nothing to do"
-msgstr "EPG allikad on määramata. Midagi ei saa teha."
-
-msgid "Ok"
-msgstr "Ok"
-
-msgid "Save"
-msgstr "Salvesta"
-
-msgid "Show in extensions"
-msgstr "Näita laienduste menüüs"
-
-msgid "Show in plugin browser"
-msgstr "Näita pluginate menüüs"
-
-msgid "Skip the import"
-msgstr "Ära hangi"
-
-msgid "Sources"
-msgstr "Allikad"
-
-msgid "Standby at startup"
-msgstr "Käivitamine ooteseisundist"
-
-msgid "Start import after booting up"
-msgstr "Hangi EPG pärast alglaadimist"
-
-msgid "Wake up and import"
-msgstr "Käivita ja hangi epg"
-
-msgid "When in deep standby"
-msgstr "Puhkeseisundis"
-
+#: plugin.py:218
 msgid "EPG Import Configuration"
 msgstr "Seadistamine"
 
+#: plugin.py:598
 msgid "EPG Import Log"
-msgstr "EPG importija logi"
+msgstr "EPG impordi logi"
 
+#: plugin.py:477
 msgid "EPG Import Sources"
-msgstr "EPG importija allikad"
+msgstr "EPG impordi allikad"
 
+#: plugin.py:665
 #, python-format
 msgid "EPG Import finished, %d events"
 msgstr "EPG hankimine lõpetatud, %d saadet"
 
-msgid "EPG-Importer"
+#: plugin.py:638
+msgid "EPG importer"
 msgstr "EPG import"
 
+#: plugin.py:968 plugin.py:983
+msgid "EPGImport"
+msgstr "EPGImport"
+
+#: plugin.py:390
+msgid ""
+"EPGImport\n"
+"Import of epg data is still in progress. Please wait."
+msgstr ""
+"EPG import\n"
+"Epg hankimine on pooleli. Oota."
+
+#: plugin.py:405
+msgid ""
+"EPGImport\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+"EPG import\n"
+"Algab epg hankimine \n"
+"See võib kesta mõne minuti\n"
+"Kas see sobib?"
+
+#: plugin.py:415
 msgid ""
 "EPGImport Plugin\n"
 "Failed to start:\n"
@@ -98,27 +119,200 @@ msgstr ""
 "EPGImport\n"
 "Käivitamine nurjus:\n"
 
-msgid ""
-"EPGImport Plugin\n"
-"Import of epg data is still in progress. Please wait."
-msgstr ""
-"EPGImport\n"
-"Epg hankimine on pooleli. Oota."
+#: plugin.py:81
+msgid "Friday"
+msgstr "Reede"
 
-msgid ""
-"EPGImport Plugin\n"
-"Import of epg data will start\n"
-"This may take a few minutes\n"
-"Is this ok?"
-msgstr ""
-"EPGImport\n"
-"Algab epg hankimine \n"
-"See võib kesta mõne minuti\n"
-"Kas see sobib?"
+#: plugin.py:465
+msgid "Import current source"
+msgstr "Import valitud allikast"
 
+#: plugin.py:243
+#, python-format
+msgid ""
+"Importing: %s\n"
+"%s events"
+msgstr ""
+"Import: %s\n"
+"%s saadet"
+
+#: plugin.py:620
+msgid "Last import: "
+msgstr "Viimati: "
+
+#: plugin.py:385
+#, python-format
+msgid "Last import: %s events"
+msgstr "Viimati: %s saadet"
+
+#: plugin.py:380
+#, python-format
+msgid "Last: %s %s, %d events"
+msgstr "Viimati: %s %s, %d saadet"
+
+#: plugin.py:286
+msgid "Load EPG only services in bouquets"
+msgstr "EPG ainult kanalitele lemmiknimekirjades"
+
+#: plugin.py:291
+msgid "Load long descriptions up to X days"
+msgstr "Pikk saatetutvustus X päevaks"
+
+#: plugin.py:224
+msgid "Manual"
+msgstr "Käsitsi"
+
+#: plugin.py:77
+msgid "Monday"
+msgstr "Esmaspäev"
+
+#: plugin.py:400
+msgid "No active EPG sources found, nothing to do"
+msgstr "EPG allikad on määramata. Midagi ei saa teha"
+
+#: plugin.py:69
+msgid "Press OK"
+msgstr "Vajuta OK"
+
+#: plugin.py:282
+msgid "Return to deep standby after import"
+msgstr "Pärast importi tagasi puhkeseisundisse"
+
+#: plugin.py:292
+msgid "Run AutoTimer after import"
+msgstr "Käivita Autotaimer pärast importi"
+
+#: plugin.py:82
+msgid "Saturday"
+msgstr "Laupäev"
+
+#: plugin.py:223 plugin.py:453 plugin.py:521 plugin.py:577
+msgid "Save"
+msgstr "Salvesta"
+
+#: plugin.py:290
+msgid "Show \"EPG Importer\" in main menu"
+msgstr "Kuva \"EPG import\" peamenüüs"
+
+#: plugin.py:289
+msgid "Show \"EPGImport\" in extensions"
+msgstr "Kuva \"EPG import\" laienduste menüüs"
+
+#: plugin.py:288
+msgid "Skip import on restart GUI"
+msgstr "Ära impordi pärast E2 taaskäivitust"
+
+#: plugin.py:225
+msgid "Sources"
+msgstr "Allikad"
+
+#: plugin.py:283
+msgid "Standby at startup"
+msgstr "Käivitamine ooteseisundist"
+
+#: plugin.py:285
+msgid "Start import after booting up"
+msgstr "Hangi EPG pärast alglaadimist"
+
+#: plugin.py:83
+msgid "Sunday"
+msgstr "Pühapäev"
+
+#: plugin.py:80
+msgid "Thursday"
+msgstr "Neljapäev"
+
+#: plugin.py:78
+msgid "Tuesday"
+msgstr "Teisipäev"
+
+#: plugin.py:79
+msgid "Wednesday"
+msgstr "Kolmapäev"
+
+#: plugin.py:281
+msgid "When in deep standby"
+msgstr "Puhkeseisundis"
+
+#: plugin.py:604
+msgid "Write to /tmp/epgimport.log"
+msgstr "Kirjuta /tmp/epgimport.log  faili"
+
+#: plugin.py:543
+msgid ""
+"You may not use this settings!\n"
+"At least one day a week should be included!"
+msgstr ""
+"Seda seadistust ei saa kasutada!\n"
+"Tuleb valida vähemalt üks päev või nädal!"
+
+#: plugin.py:665
 msgid ""
 "You must restart Enigma2 to load the EPG data,\n"
 "is this OK?"
 msgstr ""
 "EPG laadimiseks tuleb Enigma2 taaskäivitada.\n"
 "Kas see sobib?"
+
+#: plugin.py:48
+msgid "always"
+msgstr "alati"
+
+#: plugin.py:51
+msgid "never"
+msgstr "mitte kunagi"
+
+#: plugin.py:50
+msgid "only automatic boot"
+msgstr "ainult automaatsel alglaadimisel"
+
+#: plugin.py:49
+msgid "only manual boot"
+msgstr "ainult käsitsi alglaadimisel"
+
+#: plugin.py:59
+msgid "skip the import"
+msgstr "ära hangi"
+
+#: plugin.py:58
+msgid "wake up and import"
+msgstr "käivita ja impordi"
+
+msgid "Show log"
+msgstr "Kuva logi"
+
+msgid "Ignore services list"
+msgstr "Eiratav kanalinimekiri"
+
+msgid "Select action"
+msgstr "Vali tegevus"
+
+msgid "Add Provider"
+msgstr "Lisa levitaja"
+
+msgid "Add Channel"
+msgstr "Lisa kanal"
+
+msgid "Ignore services list(press OK to save)"
+msgstr "Eiratav (salvestamiseks vajuta OK)"
+
+msgid "Really delete all list?"
+msgstr "Kas kustutada kogu nimekiri?"
+
+msgid "Delete selected"
+msgstr "Kustuta valik"
+
+msgid "Delete all"
+msgstr "Kustuta  kõik"
+
+msgid "Channel Selection"
+msgstr "Kanalivalik"
+
+msgid "All services provider"
+msgstr "Levitaja kõigile kanalitele"
+
+#~ msgid "EPG Importer"
+#~ msgstr "EPG import"
+
+#~ msgid "EPG-Importer"
+#~ msgstr "EPG import"
