@@ -349,7 +349,7 @@ class EPGImport:
 		return self.source is not None
 
 	def do_download(self, sourcefile, afterDownload, downloadFail):
-		path = bigStorage(9000000, '/tmp', '/media/cf', '/media/usb', '/media/hdd')
+		path = bigStorage(9000000, '/tmp', '/media/cf', '/media/mmc', '/media/usb', '/media/hdd')
 		filename = os.path.join(path, 'epgimport')
 		ext = os.path.splitext(sourcefile)[1]
 		# Keep sensible extension, in particular the compression type
