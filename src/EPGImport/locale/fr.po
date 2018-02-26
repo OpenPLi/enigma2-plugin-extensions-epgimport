@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-24 20:49+0100\n"
-"PO-Revision-Date: 2015-11-24 20:53+0100\n"
+"POT-Creation-Date: 2015-09-21 21:24+0300\n"
+"PO-Revision-Date: 2018-02-26 15:22+0100\n"
 "Last-Translator: demosat\n"
 "Language-Team: LANGUAGE <dummy@dummy.fr>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: plugin.py:620
 msgid ""
@@ -275,3 +275,36 @@ msgstr "passer l'import"
 #: plugin.py:58
 msgid "wake up and import"
 msgstr "réveiller et importer"
+
+msgid "Show log"
+msgstr "Afficher le log"
+
+msgid "Ignore services list"
+msgstr "Liste des services à ignorer"
+
+msgid "Select action"
+msgstr "Choisir une action"
+
+msgid "Add Provider"
+msgstr "Ajouter un fournisseur"
+
+msgid "Add Channel"
+msgstr "Ajouter une chaîne"
+
+msgid "Ignore services list(press OK to save)"
+msgstr "Liste des services à ignorer (appuyez sur OK pour sauvegarder)"
+
+msgid "Really delete all list?"
+msgstr "Vraiment effacer toute la liste?"
+
+msgid "Delete selected"
+msgstr "Effacer les sélectionner"
+
+msgid "Delete all"
+msgstr "Tout effacer"
+
+msgid "Channel Selection"
+msgstr "Sélection des chaînes"
+
+msgid "All services provider"
+msgstr "Tous les services du fournisseur"
