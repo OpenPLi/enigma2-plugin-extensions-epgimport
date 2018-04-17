@@ -1,14 +1,14 @@
-# Italian translations for EPGIMPORT
-# Copyright (C) 2012 THE plugins'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the plugins package.
-# Automatically generated, 2012.
+# Italian translations for EPGImport.
+# Signed-off-by: Gringo <openpli@tiscali.it>
+#
+# Updated by: Gringo <openpli@tiscali.it>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: EPGImport\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-21 21:24+0300\n"
-"PO-Revision-Date: 2018-04-05 20:07+0200\n"
+"PO-Revision-Date: 2018-04-17 23:21+0200\n"
 "Last-Translator: Gringo <openpli@tiscali.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -18,9 +18,8 @@ msgstr ""
 "ContentIm-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: .\n"
 
 #: plugin.py:620
 msgid ""
