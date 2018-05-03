@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plugins 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2018-05-03 15:33+0200\n"
 "PO-Revision-Date: 2016-04-09 19:09+0200\n"
 "Last-Translator: edcrane\n"
 "Language-Team: none\n"
@@ -32,6 +32,15 @@ msgstr ""
 msgid " events\n"
 msgstr " Ereignisse\n"
 
+msgid "Add Channel"
+msgstr "Sender hinzufügen"
+
+msgid "Add Provider"
+msgstr "Senderkette hinzufügen"
+
+msgid "All services provider"
+msgstr "Alle Senderketten"
+
 msgid "Automated EPG Importer"
 msgstr "Automatisierter EPG-Import"
 
@@ -43,6 +52,9 @@ msgstr "Startzeit"
 
 msgid "Cancel"
 msgstr "Abbrechen"
+
+msgid "Channel Selection"
+msgstr "Kanalauswahl"
 
 msgid "Choice days for start import"
 msgstr "Nur an bestimmten Tagen importieren"
@@ -59,8 +71,65 @@ msgstr "Ausgewählte Tage berücksichtigen"
 msgid "Days Profile"
 msgstr "Import an bestimmten Tagen"
 
+msgid "Delete all"
+msgstr "Alle löschen"
+
+msgid "Delete selected"
+msgstr "Ausgewählte löschen"
+
+msgid "EPG Import Configuration"
+msgstr "EPG-Import-Konfiguration"
+
+msgid "EPG Import Log"
+msgstr "EPG-Import-Log"
+
+msgid "EPG Import Sources"
+msgstr "EPG-Import-Quellen"
+
+#, python-format
+msgid "EPG Import finished, %d events"
+msgstr "EPG-Import abgeschlossen, %d Ereignisse"
+
+msgid "EPG Importer"
+msgstr "EPG-Importer"
+
+#, fuzzy
+msgid "EPGImport"
+msgstr "EPG-Importer"
+
+msgid ""
+"EPGImport\n"
+"Import of epg data is still in progress. Please wait."
+msgstr ""
+"EPGImport\n"
+"Import der EPG-Daten läuft noch. Bitte warten."
+
+msgid ""
+"EPGImport\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+"EPGImport\n"
+"EPG-Import wird gestartet, dies\n"
+"wird bis zu einigen Minuten dauern.\n"
+"Ist das OK?"
+
+msgid ""
+"EPGImport Plugin\n"
+"Failed to start:\n"
+msgstr ""
+"EPGImport Plugin\n"
+"Nicht gestartet:\n"
+
 msgid "Friday"
 msgstr "Freitag"
+
+msgid "Ignore services list"
+msgstr "Liste der zu überspringenden Sender"
+
+msgid "Ignore services list(press OK to save)"
+msgstr "Liste der zu überspringenden Sender (OK zum Speichern)"
 
 msgid "Import current source"
 msgstr "Aktuelle Quelle importieren"
@@ -102,6 +171,9 @@ msgstr "Keine aktiven EPG-Quellen gefunden, nichts zu tun"
 msgid "Press OK"
 msgstr "OK drücken"
 
+msgid "Really delete all list?"
+msgstr "Wirklich die gesamte Liste löschen?"
+
 msgid "Return to deep standby after import"
 msgstr "Nach Import in den Tiefschlaf zurückkehren"
 
@@ -114,11 +186,17 @@ msgstr "Samstag"
 msgid "Save"
 msgstr "Sichern"
 
+msgid "Select action"
+msgstr "Aktion auswählen"
+
 msgid "Show \"EPG Importer\" in main menu"
 msgstr "\"EPG-Importer\" im Hauptmenü anzeigen"
 
 msgid "Show \"EPGImport\" in extensions"
 msgstr "\"EPG-Import\" unter Erweiterungen anzeigen"
+
+msgid "Show log"
+msgstr "Log anzeigen"
 
 msgid "Skip import on restart GUI"
 msgstr "Import bei GUI-Neustart überspringen"
@@ -147,52 +225,9 @@ msgstr "Mittwoch"
 msgid "When in deep standby"
 msgstr "Wenn ausgeschaltet"
 
-msgid "Write to /tmp/EPGimport.log"
+#, fuzzy
+msgid "Write to /tmp/epgimport.log"
 msgstr "Nach /tmp/EPGimport.log schreiben"
-
-msgid "EPG Import Configuration"
-msgstr "EPG-Import-Konfiguration"
-
-msgid "EPG Import Log"
-msgstr "EPG-Import-Log"
-
-msgid "EPG Import Sources"
-msgstr "EPG-Import-Quellen"
-
-#, python-format
-msgid "EPG Import finished, %d events"
-msgstr "EPG-Import abgeschlossen, %d Ereignisse"
-
-msgid "EPG Importer"
-msgstr "EPG-Importer"
-
-msgid "EPG-Importer"
-msgstr "EPG-Importer"
-
-msgid ""
-"EPGImport\n"
-"Import of epg data is still in progress. Please wait."
-msgstr ""
-"EPGImport\n"
-"Import der EPG-Daten läuft noch. Bitte warten."
-
-msgid ""
-"EPGImport\n"
-"Import of epg data will start.\n"
-"This may take a few minutes.\n"
-"Is this ok?"
-msgstr ""
-"EPGImport\n"
-"EPG-Import wird gestartet, dies\n"
-"wird bis zu einigen Minuten dauern.\n"
-"Ist das OK?"
-
-msgid ""
-"EPGImport Plugin\n"
-"Failed to start:\n"
-msgstr ""
-"EPGImport Plugin\n"
-"Nicht gestartet:\n"
 
 msgid ""
 "You may not use this settings!\n"
@@ -214,9 +249,6 @@ msgstr "immer"
 msgid "never"
 msgstr "niemals"
 
-msgid "none"
-msgstr "keine"
-
 msgid "only automatic boot"
 msgstr "Nur bei automatischem Neustart"
 
@@ -228,43 +260,3 @@ msgstr "Import überspringen"
 
 msgid "wake up and import"
 msgstr "Aufwachen und importieren"
-
-msgid "Show log"
-msgstr "Log anzeigen"
-
-msgid "Ignore services list"
-msgstr "Liste der zu überspringenden Sender"
-
-msgid "Select action"
-msgstr "Aktion auswählen"
-
-msgid "Add Provider"
-msgstr "Senderkette hinzufügen"
-
-msgid "Add Channel"
-msgstr "Sender hinzufügen"
-
-msgid "Ignore services list(press OK to save)"
-msgstr "Liste der zu überspringenden Sender (OK zum Speichern)"
-
-msgid "Really delete all list?"
-msgstr "Wirklich die gesamte Liste löschen?"
-
-msgid "Delete selected"
-msgstr "Ausgewählte löschen"
-
-msgid "Delete all"
-msgstr "Alle löschen"
-
-msgid "Channel Selection"
-msgstr "Kanalauswahl"
-
-msgid "All services provider"
-msgstr "Alle Senderketten"
-
-msgid "Show in extensions"
-msgstr "In Erweiterungen anzeigen"
-
-msgid "Show in plugin browser"
-msgstr "Im Plugin-Browser anzeigen"
-

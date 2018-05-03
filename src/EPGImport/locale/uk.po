@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-21 09:29+0200\n"
+"POT-Creation-Date: 2018-05-03 15:33+0200\n"
 "PO-Revision-Date: 2016-07-12 17:21+0200\n"
 "Last-Translator: satdreamgr\n"
 "Language-Team: sety <tim1065@mail.ru>\n"
@@ -23,13 +23,6 @@ msgstr ""
 "Починаємо імпорт даних EPG.\n"
 "Це може зайняти кілька хвилин.\n"
 "Це вас влаштовує?"
-
-msgid ""
-" %s\n"
-"%s events"
-msgstr ""
-" %s\n"
-"%s подій"
 
 msgid " events\n"
 msgstr " подій\n"
@@ -88,6 +81,7 @@ msgstr "EPG імпорт - лог"
 msgid "EPG Import Sources"
 msgstr "Джерело імпорту EPG"
 
+#, python-format
 msgid "EPG Import finished, %d events"
 msgstr "EPG импорт закінчено, %d подій"
 
@@ -134,6 +128,7 @@ msgstr "Список ігнорованих сервісів (ОК для збе
 msgid "Import current source"
 msgstr "Імпорт поточного джерела"
 
+#, python-format
 msgid ""
 "Importing: %s\n"
 "%s events"
@@ -144,9 +139,11 @@ msgstr ""
 msgid "Last import: "
 msgstr "Останній імпорт: "
 
+#, python-format
 msgid "Last import: %s events"
 msgstr "Останній імпорт: %s подій"
 
+#, python-format
 msgid "Last: %s %s, %d events"
 msgstr "Останній імпорт: %s %s, %d подій"
 

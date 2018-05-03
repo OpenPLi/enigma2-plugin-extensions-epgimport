@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2-plugins 3.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-15 14:10+0000\n"
+"POT-Creation-Date: 2018-05-03 15:33+0200\n"
 "PO-Revision-Date: 2012-05-17 14:10+0000\n"
 "Last-Translator: jerry\n"
 "Language-Team: jerry\n"
@@ -17,59 +17,252 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#
-msgid "EPG Import Configuration"
-msgstr "Nastavení importu EPG"
+msgid ""
+"\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+
+msgid " events\n"
+msgstr ""
+
+msgid "Add Channel"
+msgstr ""
+
+msgid "Add Provider"
+msgstr ""
+
+msgid "All services provider"
+msgstr ""
+
+msgid "Automated EPG Importer"
+msgstr ""
 
 #
-msgid "EPG Import Sources"
-msgstr "Zdroje importu EPG"
-
-#
-msgid "Manual"
-msgstr "Ručně"
-
-#
-msgid "Sources"
-msgstr "Zdroje"
-
-#
-msgid "Daily automatic import"
+#, fuzzy
+msgid "Automatic import EPG"
 msgstr "Denní automatický import"
 
 #
 msgid "Automatic start time"
 msgstr "Čas automatického spuštění"
 
-#
-msgid "Standby at startup"
-msgstr "Uspat po spuštění"
+msgid "Cancel"
+msgstr ""
+
+msgid "Channel Selection"
+msgstr ""
+
+msgid "Choice days for start import"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Clearing current EPG before import"
+msgstr ""
+
+msgid "Consider setting \"Days Profile\""
+msgstr ""
+
+msgid "Days Profile"
+msgstr ""
+
+msgid "Delete all"
+msgstr ""
+
+msgid "Delete selected"
+msgstr ""
 
 #
-msgid "When in deep standby"
-msgstr "Při vypnutém stavu"
+msgid "EPG Import Configuration"
+msgstr "Nastavení importu EPG"
 
 #
-msgid "Skip the import"
-msgstr "Přeskočit import"
+#, fuzzy
+msgid "EPG Import Log"
+msgstr "Zdroje importu EPG"
 
 #
-msgid "Wake up and import"
-msgstr "Probudit a stáhnout"
+msgid "EPG Import Sources"
+msgstr "Zdroje importu EPG"
+
+#, python-format
+msgid "EPG Import finished, %d events"
+msgstr ""
 
 #
-msgid "Show in plugin browser"
-msgstr "Zobrazit v prohlížeči pluginů"
+#, fuzzy
+msgid "EPG Importer"
+msgstr "Zdroje importu EPG"
 
 #
-msgid "Show in extensions"
-msgstr "Zobrazit v zozšířeních"
+#, fuzzy
+msgid "EPGImport"
+msgstr "Zdroje importu EPG"
+
+msgid ""
+"EPGImport\n"
+"Import of epg data is still in progress. Please wait."
+msgstr ""
+
+msgid ""
+"EPGImport\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+
+msgid ""
+"EPGImport Plugin\n"
+"Failed to start:\n"
+msgstr ""
+
+msgid "Friday"
+msgstr ""
+
+msgid "Ignore services list"
+msgstr ""
+
+msgid "Ignore services list(press OK to save)"
+msgstr ""
 
 #
-msgid "Start import after booting up"
-msgstr "Importovat po nabootování"
+#, fuzzy
+msgid "Import current source"
+msgstr "Zdroje importu EPG"
+
+#, python-format
+msgid ""
+"Importing: %s\n"
+"%s events"
+msgstr ""
+
+msgid "Last import: "
+msgstr ""
+
+#, python-format
+msgid "Last import: %s events"
+msgstr ""
+
+#, python-format
+msgid "Last: %s %s, %d events"
+msgstr ""
+
+msgid "Load EPG only services in bouquets"
+msgstr ""
 
 #
 msgid "Load long descriptions up to X days"
 msgstr "Načíst dlouhé popisy po X dnech"
 
+#
+msgid "Manual"
+msgstr "Ručně"
+
+msgid "Monday"
+msgstr ""
+
+msgid "No active EPG sources found, nothing to do"
+msgstr ""
+
+msgid "Press OK"
+msgstr ""
+
+msgid "Really delete all list?"
+msgstr ""
+
+msgid "Return to deep standby after import"
+msgstr ""
+
+msgid "Run AutoTimer after import"
+msgstr ""
+
+msgid "Saturday"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Select action"
+msgstr ""
+
+msgid "Show \"EPG Importer\" in main menu"
+msgstr ""
+
+#
+#, fuzzy
+msgid "Show \"EPGImport\" in extensions"
+msgstr "Zobrazit v zozšířeních"
+
+msgid "Show log"
+msgstr ""
+
+msgid "Skip import on restart GUI"
+msgstr ""
+
+#
+msgid "Sources"
+msgstr "Zdroje"
+
+#
+msgid "Standby at startup"
+msgstr "Uspat po spuštění"
+
+#
+msgid "Start import after booting up"
+msgstr "Importovat po nabootování"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+#
+msgid "When in deep standby"
+msgstr "Při vypnutém stavu"
+
+msgid "Write to /tmp/epgimport.log"
+msgstr ""
+
+msgid ""
+"You may not use this settings!\n"
+"At least one day a week should be included!"
+msgstr ""
+
+msgid ""
+"You must restart Enigma2 to load the EPG data,\n"
+"is this OK?"
+msgstr ""
+
+msgid "always"
+msgstr ""
+
+msgid "never"
+msgstr ""
+
+#
+#, fuzzy
+msgid "only automatic boot"
+msgstr "Denní automatický import"
+
+msgid "only manual boot"
+msgstr ""
+
+#
+#, fuzzy
+msgid "skip the import"
+msgstr "Přeskočit import"
+
+#
+#, fuzzy
+msgid "wake up and import"
+msgstr "Probudit a stáhnout"

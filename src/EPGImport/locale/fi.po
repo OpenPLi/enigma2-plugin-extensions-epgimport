@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plugins 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 00:49+0000\n"
+"POT-Creation-Date: 2018-05-03 15:33+0200\n"
 "PO-Revision-Date: 2016-05-17 12:41+0200\n"
 "Last-Translator: Samzam <http://www.world-of-satellite.com>\n"
 "Language-Team: none\n"
@@ -32,6 +32,15 @@ msgstr ""
 msgid " events\n"
 msgstr " tapahtumia\n"
 
+msgid "Add Channel"
+msgstr ""
+
+msgid "Add Provider"
+msgstr ""
+
+msgid "All services provider"
+msgstr ""
+
 msgid "Automated EPG Importer"
 msgstr "Automaattinen EPG:n lataus"
 
@@ -43,6 +52,9 @@ msgstr "Aloitusaika"
 
 msgid "Cancel"
 msgstr "Poistu"
+
+msgid "Channel Selection"
+msgstr ""
 
 msgid "Choice days for start import"
 msgstr "Valitse latauspäivät"
@@ -59,8 +71,65 @@ msgstr "Harkitse asetusta \"Valitse päivät\""
 msgid "Days Profile"
 msgstr "Valitse päivät"
 
+msgid "Delete all"
+msgstr ""
+
+msgid "Delete selected"
+msgstr ""
+
+msgid "EPG Import Configuration"
+msgstr "Asetukset"
+
+msgid "EPG Import Log"
+msgstr "Loki"
+
+msgid "EPG Import Sources"
+msgstr "Lähteet"
+
+#, python-format
+msgid "EPG Import finished, %d events"
+msgstr "Lataus valmis, %d tapahtumaa"
+
+msgid "EPG Importer"
+msgstr "EPG:n lataus"
+
+#, fuzzy
+msgid "EPGImport"
+msgstr "EPG:n lataus"
+
+msgid ""
+"EPGImport\n"
+"Import of epg data is still in progress. Please wait."
+msgstr ""
+"EPG:n lataus\n"
+"EPG:n lataus käynnissä. Odota."
+
+msgid ""
+"EPGImport\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+"EPG:n lataus\n"
+"EPG:n lataus alkaa.\n"
+"Tämä voi kestää muutaman minuutin.\n"
+"Onko tämä OK?"
+
+msgid ""
+"EPGImport Plugin\n"
+"Failed to start:\n"
+msgstr ""
+"EPG lataus\n"
+" Käynnistys epäonnistui:\n"
+
 msgid "Friday"
 msgstr "Perjantai"
+
+msgid "Ignore services list"
+msgstr ""
+
+msgid "Ignore services list(press OK to save)"
+msgstr ""
 
 msgid "Import current source"
 msgstr "Lataa tämä lähde"
@@ -102,6 +171,9 @@ msgstr "Ei löytynyt aktiivisia EPG lähteitä"
 msgid "Press OK"
 msgstr "Paina OK"
 
+msgid "Really delete all list?"
+msgstr ""
+
 msgid "Return to deep standby after import"
 msgstr "Palaa virransäästötilaan latauksen jälkeen"
 
@@ -114,11 +186,17 @@ msgstr "Lauantai"
 msgid "Save"
 msgstr "Tallenna"
 
+msgid "Select action"
+msgstr ""
+
 msgid "Show \"EPG Importer\" in main menu"
 msgstr "Näytä \"EPG:n lataus\" päävalikossa"
 
 msgid "Show \"EPGImport\" in extensions"
 msgstr "Näytä \"EPG:n lataus\" laajennusvalikossa"
+
+msgid "Show log"
+msgstr ""
 
 msgid "Skip import on restart GUI"
 msgstr "Ohita lataus uudelleenkäynnistyksessä"
@@ -147,52 +225,9 @@ msgstr "Keskiviikko"
 msgid "When in deep standby"
 msgstr "Virransäästötilassa lataus"
 
-msgid "Write to /tmp/EPGimport.log"
+#, fuzzy
+msgid "Write to /tmp/epgimport.log"
 msgstr "Kirjoita lokiin /tmp/EPGimport.log"
-
-msgid "EPG Import Configuration"
-msgstr "Asetukset"
-
-msgid "EPG Import Log"
-msgstr "Loki"
-
-msgid "EPG Import Sources"
-msgstr "Lähteet"
-
-#, python-format
-msgid "EPG Import finished, %d events"
-msgstr "Lataus valmis, %d tapahtumaa"
-
-msgid "EPG Importer"
-msgstr "EPG:n lataus"
-
-msgid "EPG-Importer"
-msgstr "EPG:n lataus"
-
-msgid ""
-"EPGImport\n"
-"Import of epg data is still in progress. Please wait."
-msgstr ""
-"EPG:n lataus\n"
-"EPG:n lataus käynnissä. Odota."
-
-msgid ""
-"EPGImport\n"
-"Import of epg data will start.\n"
-"This may take a few minutes.\n"
-"Is this ok?"
-msgstr ""
-"EPG:n lataus\n"
-"EPG:n lataus alkaa.\n"
-"Tämä voi kestää muutaman minuutin.\n"
-"Onko tämä OK?"
-
-msgid ""
-"EPGImport Plugin\n"
-"Failed to start:\n"
-msgstr ""
-"EPG lataus\n"
-" Käynnistys epäonnistui:\n"
 
 msgid ""
 "You may not use this settings!\n"
@@ -214,9 +249,6 @@ msgstr "aina"
 msgid "never"
 msgstr "ei koskaan"
 
-msgid "none"
-msgstr "0"
-
 msgid "only automatic boot"
 msgstr "vain automaattisessa uudelleenkäynnistyksessä"
 
@@ -228,42 +260,3 @@ msgstr "ohita lataus"
 
 msgid "wake up and import"
 msgstr "herätä ja lataa"
-
-#~ msgid "Daily automatic import"
-#~ msgstr "Päivittäinen lataus"
-
-#~ msgid "Importing:"
-#~ msgstr "Ladataan:"
-
-#~ msgid "Ok"
-#~ msgstr "Ok"
-
-#~ msgid "Show in extensions"
-#~ msgstr "Näytä laajennusvalikossa"
-
-#~ msgid "Show in plugin browser"
-#~ msgstr "Näytä lisäosavalikossa"
-
-#~ msgid "Skip the import"
-#~ msgstr "Ohita lataus"
-
-#~ msgid "Wake up and import"
-#~ msgstr "Herätä ja lataa"
-
-#~ msgid ""
-#~ "EPGImport Plugin\n"
-#~ "Import of epg data is still in progress. Please wait."
-#~ msgstr ""
-#~ "EPG lataus\n"
-#~ "EPG tietojen lataus kesken. Odota."
-
-#~ msgid ""
-#~ "EPGImport Plugin\n"
-#~ "Import of epg data will start\n"
-#~ "This may take a few minutes\n"
-#~ "Is this ok?"
-#~ msgstr ""
-#~ "EPG lataus\n"
-#~ "EPG tietojen lataus alkaa\n"
-#~ "Tämä voi kestää muutaman minuutin\n"
-#~ "OK?"
