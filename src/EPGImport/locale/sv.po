@@ -2,19 +2,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EPGImport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-21 21:24+0300\n"
+"POT-Creation-Date: 2018-05-03 15:33+0200\n"
 "PO-Revision-Date: 2016-12-31 17:00+0100\n"
 "Last-Translator: Jonas Bohdén <jonas@bohden.se>\n"
 "Language-Team: Jonas Bohdén\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.11\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language: nb\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,22,-1,-1,-1,-1\n"
 
-#: plugin.py:620
 msgid ""
 "\n"
 "Import of epg data will start.\n"
@@ -26,72 +25,74 @@ msgstr ""
 "Detta kan ta några minuter.\n"
 "Är detta okej?"
 
-#: plugin.py:620
 msgid " events\n"
 msgstr "program\n"
 
-#: plugin.py:966
+msgid "Add Channel"
+msgstr "Lägg till kanal"
+
+msgid "Add Provider"
+msgstr "Lägg till leverantör"
+
+msgid "All services provider"
+msgstr "Alla kanalleverantörer"
+
 msgid "Automated EPG Importer"
 msgstr "Automatisk EPG-importerare"
 
-#: plugin.py:279
 msgid "Automatic import EPG"
 msgstr "Automatisk EPG-importering"
 
-#: plugin.py:280
 msgid "Automatic start time"
 msgstr "Automatisk starttid"
 
-#: plugin.py:222 plugin.py:452 plugin.py:520
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: plugin.py:284
+msgid "Channel Selection"
+msgstr "Kanalväljare"
+
 msgid "Choice days for start import"
 msgstr "Välj dagar att starta importering"
 
-#: plugin.py:574
 msgid "Clear"
 msgstr "Rensa"
 
-#: plugin.py:293
 msgid "Clearing current EPG before import"
 msgstr "Rensar nuvarande EPG före importering"
 
-#: plugin.py:287
 msgid "Consider setting \"Days Profile\""
 msgstr "Överväg inställning av \"Dagarprofil\""
 
-#: plugin.py:533
 msgid "Days Profile"
 msgstr "Dagarprofil"
 
-#: plugin.py:218
+msgid "Delete all"
+msgstr "Radera alla"
+
+msgid "Delete selected"
+msgstr "Radera valda"
+
 msgid "EPG Import Configuration"
 msgstr "Konfiguration för EPG-importering"
 
-#: plugin.py:598
 msgid "EPG Import Log"
 msgstr "Logg för EPG-importering"
 
-#: plugin.py:477
 msgid "EPG Import Sources"
 msgstr "Källor för EPG-importering"
 
-#: plugin.py:665
 #, python-format
 msgid "EPG Import finished, %d events"
 msgstr "EPG-importering klar, %d program"
 
-#: plugin.py:638
-msgid "EPG importer"
+#, fuzzy
+msgid "EPG Importer"
 msgstr "EPG-importerare"
 
-#: plugin.py:968 plugin.py:983
 msgid "EPGImport"
 msgstr "EPGImport"
 
-#: plugin.py:390
 msgid ""
 "EPGImport\n"
 "Import of epg data is still in progress. Please wait."
@@ -99,7 +100,6 @@ msgstr ""
 "EPGImport\n"
 "Importering av EPG-data pågår fortfarande. Vänligen vänta..."
 
-#: plugin.py:405
 msgid ""
 "EPGImport\n"
 "Import of epg data will start.\n"
@@ -111,7 +111,6 @@ msgstr ""
 "Detta kan ta några minuter.\n"
 "Är detta okej?"
 
-#: plugin.py:415
 msgid ""
 "EPGImport Plugin\n"
 "Failed to start:\n"
@@ -119,15 +118,18 @@ msgstr ""
 "EPGImport Plugin\n"
 "Misslyckades att starta:\n"
 
-#: plugin.py:81
 msgid "Friday"
 msgstr "Fredag"
 
-#: plugin.py:465
+msgid "Ignore services list"
+msgstr "Ignorera kanallistor"
+
+msgid "Ignore services list(press OK to save)"
+msgstr "Ignorera kanallistor (tryck på OK för att spara)"
+
 msgid "Import current source"
 msgstr "Importera nuvarande källa"
 
-#: plugin.py:243
 #, python-format
 msgid ""
 "Importing: %s\n"
@@ -136,109 +138,92 @@ msgstr ""
 "Importerar: %s\n"
 "%s program"
 
-#: plugin.py:620
 msgid "Last import: "
 msgstr "Senaste importering: "
 
-#: plugin.py:385
 #, python-format
 msgid "Last import: %s events"
 msgstr "Senaste importering: %s program"
 
-#: plugin.py:380
 #, python-format
 msgid "Last: %s %s, %d events"
 msgstr "Senast: %s %s, %d program"
 
-#: plugin.py:286
 msgid "Load EPG only services in bouquets"
 msgstr "Ladda endast EPG för kanaler i kanallistorna"
 
-#: plugin.py:291
 msgid "Load long descriptions up to X days"
 msgstr "Ladda långa beskrivningar i upp till X dagar"
 
-#: plugin.py:224
 msgid "Manual"
 msgstr "Manuellt"
 
-#: plugin.py:77
 msgid "Monday"
 msgstr "Måndag"
 
-#: plugin.py:400
 msgid "No active EPG sources found, nothing to do"
 msgstr "Ingen aktiv EPG-källa hittades, inget att göra"
 
-#: plugin.py:69
 msgid "Press OK"
 msgstr "Tryck OK"
 
-#: plugin.py:282
+msgid "Really delete all list?"
+msgstr "Radera alla listor?"
+
 msgid "Return to deep standby after import"
 msgstr "Återgå till djup standby efter importering"
 
-#: plugin.py:292
 msgid "Run AutoTimer after import"
 msgstr "Kör AutoTimer efter importering"
 
-#: plugin.py:82
 msgid "Saturday"
 msgstr "Lördag"
 
-#: plugin.py:223 plugin.py:453 plugin.py:521 plugin.py:577
 msgid "Save"
 msgstr "Spara"
 
-#: plugin.py:290
+msgid "Select action"
+msgstr "Välj åtgärd"
+
 msgid "Show \"EPG Importer\" in main menu"
 msgstr "Visa \"EPG-importerare\" i huvudmenyn"
 
-#: plugin.py:289
 msgid "Show \"EPGImport\" in extensions"
 msgstr "Visa \"EPG-importerare\" i utökningar"
 
-#: plugin.py:288
+msgid "Show log"
+msgstr "Visa logg"
+
 msgid "Skip import on restart GUI"
 msgstr "Hoppa över importering vid omstart av GUI"
 
-#: plugin.py:225
 msgid "Sources"
 msgstr "Källor"
 
-#: plugin.py:283
 msgid "Standby at startup"
 msgstr "Standby vid uppstart"
 
-#: plugin.py:285
 msgid "Start import after booting up"
 msgstr "Starta importering efter uppstart"
 
-#: plugin.py:83
 msgid "Sunday"
 msgstr "Söndag"
 
-#: plugin.py:80
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: plugin.py:78
 msgid "Tuesday"
 msgstr "Tisdag"
 
-#: plugin.py:79
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: plugin.py:281
 msgid "When in deep standby"
 msgstr "Vid djup standby"
 
-#: plugin.py:604
 msgid "Write to /tmp/epgimport.log"
 msgstr "Skriv till /tmp/epgimport.log"
 
-#: plugin.py:543
 msgid ""
 "You may not use this settings!\n"
 "At least one day a week should be included!"
@@ -246,7 +231,6 @@ msgstr ""
 "Du får inte använda dessa inställningar!\n"
 "Minst en dag i veckan ska inkluderes!"
 
-#: plugin.py:665
 msgid ""
 "You must restart Enigma2 to load the EPG data,\n"
 "is this OK?"
@@ -254,62 +238,20 @@ msgstr ""
 "Du måste starta om Enigma2 för att ladda EPG-datan,\n"
 "Är detta okej?"
 
-#: plugin.py:48
 msgid "always"
 msgstr "alltid"
 
-#: plugin.py:51
 msgid "never"
 msgstr "aldrig"
 
-#: plugin.py:50
 msgid "only automatic boot"
 msgstr "endast automatisk uppstart"
 
-#: plugin.py:49
 msgid "only manual boot"
 msgstr "endast manuell uppstart"
 
-#: plugin.py:59
 msgid "skip the import"
 msgstr "hoppa över importeringen"
 
-#: plugin.py:58
 msgid "wake up and import"
 msgstr "väck upp och importera"
-
-msgid "Show log"
-msgstr "Visa logg"
-
-msgid "Ignore services list"
-msgstr "Ignorera kanallistor"
-
-msgid "Select action"
-msgstr "Välj åtgärd"
-
-msgid "Add Provider"
-msgstr "Lägg till leverantör"
-
-msgid "Add Channel"
-msgstr "Lägg till kanal"
-
-msgid "Ignore services list(press OK to save)"
-msgstr "Ignorera kanallistor (tryck på OK för att spara)"
-
-msgid "Really delete all list?"
-msgstr "Radera alla listor?"
-
-msgid "Delete selected"
-msgstr "Radera valda"
-
-msgid "Delete all"
-msgstr "Radera alla"
-
-msgid "Channel Selection"
-msgstr "Kanalväljare"
-
-msgid "All services provider"
-msgstr "Alla kanalleverantörer"
-
-#~ msgid "Ok"
-#~ msgstr "OK"

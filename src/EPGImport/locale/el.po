@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EPG Import\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-21 21:24+0300\n"
+"POT-Creation-Date: 2018-05-03 15:33+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: MCelliot_g <mcelliot_g@hotmail.com>\n"
 "Language-Team: \n"
@@ -12,7 +12,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: plugin.py:620
 msgid ""
 "\n"
 "Import of epg data will start.\n"
@@ -24,76 +23,73 @@ msgstr ""
 "Αυτό μπορεί να διαρκέσει μερικά λεπτά.\n"
 "Είναι αυτό εντάξει;"
 
-#: plugin.py:620
 msgid " events\n"
 msgstr " προγράμματα\n"
 
-#: plugin.py:966
+msgid "Add Channel"
+msgstr "Προσθήκη Καναλιού"
+
+msgid "Add Provider"
+msgstr "Προσθήκη Παρόχου"
+
+msgid "All services provider"
+msgstr "Πάροχος όλων των υπηρεσιών"
+
 msgid "Automated EPG Importer"
 msgstr "Αυτοματοποιημένη Eισαγωγή EPG"
 
-#: plugin.py:279
 msgid "Automatic import EPG"
 msgstr "Αυτόματη εισαγωγή EPG"
 
-#: plugin.py:280
 msgid "Automatic start time"
 msgstr "Αυτόματη ώρα έναρξης"
 
-#: plugin.py:222 plugin.py:452 plugin.py:520
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: plugin.py:284
+msgid "Channel Selection"
+msgstr "Επιλογή Καναλιών"
+
 msgid "Choice days for start import"
 msgstr "Επιλογή ημερών για εκκίνηση εισαγωγής"
 
-#: plugin.py:574
 msgid "Clear"
 msgstr "Καθαρισμός"
 
-#: plugin.py:293
 msgid "Clearing current EPG before import"
 msgstr "Καθαρισμός τρέχοντος EPG πριν την εισαγωγή"
 
-#: plugin.py:287
 msgid "Consider setting \"Days Profile\""
 msgstr "Υπενθύμιση ρύθμισης του \"Προφίλ Ημερών\""
 
-#: plugin.py:533
 msgid "Days Profile"
 msgstr "Προφίλ Ημερών"
 
-#: plugin.py:218
+msgid "Delete all"
+msgstr "Διαγραφή όλων"
+
+msgid "Delete selected"
+msgstr "Διαγραφή επιλεγμένων"
+
 msgid "EPG Import Configuration"
 msgstr "Ρυθμίσεις Εισαγωγής EPG"
 
-#: plugin.py:598
 msgid "EPG Import Log"
 msgstr "Καταγραφή Εισαγωγής EPG"
 
-#: plugin.py:477
 msgid "EPG Import Sources"
 msgstr "Πηγές Εισαγωγής EPG"
 
-#: plugin.py:665
 #, python-format
 msgid "EPG Import finished, %d events"
 msgstr "Η εισαγωγή EPG ολοκληρώθηκε, %d προγράμματα"
 
-#: plugin.py:638
-msgid "EPG importer"
-msgstr "Εισαγωγή EPG"
-
-#: plugin.py:706
 msgid "EPG Importer"
 msgstr "Εισαγωγή EPG"
 
-#: plugin.py:968 plugin.py:983
 msgid "EPGImport"
 msgstr "Εισαγωγή EPG"
 
-#: plugin.py:390
 msgid ""
 "EPGImport\n"
 "Import of epg data is still in progress. Please wait."
@@ -101,7 +97,6 @@ msgstr ""
 "Εισαγωγή EPG\n"
 "Η εισαγωγή των δεδομένων EPG είναι ακόμα σε εξέλιξη. Περιμένετε..."
 
-#: plugin.py:405
 msgid ""
 "EPGImport\n"
 "Import of epg data will start.\n"
@@ -113,7 +108,6 @@ msgstr ""
 "Αυτό μπορεί να διαρκέσει μερικά λεπτά.\n"
 "Είναι αυτό εντάξει;"
 
-#: plugin.py:415
 msgid ""
 "EPGImport Plugin\n"
 "Failed to start:\n"
@@ -121,15 +115,18 @@ msgstr ""
 "Πρόσθετο EPGImport\n"
 "Αδυναμία εκκίνησης:\n"
 
-#: plugin.py:81
 msgid "Friday"
 msgstr "Παρασκευή"
 
-#: plugin.py:465
+msgid "Ignore services list"
+msgstr "Αγνόηση λίστας υπηρεσιών"
+
+msgid "Ignore services list(press OK to save)"
+msgstr "Αγνόηση λίστας υπηρεσιών (πιέστε ΟΚ για αποθήκευση)"
+
 msgid "Import current source"
 msgstr "Εισαγωγή τρέχουσας πηγής"
 
-#: plugin.py:243
 #, python-format
 msgid ""
 "Importing: %s\n"
@@ -138,109 +135,92 @@ msgstr ""
 "Εισαγωγή σε εξέλιξη: %s\n"
 "%s προγράμματα"
 
-#: plugin.py:620
 msgid "Last import: "
 msgstr "Τελευταία εισαγωγή: "
 
-#: plugin.py:385
 #, python-format
 msgid "Last import: %s events"
 msgstr "Τελευταία εισαγωγή: %s προγράμματα"
 
-#: plugin.py:380
 #, python-format
 msgid "Last: %s %s, %d events"
 msgstr "Τελευταίο: %s %s, %d προγράμματα"
 
-#: plugin.py:286
 msgid "Load EPG only services in bouquets"
 msgstr "Φόρτωση μόνο υπηρεσιών με EPG στα μπουκέτα"
 
-#: plugin.py:291
 msgid "Load long descriptions up to X days"
 msgstr "Φόρτωση εκτεταμένων περιγραφών έως και Χ ημέρες"
 
-#: plugin.py:224
 msgid "Manual"
 msgstr "Χειροκίνητα"
 
-#: plugin.py:77
 msgid "Monday"
 msgstr "Δευτέρα"
 
-#: plugin.py:400
 msgid "No active EPG sources found, nothing to do"
 msgstr "Δεν βρέθηκαν ενεργές πηγές EPG, καμία ενέργεια"
 
-#: plugin.py:69
 msgid "Press OK"
 msgstr "Πιέστε ΟΚ"
 
-#: plugin.py:282
+msgid "Really delete all list?"
+msgstr "Να διαγραφούν σίγουρα όλες οι λίστες;"
+
 msgid "Return to deep standby after import"
 msgstr "Επιστροφή σε βαθιά αναμονή μετά την εισαγωγή"
 
-#: plugin.py:292
 msgid "Run AutoTimer after import"
 msgstr "Εκτέλεση Αυτόματου Χρονοδιακόπτη μετά την εισαγωγή"
 
-#: plugin.py:82
 msgid "Saturday"
 msgstr "Σάββατο"
 
-#: plugin.py:223 plugin.py:453 plugin.py:521 plugin.py:577
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: plugin.py:290
+msgid "Select action"
+msgstr "Επιλογή ενέργειας"
+
 msgid "Show \"EPG Importer\" in main menu"
 msgstr "Εμφάνιση της \"Εισαγωγής EPG\" στο κύριο μενού"
 
-#: plugin.py:289
 msgid "Show \"EPGImport\" in extensions"
 msgstr "Εμφάνιση της \"Εισαγωγής EPG\" στις επεκτάσεις"
 
-#: plugin.py:288
+msgid "Show log"
+msgstr "Εμφάνιση καταγραφής"
+
 msgid "Skip import on restart GUI"
 msgstr "Παράκαμψη εισαγωγής κατά την επανεκκίνηση του GUI"
 
-#: plugin.py:225
 msgid "Sources"
 msgstr "Πηγές"
 
-#: plugin.py:283
 msgid "Standby at startup"
 msgstr "Αναμονή κατά την εκκίνηση"
 
-#: plugin.py:285
 msgid "Start import after booting up"
 msgstr "Έναρξη εισαγωγής μετά την εκκίνηση"
 
-#: plugin.py:83
 msgid "Sunday"
 msgstr "Κυριακή"
 
-#: plugin.py:80
 msgid "Thursday"
 msgstr "Πέμπτη"
 
-#: plugin.py:78
 msgid "Tuesday"
 msgstr "Τρίτη"
 
-#: plugin.py:79
 msgid "Wednesday"
 msgstr "Τετάρτη"
 
-#: plugin.py:281
 msgid "When in deep standby"
 msgstr "Σε βαθιά αναμονή"
 
-#: plugin.py:604
 msgid "Write to /tmp/epgimport.log"
 msgstr "Εγγραφή στο /tmp/epgimport.log"
 
-#: plugin.py:543
 msgid ""
 "You may not use this settings!\n"
 "At least one day a week should be included!"
@@ -248,7 +228,6 @@ msgstr ""
 "Μπορείτε να μη χρησιμοποιήσετε αυτές τις ρυθμίσεις!\n"
 "Πρέπει να συμπεριλαμβάνεται τουλάχιστον μία ημέρα της εβδομάδας!"
 
-#: plugin.py:665
 msgid ""
 "You must restart Enigma2 to load the EPG data,\n"
 "is this OK?"
@@ -256,98 +235,20 @@ msgstr ""
 "Το Enigma2 πρέπει να επανεκκινηθεί για να φορτωθούν\n"
 "τα δεδομένα EPG, είναι αυτό εντάξει;"
 
-#: plugin.py:48
 msgid "always"
 msgstr "πάντα"
 
-#: plugin.py:51
 msgid "never"
 msgstr "ποτέ"
 
-#: plugin.py:50
 msgid "only automatic boot"
 msgstr "μόνο αυτόματη εκκίνηση"
 
-#: plugin.py:49
 msgid "only manual boot"
 msgstr "μόνο χειροκίνητη εκκίνηση"
 
-#: plugin.py:59
 msgid "skip the import"
 msgstr "παράκαμψη εισαγωγής"
 
-#: plugin.py:58
 msgid "wake up and import"
 msgstr "αφύπνιση και εισαγωγή"
-
-msgid "Show log"
-msgstr "Εμφάνιση καταγραφής"
-
-msgid "Ignore services list"
-msgstr "Αγνόηση λίστας υπηρεσιών"
-
-msgid "Select action"
-msgstr "Επιλογή ενέργειας"
-
-msgid "Add Provider"
-msgstr "Προσθήκη Παρόχου"
-
-msgid "Add Channel"
-msgstr "Προσθήκη Καναλιού"
-
-msgid "Ignore services list(press OK to save)"
-msgstr "Αγνόηση λίστας υπηρεσιών (πιέστε ΟΚ για αποθήκευση)"
-
-msgid "Really delete all list?"
-msgstr "Να διαγραφούν σίγουρα όλες οι λίστες;"
-
-msgid "Delete selected"
-msgstr "Διαγραφή επιλεγμένων"
-
-msgid "Delete all"
-msgstr "Διαγραφή όλων"
-
-msgid "Channel Selection"
-msgstr "Επιλογή Καναλιών"
-
-msgid "All services provider"
-msgstr "Πάροχος όλων των υπηρεσιών"
-
-#~ msgid "newer"
-#~ msgstr "νεότερα"
-
-#~ msgid "Wake up and import"
-#~ msgstr "Αφύπνιση και εισαγωγή"
-
-#~ msgid "Skip the import"
-#~ msgstr "Παράλειψη εισαγωγής"
-
-#~ msgid "Daily automatic import"
-#~ msgstr "Αυτόματη καθημερινή εισαγωγή"
-
-#~ msgid "Show in extensions"
-#~ msgstr "Εμφάνιση στις επεκτάσεις"
-
-#~ msgid "Ok"
-#~ msgstr "ΟΚ"
-
-#~ msgid "Importing:"
-#~ msgstr "Εισαγωγή:"
-
-#~ msgid ""
-#~ "EPGImport Plugin\n"
-#~ "Import of epg data is still in progress. Please wait."
-#~ msgstr ""
-#~ "Πρόσθετο EPGImport\n"
-#~ "Εκτελείται ακόμη η εισαγωγή δεδομένων epg. Παρακαλώ περιμένετε."
-
-#~ msgid ""
-#~ "EPGImport Plugin\n"
-#~ "Import of epg data will start\n"
-#~ "This may take a few minutes\n"
-#~ "Is this ok?"
-#~ msgstr ""
-#~ "Πρόσθετο EPGImport\n"
-#~ "Η εισαγωγή των δεδομένων epg θα ξεκινήσει\n"
-#~ "Αυτό μπορεί να χρειαστεί λίγο χρόνο\n"
-#~ "Είναι αυτό εντάξει;"
