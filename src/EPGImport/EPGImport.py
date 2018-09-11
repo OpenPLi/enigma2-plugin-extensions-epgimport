@@ -16,6 +16,16 @@ from twisted.internet import reactor, threads
 from twisted.web.client import downloadPage
 import twisted.python.runtime
 
+import urllib2, httplib
+from datetime import datetime
+
+# Used to check server validity
+date_format = "%Y-%m-%d"
+now = datetime.now()
+alloweddelta = 2
+CheckFile = "LastUpdate.log"
+ServerStatusList = {}
+
 PARSERS = {
 	'xmltv': 'gen_xmltv',
 	'genxmltv': 'gen_xmltv',
@@ -37,7 +47,7 @@ def getParser(name):
 def getTimeFromHourAndMinutes(hour, minute):
 	now = time.localtime()
 	begin = int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday,
-                      hour, minute, 0, now.tm_wday, now.tm_yday, now.tm_isdst)))
+						hour, minute, 0, now.tm_wday, now.tm_yday, now.tm_isdst)))
 	return begin
 
 def bigStorage(minFree, default, *candidates):
@@ -93,6 +103,55 @@ class EPGImport:
 		self.onDone = None
 		self.epgcache = epgcache
 		self.channelFilter = channelFilter
+
+	def checkValidServer(self, serverurl):
+		dirname, filename = os.path.split(serverurl)
+		FullString = dirname + "/" + CheckFile
+		req = urllib2.build_opener()
+		req.addheaders = [('User-Agent', 'Twisted Client')]
+		dlderror=0
+		if ServerStatusList.has_key(dirname):
+			# If server is know return its status immediately
+			return ServerStatusList[dirname]
+		else:
+			# Server not in the list so checking it
+			try:
+				response = req.open(FullString)
+			except urllib2.HTTPError, e:
+				print ('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
+				dlderror=1
+			except urllib2.URLError, e:
+				print ('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
+				dlderror=1
+			except httplib.HTTPException, e:
+				print ('[EPGImport] HTTPException in checkValidServer')
+				dlderror=1
+			except Exception:
+				print ('[EPGImport] Generic exception in checkValidServer')
+				dlderror=1
+
+			if not dlderror:
+				LastTime = response.read().strip('\n')
+				try:
+					FileDate = datetime.strptime(LastTime, date_format)
+				except ValueError:
+					print>>log, "[EPGImport] checkValidServer wrong date format in file rejecting server %s" % dirname
+					ServerStatusList[dirname]=0
+					return ServerStatusList[dirname]
+				delta = (now - FileDate).days
+				if delta <= alloweddelta:
+					# OK the delta is in the foreseen windows
+					ServerStatusList[dirname]=1
+				else:
+					# Sorry the delta is higher removing this site
+					print>>log, "[EPGImport] checkValidServer rejected server delta days too high: %s" % dirname
+					ServerStatusList[dirname]=0
+
+			else:
+				# We need to exclude this server
+				print>>log, "[EPGImport] checkValidServer rejected server download error for: %s" % dirname
+				ServerStatusList[dirname]=0
+		return ServerStatusList[dirname]
 
 	def beginImport(self, longDescUntil = None):
 		'Starts importing using Enigma reactor. Set self.sources before calling this.'
@@ -357,5 +416,8 @@ class EPGImport:
 			filename += ext
 		sourcefile = sourcefile.encode('utf-8')
 		print>>log, "[EPGImport] Downloading: " + sourcefile + " to local path: " + filename
-		downloadPage(sourcefile, filename).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
-		return filename
+		if self.checkValidServer(sourcefile) == 1:
+			downloadPage(sourcefile, filename).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
+			return filename
+		else:
+			self.downloadFail("checkValidServer reject the server")
