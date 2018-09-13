@@ -103,6 +103,13 @@ class EPGChannel:
 class EPGSource:
 	def __init__(self, path, elem, category=None):
 		self.parser = elem.get('type')
+		nocheck = elem.get('nocheck')
+		if nocheck == None:
+			self.nocheck = 0
+		elif nocheck == "1":
+			self.nocheck = 1
+		else:
+			self.nocheck = 0
 		self.urls = [e.text.strip() for e in elem.findall('url')]
 		self.url = random.choice(self.urls)
 		self.description = elem.findtext('description')
@@ -171,7 +178,7 @@ if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		path = sys.argv[1]
 	for p in enumSources(path):
-		t = (p.description, p.urls, p.parser, p.format, p.channels)
+		t = (p.description, p.urls, p.parser, p.format, p.channels, p.nocheck)
 		l.append(t)
 		print t
 		x.append(p.description)
@@ -179,7 +186,7 @@ if __name__ == '__main__':
 	assert loadUserSettings('settings.pkl') == {"sources": [1,"twee"]}
 	os.remove('settings.pkl')
 	for p in enumSources(path, x):
-		t = (p.description, p.urls, p.parser, p.format, p.channels)
+		t = (p.description, p.urls, p.parser, p.format, p.channels, p.nocheck)
 		assert t in l
 		l.remove(t)
 	assert not l
