@@ -60,7 +60,8 @@ class EPGChannel:
 		return fd
 	def parse(self, filterCallback, downloadedFile):
 		print>>log,"[EPGImport] Parsing channels from '%s'" % self.name
-		self.items = {}
+		if self.items is None:
+			self.items = {}
 		try:
 			context = iterparse(self.openStream(downloadedFile))
 			for event, elem in context:
@@ -80,6 +81,12 @@ class EPGChannel:
 			print>>log, "[EPGImport] failed to parse", downloadedFile, "Error:", e
 			pass
 	def update(self, filterCallback, downloadedFile=None):
+		customFile='/etc/epgimport/custom.channels.xml'
+		# Always read custom file since we don't know when it was last updated
+		# and we don't have multiple download from server problem since it is always a local file.
+		if os.path.exists(customFile):
+			print>>log,"[EPGImport] Parsing channels from '%s'" % customFile
+			self.parse(filterCallback, customFile)
 		if downloadedFile is not None:
 			self.mtime = time.time()
 			return self.parse(filterCallback, downloadedFile)
