@@ -445,6 +445,7 @@ class EPGImportConfig(ConfigListScreen,Screen):
 		else:
 			cfg = one_source
 		sources = [ s for s in EPGConfig.enumSources(CONFIG_PATH, filter = cfg["sources"]) ]
+		EPGImport.ServerStatusList = {}
 		if not sources:
 			self.session.open(MessageBox, _("No active EPG sources found, nothing to do"), MessageBox.TYPE_INFO, timeout = 10, close_on_any_key = True)
 			return

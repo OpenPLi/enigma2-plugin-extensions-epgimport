@@ -105,6 +105,7 @@ class EPGImport:
 		self.channelFilter = channelFilter
 
 	def checkValidServer(self, serverurl):
+		print>>log, "[EPGImport] checkValidServer serverurl %s" % serverurl
 		dirname, filename = os.path.split(serverurl)
 		FullString = dirname + "/" + CheckFile
 		req = urllib2.build_opener()
@@ -116,7 +117,7 @@ class EPGImport:
 		else:
 			# Server not in the list so checking it
 			try:
-				response = req.open(FullString)
+				response = req.open(FullString, timeout=5)
 			except urllib2.HTTPError, e:
 				print ('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
 				dlderror=1
@@ -137,6 +138,7 @@ class EPGImport:
 				except ValueError:
 					print>>log, "[EPGImport] checkValidServer wrong date format in file rejecting server %s" % dirname
 					ServerStatusList[dirname]=0
+					response.close()
 					return ServerStatusList[dirname]
 				delta = (now - FileDate).days
 				if delta <= alloweddelta:
@@ -146,6 +148,7 @@ class EPGImport:
 					# Sorry the delta is higher removing this site
 					print>>log, "[EPGImport] checkValidServer rejected server delta days too high: %s" % dirname
 					ServerStatusList[dirname]=0
+				response.close()
 
 			else:
 				# We need to exclude this server
