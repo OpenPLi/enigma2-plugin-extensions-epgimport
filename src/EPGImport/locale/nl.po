@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EPGImport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-03 15:33+0200\n"
+"POT-Creation-Date: 2019-01-01 00:42+0100\n"
 "PO-Revision-Date: 2018-01-08 21:58+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,6 +20,7 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: ../plugin.py:703
 msgid ""
 "\n"
 "Import of epg data will start.\n"
@@ -31,73 +32,96 @@ msgstr ""
 "Dit kan een paar minuten duren\n"
 "Wilt u doorgaan?"
 
+#: ../plugin.py:703
 msgid " events\n"
 msgstr " programma's\n"
 
+#: ../filtersServices.py:139
 msgid "Add Channel"
 msgstr "Zender toevoegen"
 
+#: ../filtersServices.py:138
 msgid "Add Provider"
 msgstr "Provider toevoegen"
 
+#: ../filtersServices.py:247
 msgid "All services provider"
 msgstr "Alle zender providers"
 
+#: ../plugin.py:1044
 msgid "Automated EPG Importer"
 msgstr "Automatisch EPG importeren"
 
+#: ../plugin.py:336
 msgid "Automatic import EPG"
 msgstr "Automatisch EPG importeren"
 
+#: ../plugin.py:337
 msgid "Automatic start time"
 msgstr "Automatische start tijd"
 
+#: ../plugin.py:278 ../plugin.py:524 ../plugin.py:603
 msgid "Cancel"
 msgstr "Annuleer"
 
+#: ../filtersServices.py:239
 msgid "Channel Selection"
 msgstr "Zender keuze"
 
+#: ../plugin.py:341
 msgid "Choice days for start import"
 msgstr "Selecteer dagen voor importeren"
 
+#: ../plugin.py:657
 msgid "Clear"
 msgstr "Wis"
 
+#: ../plugin.py:350
 msgid "Clearing current EPG before import"
 msgstr "Wis huidige EPG voor importeren"
 
+#: ../plugin.py:344
 msgid "Consider setting \"Days Profile\""
 msgstr "Overweeg een \"dagen profiel\" te gebruiken"
 
+#: ../plugin.py:616
 msgid "Days Profile"
 msgstr "Dagenprofiel"
 
+#: ../filtersServices.py:216
 msgid "Delete all"
 msgstr "Verwijder alles"
 
+#: ../filtersServices.py:215
 msgid "Delete selected"
 msgstr "Geselecteerde verwijderen"
 
+#: ../plugin.py:274
 msgid "EPG Import Configuration"
 msgstr "EPG-Import configuratie"
 
+#: ../plugin.py:681
 msgid "EPG Import Log"
 msgstr "EPG-Import log"
 
+#: ../plugin.py:559
 msgid "EPG Import Sources"
 msgstr "EPG-Import bronnen"
 
+#: ../plugin.py:749
 #, python-format
 msgid "EPG Import finished, %d events"
 msgstr "EPG importeren gereed, %d programma's"
 
+#: ../plugin.py:721
 msgid "EPG Importer"
 msgstr "EPG-importer"
 
+#: ../plugin.py:1046 ../plugin.py:1061
 msgid "EPGImport"
 msgstr "EPG-Import"
 
+#: ../plugin.py:451
 msgid ""
 "EPGImport\n"
 "Import of epg data is still in progress. Please wait."
@@ -105,6 +129,7 @@ msgstr ""
 "EPG-Import\n"
 "Importeren van epg-data is nog bezig. Even geduld."
 
+#: ../plugin.py:467
 msgid ""
 "EPGImport\n"
 "Import of epg data will start.\n"
@@ -116,6 +141,7 @@ msgstr ""
 "Dit kan een enkele minuten duren.\n"
 "Doorgaan?"
 
+#: ../plugin.py:476
 msgid ""
 "EPGImport Plugin\n"
 "Failed to start:\n"
@@ -123,18 +149,30 @@ msgstr ""
 "EPG-Import Plugin\n"
 "Starten mislukt:\n"
 
+#: ../plugin.py:299
+#, python-format
+msgid ""
+"Filtering: %s\n"
+"Please wait!"
+msgstr ""
+
+#: ../plugin.py:84
 msgid "Friday"
 msgstr "Vrijdag"
 
+#: ../plugin.py:489
 msgid "Ignore services list"
 msgstr "Negeer zenderlijst"
 
+#: ../filtersServices.py:153
 msgid "Ignore services list(press OK to save)"
 msgstr "Negeer zenderlijst ( druk OK voor opslaan)"
 
+#: ../plugin.py:547
 msgid "Import current source"
 msgstr "Importeer bron"
 
+#: ../plugin.py:300
 #, python-format
 msgid ""
 "Importing: %s\n"
@@ -143,92 +181,121 @@ msgstr ""
 "Importeert: %s\n"
 "%s programma's"
 
+#: ../plugin.py:703
 msgid "Last import: "
 msgstr "Laatste import: "
 
+#: ../plugin.py:446
 #, python-format
 msgid "Last import: %s events"
 msgstr "Laatste import: %s programma's"
 
+#: ../plugin.py:441
 #, python-format
 msgid "Last: %s %s, %d events"
 msgstr "Laatste: %s %s, %d programma's"
 
+#: ../plugin.py:343
 msgid "Load EPG only services in bouquets"
 msgstr "Laad enkel EPG van zenders in bouquetten"
 
+#: ../plugin.py:348
 msgid "Load long descriptions up to X days"
 msgstr "Laad uitgebreide beschrijvingen tot-en-met X dagen"
 
+#: ../plugin.py:280
 msgid "Manual"
 msgstr "Handmatig"
 
+#: ../plugin.py:80
 msgid "Monday"
 msgstr "Maandag"
 
+#: ../plugin.py:462
 msgid "No active EPG sources found, nothing to do"
 msgstr "Geen actieve EPG bronnen gevonden, kan niets doen"
 
+#: ../plugin.py:72
 msgid "Press OK"
 msgstr "Druk op OK"
 
+#: ../filtersServices.py:182
 msgid "Really delete all list?"
 msgstr "Werkelijk alle lijsten wissen?"
 
+#: ../plugin.py:339
 msgid "Return to deep standby after import"
 msgstr "Weer uitschakelen na de importeren"
 
+#: ../plugin.py:349
 msgid "Run AutoTimer after import"
 msgstr "Activeer AutoTimer na importeren"
 
+#: ../plugin.py:85
 msgid "Saturday"
 msgstr "Zaterdag"
 
+#: ../plugin.py:279 ../plugin.py:525 ../plugin.py:604 ../plugin.py:660
 msgid "Save"
 msgstr "Opslaan"
 
+#: ../filtersServices.py:265 ../plugin.py:490
 msgid "Select action"
 msgstr "Selecteer actie"
 
+#: ../plugin.py:347
 msgid "Show \"EPG Importer\" in main menu"
 msgstr "Toon \"EPG importer\" in hoofdmenu"
 
+#: ../plugin.py:346
 msgid "Show \"EPGImport\" in extensions"
 msgstr "Toon \"EPG importer\" in extensions"
 
+#: ../plugin.py:489
 msgid "Show log"
 msgstr "Toon log"
 
+#: ../plugin.py:345
 msgid "Skip import on restart GUI"
 msgstr "Importeren overslaan na herstart GUI"
 
+#: ../plugin.py:281
 msgid "Sources"
 msgstr "Bronnen"
 
+#: ../plugin.py:340
 msgid "Standby at startup"
 msgstr "Stand-by na opstarten"
 
+#: ../plugin.py:342
 msgid "Start import after booting up"
 msgstr "Start importeren na opstarten"
 
+#: ../plugin.py:86
 msgid "Sunday"
 msgstr "Zondag"
 
+#: ../plugin.py:83
 msgid "Thursday"
 msgstr "Donderdag"
 
+#: ../plugin.py:81
 msgid "Tuesday"
 msgstr "Dinsdag"
 
+#: ../plugin.py:82
 msgid "Wednesday"
 msgstr "Woensdag"
 
+#: ../plugin.py:338
 msgid "When in deep standby"
 msgstr "Wanneer ontvanger is uitgeschakeld"
 
+#: ../plugin.py:687
 msgid "Write to /tmp/epgimport.log"
 msgstr "Schrijf naar /tmp/EPGimport.log"
 
+#: ../plugin.py:626
 msgid ""
 "You may not use this settings!\n"
 "At least one day a week should be included!"
@@ -236,6 +303,7 @@ msgstr ""
 "U kunt deze instellingen niet gebruiken!\n"
 "Er moet tenminste één dag per week worden ingesteld!"
 
+#: ../plugin.py:749
 msgid ""
 "You must restart Enigma2 to load the EPG data,\n"
 "is this OK?"
@@ -243,20 +311,26 @@ msgstr ""
 "U moet nu Enigma2 herstarten om de EPG-data te laden,\n"
 "Wilt u doorgaan?"
 
+#: ../plugin.py:51
 msgid "always"
 msgstr "atijd"
 
+#: ../plugin.py:54
 msgid "never"
 msgstr "nooit"
 
+#: ../plugin.py:53
 msgid "only automatic boot"
 msgstr "enkel na automatische herstart"
 
+#: ../plugin.py:52
 msgid "only manual boot"
 msgstr "enkel na handmatige herstart"
 
+#: ../plugin.py:62
 msgid "skip the import"
 msgstr "importeren overslaan"
 
+#: ../plugin.py:61
 msgid "wake up and import"
 msgstr "ontwaak en importeer"
