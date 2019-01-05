@@ -101,6 +101,8 @@ autoStartTimer = None
 _session = None
 BouquetChannelListList = None
 serviceIgnoreList = None
+filterCounter = 0
+isFilterRunning = 0
 
 def getAlternatives(service):
 	if not service:
@@ -110,6 +112,8 @@ def getAlternatives(service):
 
 def getBouquetChannelList():
 	channels = [ ]
+	global isFilterRunning, filterCounter
+	isFilterRunning = 1
 	serviceHandler = enigma.eServiceCenter.getInstance()
 	mask = (enigma.eServiceReference.isMarker | enigma.eServiceReference.isDirectory)
 	altrernative = enigma.eServiceReference.isGroup
@@ -129,6 +133,7 @@ def getBouquetChannelList():
 						if clist:
 							while True:
 								service = clist.getNext()
+								filterCounter += 1
 								if not service.valid(): break
 								if not (service.flags & mask):
 									if service.flags & altrernative:
@@ -149,6 +154,7 @@ def getBouquetChannelList():
 		if not services is None:
 			while True:
 				service = services.getNext()
+				filterCounter += 1
 				if not service.valid(): break
 				if not (service.flags & mask):
 					if service.flags & altrernative:
@@ -162,6 +168,7 @@ def getBouquetChannelList():
 						refstr = ':'.join(service.toString().split(':')[:11])
 						if refstr not in channels:
 							channels.append(refstr)
+	isFilterRunning = 0
 	return channels
 
 # Filter servicerefs that this box can display by starting a fake recording.
@@ -289,6 +296,7 @@ class EPGImportConfig(ConfigListScreen,Screen):
 		self.prev_onlybouquet = config.plugins.epgimport.import_onlybouquet.value
 		self.initConfig()
 		self.createSetup()
+		self.filterStatusTemplate = _("Filtering: %s\nPlease wait!")
 		self.importStatusTemplate = _("Importing: %s\n%s events")
 		self.updateTimer = enigma.eTimer()
 		self.updateTimer.callback.append(self.updateStatus)
@@ -415,9 +423,13 @@ class EPGImportConfig(ConfigListScreen,Screen):
 
 	def updateStatus(self):
 		text = ""
-		if epgimport.isImportRunning():
-			src = epgimport.source
-			text = self.importStatusTemplate % (src.description, epgimport.eventCount)
+		global isFilterRunning, filterCounter
+		if isFilterRunning == 1:
+			text = self.filterStatusTemplate % (str(filterCounter))
+		elif epgimport.isImportRunning():
+				src = epgimport.source
+				text = self.importStatusTemplate % (src.description, epgimport.eventCount)
+
 		self["status"].setText(text)
 		if lastImportResult and (lastImportResult != self.lastImportResult):
 			start, count = lastImportResult
