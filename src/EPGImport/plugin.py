@@ -140,11 +140,11 @@ def getBouquetChannelList():
 										altrernative_list = getAlternatives(service)
 										if altrernative_list:
 											for channel in altrernative_list:
-												refstr = ':'.join(channel.split(':')[:11])
+												refstr = service.toString().upper().split(':')[3:7]
 												if refstr not in channels:
 													channels.append(refstr)
 									else:
-										refstr = ':'.join(service.toString().split(':')[:11])
+										refstr = service.toString().upper().split(':')[3:7]
 										if refstr not in channels:
 											channels.append(refstr)
 	else:
@@ -161,11 +161,11 @@ def getBouquetChannelList():
 						altrernative_list = getAlternatives(service)
 						if altrernative_list:
 							for channel in altrernative_list:
-								refstr = ':'.join(channel.split(':')[:11])
+								refstr = channel.upper().split(':')[3:7]
 								if refstr not in channels:
 									channels.append(refstr)
 					else:
-						refstr = ':'.join(service.toString().split(':')[:11])
+						refstr = service.toString().upper().split(':')[3:7]
 						if refstr not in channels:
 							channels.append(refstr)
 	isFilterRunning = 0
@@ -176,7 +176,7 @@ def channelFilter(ref):
 	if not ref:
 		return False
 	sref = enigma.eServiceReference(ref)
-	refstr = ':'.join(sref.toString().split(':')[:11])
+	refstr = sref.toString().upper().split(':')[3:7]
 	if config.plugins.epgimport.import_onlybouquet.value:
 		global BouquetChannelListList
 		if BouquetChannelListList is None:
@@ -186,7 +186,7 @@ def channelFilter(ref):
 			return False
 	global serviceIgnoreList
 	if serviceIgnoreList is None:
-		serviceIgnoreList = filtersServices.filtersServicesList.servicesList()
+		serviceIgnoreList = [x.upper().split(':')[3:7] for x in filtersServices.filtersServicesList.servicesList()]
 	if refstr in serviceIgnoreList:
 		print>>log, "Serviceref is in ignore list:", refstr
 		return False
