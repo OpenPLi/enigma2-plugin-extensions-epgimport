@@ -726,9 +726,9 @@ def start_import(session, **kwargs):
 def main(session, **kwargs):
 	session.openWithCallback(doneConfiguring, EPGImportConfig)
 
-def main_menu(menuid, **kwargs):
+def run_from_main_menu(menuid, **kwargs):
 	if menuid == "mainmenu" and config.plugins.epgimport.showinmainmenu.getValue():
-		return [(_("EPG Importer"), start_import, "epgimporter", 45)]
+		return [(_("EPG import now"), start_import, "epgimporter", 45)]
 	else:
 		return []
 
@@ -1083,7 +1083,7 @@ def Plugins(**kwargs):
 			name= _("EPGImport"),
 			description = description,
 			where = PluginDescriptor.WHERE_MENU,
-			fnc = main_menu
+			fnc = run_from_main_menu
 		),
 		PluginDescriptor(
 			name= "EPG importer",
