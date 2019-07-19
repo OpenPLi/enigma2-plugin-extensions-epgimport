@@ -56,6 +56,7 @@ config.plugins.epgimport.runboot = ConfigSelection(default = "4", choices = [
 config.plugins.epgimport.runboot_restart = ConfigYesNo(default = False)
 config.plugins.epgimport.runboot_day = ConfigYesNo(default = False)
 config.plugins.epgimport.wakeup = ConfigClock(default = calcDefaultStarttime())
+config.plugins.epgimport.showinplugins = ConfigYesNo(default = True)
 config.plugins.epgimport.showinextensions = ConfigYesNo(default = True)
 config.plugins.epgimport.deepstandby = ConfigSelection(default = "skip", choices = [
 		("wakeup", _("wake up and import")),
@@ -351,6 +352,7 @@ class EPGImportConfig(ConfigListScreen,Screen):
 		self.cfg_runboot_day = getConfigListEntry(_("Consider setting \"Days Profile\""), self.EPG.runboot_day)
 		self.cfg_runboot_restart = getConfigListEntry(_("Skip import on restart GUI"), self.EPG.runboot_restart)
 		self.cfg_showinextensions = getConfigListEntry(_("Show \"EPGImport\" in extensions"), self.EPG.showinextensions)
+		self.cfg_showinplugins = getConfigListEntry(_("Show \"EPGImport\" in plugins"), self.EPG.showinplugins)
 		self.cfg_showinmainmenu = getConfigListEntry(_("Show \"EPG Importer\" in main menu"), self.EPG.showinmainmenu)
 		self.cfg_longDescDays = getConfigListEntry(_("Load long descriptions up to X days"), self.EPG.longDescDays)
 		self.cfg_parse_autotimer = getConfigListEntry(_("Run AutoTimer after import"), self.EPG.parse_autotimer)
@@ -372,6 +374,7 @@ class EPGImportConfig(ConfigListScreen,Screen):
 			if self.EPG.runboot.value == "1" or self.EPG.runboot.value == "2":
 				list.append(self.cfg_runboot_restart)
 		list.append(self.cfg_showinextensions)
+		list.append(self.cfg_showinplugins)
 		list.append(self.cfg_showinmainmenu)
 		list.append(self.cfg_import_onlybouquet)
 		if hasattr(enigma.eEPGCache, 'flushEPG'):
@@ -1039,18 +1042,30 @@ def getNextWakeup():
 def extensionsmenu(session, **kwargs):
 	main(session, **kwargs)
 
-def setExtensionsmenu(el):
-	try:
-		if el.value:
-			Components.PluginComponent.plugins.addPlugin(extDescriptor)
-		else:
-			Components.PluginComponent.plugins.removePlugin(extDescriptor)
-	except Exception, e:
-		print "[EPGImport] Failed to update extensions menu:", e
+def pluginLocationUpdater(configElement):
+	PlugDescriptor = None
+	if configElement == config.plugins.epgimport.showinextensions:
+		PlugDescriptor = extDescriptor
+	elif configElement == config.plugins.epgimport.showinplugins:
+		PlugDescriptor = pluginlist
+	if PlugDescriptor is not None:
+		if configElement.value: # enable
+			if PlugDescriptor not in Components.PluginComponent.plugins.getPlugins(PlugDescriptor.where):
+				Components.PluginComponent.plugins.addPlugin(PlugDescriptor)
+		else: # disable
+			if PlugDescriptor in Components.PluginComponent.plugins.getPlugins(PlugDescriptor.where):
+				Components.PluginComponent.plugins.removePlugin(PlugDescriptor)
 
 description = _("Automated EPG Importer")
-config.plugins.epgimport.showinextensions.addNotifier(setExtensionsmenu, initial_call = False, immediate_feedback = False)
-extDescriptor = PluginDescriptor(name= _("EPGImport"), description = description, where = PluginDescriptor.WHERE_EXTENSIONSMENU, fnc = extensionsmenu)
+config.plugins.epgimport.showinextensions.addNotifier(pluginLocationUpdater, initial_call = False, immediate_feedback = False)
+config.plugins.epgimport.showinplugins.addNotifier(pluginLocationUpdater, initial_call = False, immediate_feedback = False)
+extDescriptor = PluginDescriptor(name= _("EPGImport"), description = description, where = PluginDescriptor.WHERE_EXTENSIONSMENU, fnc = extensionsmenu, needsRestart=False)
+pluginlist = PluginDescriptor(name=_("EPGImport"), description = description, where = PluginDescriptor.WHERE_PLUGINMENU, icon = 'plugin.png', fnc = main, needsRestart=False)
+
+def epg_menu(menuid, **kwargs):
+	if menuid in ("epg", "epg_menu"):
+		return [(_("EPGImport"), main, "epgimporter", None)]
+	return []
 
 def Plugins(**kwargs):
 	result = [
@@ -1065,19 +1080,20 @@ def Plugins(**kwargs):
 			wakeupfnc = getNextWakeup
 		),
 		PluginDescriptor(
-			name= _("EPGImport"),
-			description = description,
-			where = PluginDescriptor.WHERE_PLUGINMENU,
-			icon = 'plugin.png',
-			fnc = main
-		),
-		PluginDescriptor(
 			name= "EPG importer",
 			description = description,
 			where = PluginDescriptor.WHERE_MENU,
 			fnc = main_menu
 		),
+		PluginDescriptor(
+			name= "EPG importer",
+			description = description,
+			where = PluginDescriptor.WHERE_MENU,
+			fnc = epg_menu
+		),
 	]
 	if config.plugins.epgimport.showinextensions.value:
 		result.append(extDescriptor)
+	if config.plugins.epgimport.showinplugins.value:
+		result.append(pluginlist)
 	return result
