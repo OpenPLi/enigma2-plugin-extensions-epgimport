@@ -1062,7 +1062,7 @@ config.plugins.epgimport.showinplugins.addNotifier(pluginLocationUpdater, initia
 extDescriptor = PluginDescriptor(name= _("EPGImport"), description = description, where = PluginDescriptor.WHERE_EXTENSIONSMENU, fnc = extensionsmenu, needsRestart=False)
 pluginlist = PluginDescriptor(name=_("EPGImport"), description = description, where = PluginDescriptor.WHERE_PLUGINMENU, icon = 'plugin.png', fnc = main, needsRestart=False)
 
-def epg_menu(menuid, **kwargs):
+def hardcoded_location(menuid, **kwargs):
 	if menuid in ("epg", "epg_menu"):
 		return [(_("EPGImport"), main, "epgimporter", None)]
 	return []
@@ -1089,7 +1089,7 @@ def Plugins(**kwargs):
 			name= "EPG importer",
 			description = description,
 			where = PluginDescriptor.WHERE_MENU,
-			fnc = epg_menu
+			fnc = hardcoded_location
 		),
 	]
 	if config.plugins.epgimport.showinextensions.value:
