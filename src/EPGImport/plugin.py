@@ -728,7 +728,7 @@ def main(session, **kwargs):
 
 def run_from_main_menu(menuid, **kwargs):
 	if menuid == "mainmenu" and config.plugins.epgimport.showinmainmenu.getValue():
-		return [(_("EPGimporter now"), start_import, "epgimporter", 45)]
+		return [(_("EPG Importer now"), start_import, "epgimporter", 45)]
 	else:
 		return []
 
