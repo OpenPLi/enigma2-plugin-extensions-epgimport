@@ -1080,7 +1080,7 @@ def Plugins(**kwargs):
 			wakeupfnc = getNextWakeup
 		),
 		PluginDescriptor(
-			name= "EPG importer",
+			name= _("EPGImport"),
 			description = description,
 			where = PluginDescriptor.WHERE_MENU,
 			fnc = main_menu
