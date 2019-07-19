@@ -1063,7 +1063,7 @@ extDescriptor = PluginDescriptor(name= _("EPGImport"), description = description
 pluginlist = PluginDescriptor(name=_("EPGImport"), description = description, where = PluginDescriptor.WHERE_PLUGINMENU, icon = 'plugin.png', fnc = main, needsRestart=False)
 
 def hardcoded_location(menuid, **kwargs):
-	if menuid in ("epg", "epg_menu"):
+	if menuid == "epg":	
 		return [(_("EPGImport"), main, "epgimporter", None)]
 	return []
 
