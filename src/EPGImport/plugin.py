@@ -1054,29 +1054,9 @@ extDescriptor = PluginDescriptor(name= _("EPGImport"), description = description
 
 def Plugins(**kwargs):
 	result = [
-		PluginDescriptor(
-			name="EPGImport",
-			description = description,
-			where = [
-				PluginDescriptor.WHERE_AUTOSTART,
-				PluginDescriptor.WHERE_SESSIONSTART
-			],
-			fnc = autostart,
-			wakeupfnc = getNextWakeup
-		),
-		PluginDescriptor(
-			name= _("EPGImport"),
-			description = description,
-			where = PluginDescriptor.WHERE_PLUGINMENU,
-			icon = 'plugin.png',
-			fnc = main
-		),
-		PluginDescriptor(
-			name= "EPG importer",
-			description = description,
-			where = PluginDescriptor.WHERE_MENU,
-			fnc = run_from_main_menu
-		),
+		PluginDescriptor(name="EPGImport", description=description, where=[PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART], fnc=autostart, wakeupfnc=getNextWakeup),
+		PluginDescriptor(name=_("EPGImport"), description=description, where=[PluginDescriptor.WHERE_PLUGINMENU], icon="plugin.png", fnc=main),
+		PluginDescriptor(name= "EPG importer", description=description, where=[PluginDescriptor.WHERE_MENU], fnc=run_from_main_menu)
 	]
 	if config.plugins.epgimport.showinextensions.value:
 		result.append(extDescriptor)
