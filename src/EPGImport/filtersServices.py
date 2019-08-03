@@ -105,10 +105,10 @@ filtersServicesList = FiltersList()
 class filtersServicesSetup(Screen):
 	skin = """
 	<screen name="filtersServicesSetup" position="center,center" size="680,440" title="Ignore services list">
-		<ePixmap position="0,390" size="140,40" pixmap="skin_default/buttons/red.png" alphatest="on" />
-		<ePixmap position="170,390"  size="140,40" pixmap="skin_default/buttons/green.png"  alphatest="on" />
-		<ePixmap position="340,390" size="140,40" pixmap="skin_default/buttons/yellow.png" alphatest="on" />
-		<ePixmap position="510,390" size="140,40" pixmap="skin_default/buttons/blue.png" alphatest="on" />
+		<ePixmap position="0,390" size="140,40" pixmap="buttons/red.png" alphatest="on" />
+		<ePixmap position="170,390"  size="140,40" pixmap="buttons/green.png"  alphatest="on" />
+		<ePixmap position="340,390" size="140,40" pixmap="buttons/yellow.png" alphatest="on" />
+		<ePixmap position="510,390" size="140,40" pixmap="buttons/blue.png" alphatest="on" />
 		<widget name="key_red" position="0,390" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
 		<widget name="key_green" position="170,390" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" />
 		<widget name="key_yellow" position="340,390" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#a08500" transparent="1" />
@@ -221,10 +221,10 @@ class filtersServicesSetup(Screen):
 class filtersServicesSelection(ChannelSelectionBase):
 	skin = """
 	<screen position="center,center" size="560,430" title="Channel Selection">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on" />
-		<ePixmap pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on" />
-		<ePixmap pixmap="skin_default/buttons/yellow.png" position="280,0" size="140,40" alphatest="on" />
-		<ePixmap pixmap="skin_default/buttons/blue.png" position="420,0" size="140,40" alphatest="on" />
+		<ePixmap pixmap="buttons/red.png" position="0,0" size="140,40" alphatest="on" />
+		<ePixmap pixmap="buttons/green.png" position="140,0" size="140,40" alphatest="on" />
+		<ePixmap pixmap="buttons/yellow.png" position="280,0" size="140,40" alphatest="on" />
+		<ePixmap pixmap="buttons/blue.png" position="420,0" size="140,40" alphatest="on" />
 		<widget name="key_red" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
 		<widget name="key_green" position="140,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" />
 		<widget name="key_yellow" position="280,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" />

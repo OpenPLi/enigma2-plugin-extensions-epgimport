@@ -5,8 +5,8 @@ from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT
 from Tools.LoadPixmap import LoadPixmap
 import skin
 
-expandableIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/expandable.png"))
-expandedIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "skin_default/expanded.png"))
+expandableIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "expandable.png"))
+expandedIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "expanded.png"))
 
 def loadSettings():
 	global cat_desc_loc, entry_desc_loc, cat_icon_loc, entry_icon_loc
