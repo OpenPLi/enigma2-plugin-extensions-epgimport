@@ -26,7 +26,7 @@ def category(description, isExpanded=False):
 	return [
 		(description, isExpanded, []),
 		(eListboxPythonMultiContent.TYPE_TEXT,) + cat_desc_loc + (0, RT_HALIGN_LEFT, description),
-		(eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST,) + cat_icon_loc + (icon,)
+		(eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND,) + cat_icon_loc + (icon,)
 	]
 
 def entry(description, value, selected):
@@ -39,7 +39,7 @@ def entry(description, value, selected):
 		selectionpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "icons/lock_on.png"))
 	else:
 		selectionpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "icons/lock_off.png"))
-	res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST,) + entry_icon_loc + (selectionpng,))
+	res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND,) + entry_icon_loc + (selectionpng,))
 	return res
 
 def expand(cat, value=True):
@@ -52,7 +52,7 @@ def expand(cat, value=True):
 			icon = expandableIcon
 		t = cat[0]
 		cat[0] = (t[0], value, t[2])
-		cat[2] = (eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST,) + cat_icon_loc + (icon,)
+		cat[2] = (eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND,) + cat_icon_loc + (icon,)
 
 def isExpanded(cat):
 	return cat[0][1]
