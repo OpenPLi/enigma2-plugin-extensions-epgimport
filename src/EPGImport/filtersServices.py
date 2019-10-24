@@ -16,9 +16,9 @@ EDIT_BOUQUET = 1
 EDIT_ALTERNATIVES = 2
 
 def getProviderName(ref):
-	typestr = ref.getData(0) in (2,10) and service_types_radio or service_types_tv
+	typestr = ref.getData(0) in (2, 10) and service_types_radio or service_types_tv
 	pos = typestr.rfind(':')
-	rootstr = '%s (channelID == %08x%04x%04x) && %s FROM PROVIDERS ORDER BY name'%(typestr[:pos+1],ref.getUnsignedData(4),ref.getUnsignedData(2),ref.getUnsignedData(3),typestr[pos+1:])
+	rootstr = '%s (channelID == %08x%04x%04x) && %s FROM PROVIDERS ORDER BY name' % (typestr[:pos + 1], ref.getUnsignedData(4), ref.getUnsignedData(2), ref.getUnsignedData(3), typestr[pos + 1:])
 	provider_root = eServiceReference(rootstr)
 	serviceHandler = eServiceCenter.getInstance()
 	providerlist = serviceHandler.list(provider_root)
@@ -106,7 +106,7 @@ class filtersServicesSetup(Screen):
 	skin = """
 	<screen name="filtersServicesSetup" position="center,center" size="680,440" title="Ignore services list">
 		<ePixmap position="0,390" size="140,40" pixmap="buttons/red.png" alphatest="on" />
-		<ePixmap position="170,390"  size="140,40" pixmap="buttons/green.png"  alphatest="on" />
+		<ePixmap position="170,390" size="140,40" pixmap="buttons/green.png" alphatest="on" />
 		<ePixmap position="340,390" size="140,40" pixmap="buttons/yellow.png" alphatest="on" />
 		<ePixmap position="510,390" size="140,40" pixmap="buttons/blue.png" alphatest="on" />
 		<widget name="key_red" position="0,390" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
@@ -134,10 +134,10 @@ class filtersServicesSetup(Screen):
 		self["list"] = List([])
 		self.updateList()
 
-		self["key_red"] = Label(" ")
+		self["key_red"] = Label("")
 		self["key_green"] = Label(_("Add Provider"))
 		self["key_yellow"] = Label(_("Add Channel"))
-		self["key_blue"] = Label(" ")
+		self["key_blue"] = Label("")
 		self.updateButtons()
 
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
@@ -215,8 +215,8 @@ class filtersServicesSetup(Screen):
 			self["key_red"].setText(_("Delete selected"))
 			self["key_blue"].setText(_("Delete all"))
 		else:
-			self["key_red"].setText(" ")
-			self["key_blue"].setText(" ")
+			self["key_red"].setText("")
+			self["key_blue"].setText("")
 
 class filtersServicesSelection(ChannelSelectionBase):
 	skin = """
@@ -232,6 +232,7 @@ class filtersServicesSelection(ChannelSelectionBase):
 		<widget name="list" position="00,45" size="560,364" scrollbarMode="showOnDemand" />
 	</screen>
 	"""
+
 	def __init__(self, session, providers=False):
 		self.providers = providers
 		ChannelSelectionBase.__init__(self, session)
@@ -262,7 +263,7 @@ class filtersServicesSelection(ChannelSelectionBase):
 									self.close(providerlist)
 								else:
 									self.close(None)
-				self.session.openWithCallback(addAction, ChoiceBox, title = _("Select action"), list=menu)
+				self.session.openWithCallback(addAction, ChoiceBox, title=_("Select action"), list=menu)
 			else:
 				self.enterPath(ref)
 		elif (ref.flags & 7) == 7:
