@@ -9,13 +9,20 @@ expandedIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "icons/expanded.pn
 
 def loadSettings():
 	global cat_desc_loc, entry_desc_loc, cat_icon_loc, entry_icon_loc
-	x, y, w, h = skin.parameters.get("SelectionListDescr", (25, 3, 650, 30))
-	ind = x # Indent the entries by the same amount as the icon.
+
+	# expandable list (skin parameters defined by the plugin)
+	x, y, w, h = skin.parameters.get("ExpandableListDescr", (40, 3, 650, 30))
 	cat_desc_loc = (x, y, w, h)
-	entry_desc_loc = (x + ind, y, w - ind, h)
+	x, y, w, h = skin.parameters.get("ExpandableListIcon", (0, 2, 30, 25))
+	cat_icon_loc = (x, y, w, h)
+
+	indent = x + w # indentation for the selection list entries
+
+	# selection list (skin parameters also used in enigma2)
+	x, y, w, h = skin.parameters.get("SelectionListDescr", (25, 3, 650, 30))
+	entry_desc_loc = (x + indent, y, w - indent, h)
 	x, y, w, h = skin.parameters.get("SelectionListLock", (0, 2, 25, 24))
-	cat_icon_loc = (x, 0, w, y + y + h) # The category icon is larger
-	entry_icon_loc = (x + ind, y, w, h)
+	entry_icon_loc = (x + indent, y, w, h)
 
 def category(description, isExpanded=False):
 	global cat_desc_loc, cat_icon_loc
@@ -45,7 +52,6 @@ def entry(description, value, selected):
 def expand(cat, value=True):
 	# cat is a list of data and icons
 	if cat[0][1] != value:
-		ix, iy, iw, ih = skin.parameters.get("SelectionListLock", (0, 2, 25, 24))
 		if value:
 			icon = expandedIcon
 		else:
