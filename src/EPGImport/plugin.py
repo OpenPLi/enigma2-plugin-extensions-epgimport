@@ -277,11 +277,9 @@ class EPGImportConfig(ConfigListScreen, Screen):
 				<widget name="status" position="10,330" size="580,60" font="Regular;20" />
 			</screen>"""
 
-	def __init__(self, session, args=0):
-		self.session = session
-		self.skin = EPGImportConfig.skin
-		self.setup_title = _("EPG Import Configuration")
+	def __init__(self, session):
 		Screen.__init__(self, session)
+		self.setTitle(_("EPG Import Configuration"))
 		self["status"] = Label()
 		self["statusbar"] = Label()
 		self["key_red"] = Button(_("Cancel"))
@@ -290,18 +288,17 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self["key_blue"] = Button(_("Sources"))
 		self["setupActions"] = ActionMap(["SetupActions", "ColorActions", "TimerEditActions", "MovieSelectionActions"],
 		{
-			"red": self.keyRed,
+			"red": self.keyCancel,
 			"green": self.keyGreen,
 			"yellow": self.doimport,
 			"blue": self.dosources,
-			"cancel": self.keyRed,
+			"cancel": self.keyCancel,
 			"ok": self.keyOk,
 			"log": self.keyInfo,
 			"contextMenu": self.openMenu,
 		}, -1)
-		ConfigListScreen.__init__(self, [], session=self.session)
+		ConfigListScreen.__init__(self, [], session)
 		self.lastImportResult = None
-		self.onChangedEntry = []
 		self.prev_onlybouquet = config.plugins.epgimport.import_onlybouquet.value
 		self.initConfig()
 		self.createSetup()
@@ -311,37 +308,10 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.updateTimer.callback.append(self.updateStatus)
 		self.updateTimer.start(2000)
 		self.updateStatus()
-		self.onLayoutFinish.append(self.__layoutFinished)
-
-	# for summary:
-	def changedEntry(self):
-		for x in self.onChangedEntry:
-			x()
-
-	def getCurrentEntry(self):
-		return self["config"].getCurrent()[0]
-
-	def getCurrentValue(self):
-		return str(self["config"].getCurrent()[1].getText())
-
-	def createSummary(self):
-		from Screens.Setup import SetupSummary
-		return SetupSummary
-
-	def __layoutFinished(self):
-		self.setTitle(self.setup_title)
+		self.onLayoutFinish.append(self.createSummary)
 
 	def initConfig(self):
-		def getPrevValues(section):
-			res = { }
-			for (key,val) in section.content.items.items():
-				if isinstance(val, ConfigSubsection):
-					res[key] = getPrevValues(val)
-				else:
-					res[key] = val.value
-			return res
 		self.EPG = config.plugins.epgimport
-		self.prev_values = getPrevValues(self.EPG)
 		self.cfg_enabled = getConfigListEntry(_("Automatic import EPG"), self.EPG.enabled)
 		self.cfg_wakeup = getConfigListEntry(_("Automatic start time"), self.EPG.wakeup)
 		self.cfg_deepstandby = getConfigListEntry(_("When in deep standby"), self.EPG.deepstandby)
@@ -385,25 +355,12 @@ class EPGImportConfig(ConfigListScreen, Screen):
 				list.append(self.cfg_parse_autotimer)
 			except:
 				print>>log, "[EPGImport] AutoTimer Plugin not installed"
-		self["config"].list = list
-		self["config"].l.setList(list)
+		self["config"].setList(list)
 
 	def newConfig(self):
 		cur = self["config"].getCurrent()
 		if cur in (self.cfg_enabled, self.cfg_shutdown, self.cfg_deepstandby, self.cfg_runboot):
 			self.createSetup()
-
-	def keyRed(self):
-		def setPrevValues(section, values):
-			for (key, val) in section.content.items.items():
-				value = values.get(key, None)
-				if value is not None:
-					if isinstance(val, ConfigSubsection):
-						setPrevValues(val, value)
-					else:
-						val.value = value
-		setPrevValues(self.EPG, self.prev_values)
-		self.keyGreen()
 
 	def keyGreen(self):
 		self.updateTimer.stop()
@@ -414,7 +371,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.EPG.save()
 		if self.prev_onlybouquet != config.plugins.epgimport.import_onlybouquet.value or (autoStartTimer is not None and autoStartTimer.prev_multibouquet != config.usage.multibouquet.value):
 			EPGConfig.channelCache = {}
-		self.close(True,self.session)
+		self.close(True)
 
 	def keyLeft(self):
 		ConfigListScreen.keyLeft(self)
@@ -602,9 +559,9 @@ class EPGImportProfile(ConfigListScreen, Screen):
 			<ePixmap name="green" position="140,190" zPosition="2" size="140,40" pixmap="buttons/green.png" transparent="1" alphatest="on" />
 		</screen>"""
 
-	def __init__(self, session, args = 0):
-		self.session = session
+	def __init__(self, session):
 		Screen.__init__(self, session)
+		self.setTitle(_("Days Profile"))
 		self.list = []
 		for i in range(7):
 			self.list.append(getConfigListEntry(weekdays[i], config.plugins.extra_epgimport.day_import[i]))
@@ -613,16 +570,13 @@ class EPGImportProfile(ConfigListScreen, Screen):
 		self["key_green"] = Button(_("Save"))
 		self["setupActions"] = ActionMap(["SetupActions", "ColorActions"],
 		{
-			"red": self.cancel,
+			"red": self.keyCancel,
 			"green": self.save,
 			"save": self.save,
-			"cancel": self.cancel,
+			"cancel": self.keyCancel,
 			"ok": self.save,
 		}, -2)
-		self.onLayoutFinish.append(self.setCustomTitle)
-
-	def setCustomTitle(self):
-		self.setTitle(_("Days Profile"))
+		self.onLayoutFinish.append(self.createSummary)
 
 	def save(self):
 		if not config.plugins.extra_epgimport.day_import[0].value:
@@ -634,14 +588,7 @@ class EPGImportProfile(ConfigListScreen, Screen):
 								if not config.plugins.extra_epgimport.day_import[6].value:
 									self.session.open(MessageBox, _("You may not use this settings!\nAt least one day a week should be included!"), MessageBox.TYPE_INFO, timeout=6)
 									return
-		for x in self["config"].list:
-			x[1].save()
-		self.close()
-
-	def cancel(self):
-		for x in self["config"].list:
-			x[1].cancel()
-		self.close()
+		ConfigListScreen.keySave(self)
 
 class EPGImportLog(Screen):
 	skin = """
@@ -732,10 +679,10 @@ def run_from_main_menu(menuid, **kwargs):
 	else:
 		return []
 
-def doneConfiguring(session, retval):
-	"user has closed configuration, check new values...."
-	if autoStartTimer is not None:
-		autoStartTimer.update()
+def doneConfiguring(retval=False):
+	if retval is True:
+		if autoStartTimer is not None:
+			autoStartTimer.update()
 
 def doneImport(reboot=False, epgfile=None):
 	global _session, lastImportResult, BouquetChannelListList, serviceIgnoreList
