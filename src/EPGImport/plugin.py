@@ -20,7 +20,7 @@ from Components.ScrollLabel import ScrollLabel
 import Components.PluginComponent
 from Tools import Notifications
 from Tools.FuzzyDate import FuzzyTime
-from Tools.Directories import fileExists
+from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS
 import ExpandableSelectionList
 try:
 	from Tools.StbHardware import getFPWasTimerWakeup
@@ -349,7 +349,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		if hasattr(enigma.eEPGCache, 'flushEPG'):
 			list.append(self.cfg_clear_oldepg)
 		list.append(self.cfg_longDescDays)
-		if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/AutoTimer/plugin.py"):
+		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.py")):
 			try:
 				from Plugins.Extensions.AutoTimer.AutoTimer import AutoTimer
 				list.append(self.cfg_parse_autotimer)
@@ -364,7 +364,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 
 	def keyGreen(self):
 		self.updateTimer.stop()
-		if not fileExists("/usr/lib/enigma2/python/Plugins/Extensions/AutoTimer/plugin.py") and self.EPG.parse_autotimer.value:
+		if not fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.py")) and self.EPG.parse_autotimer.value:
 			self.EPG.parse_autotimer.value = False
 		if self.EPG.shutdown.value:
 			self.EPG.standby_afterwakeup.value = False
@@ -707,7 +707,7 @@ def doneImport(reboot=False, epgfile=None):
 			_session.openWithCallback(restartEnigma, MessageBox, msg, MessageBox.TYPE_YESNO, timeout=15, default=True)
 			print>>log, "[EPGImport] Need restart enigma2"
 	else:
-		if config.plugins.epgimport.parse_autotimer.value and fileExists("/usr/lib/enigma2/python/Plugins/Extensions/AutoTimer/plugin.py"):
+		if config.plugins.epgimport.parse_autotimer.value and fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.py")):
 			try:
 				from Plugins.Extensions.AutoTimer.plugin import autotimer
 				if autotimer is None:
