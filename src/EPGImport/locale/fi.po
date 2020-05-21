@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plugins 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-01 00:42+0100\n"
+"POT-Creation-Date: 2020-05-21 08:48+0200\n"
 "PO-Revision-Date: 2016-05-17 12:41+0200\n"
 "Last-Translator: Samzam <http://www.world-of-satellite.com>\n"
 "Language-Team: none\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.7\n"
 
-#: ../plugin.py:703
+#: ../plugin.py:660
 msgid ""
 "\n"
 "Import of epg data will start.\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Tämä voi kestää muutaman minuutin.\n"
 "Onko tämä OK?"
 
-#: ../plugin.py:703
+#: ../plugin.py:660
 msgid " events\n"
 msgstr " tapahtumia\n"
 
@@ -42,47 +42,47 @@ msgstr ""
 msgid "Add Provider"
 msgstr ""
 
-#: ../filtersServices.py:247
+#: ../filtersServices.py:248
 msgid "All services provider"
 msgstr ""
 
-#: ../plugin.py:1044
+#: ../plugin.py:1001
 msgid "Automated EPG Importer"
 msgstr "Automaattinen EPG:n lataus"
 
-#: ../plugin.py:336
+#: ../plugin.py:315
 msgid "Automatic import EPG"
 msgstr "Automaattinen EPG lataus"
 
-#: ../plugin.py:337
+#: ../plugin.py:316
 msgid "Automatic start time"
 msgstr "Aloitusaika"
 
-#: ../plugin.py:278 ../plugin.py:524 ../plugin.py:603
+#: ../plugin.py:285 ../plugin.py:490 ../plugin.py:569
 msgid "Cancel"
 msgstr "Poistu"
 
-#: ../filtersServices.py:239
+#: ../filtersServices.py:240
 msgid "Channel Selection"
 msgstr ""
 
-#: ../plugin.py:341
+#: ../plugin.py:320
 msgid "Choice days for start import"
 msgstr "Valitse latauspäivät"
 
-#: ../plugin.py:657
+#: ../plugin.py:614
 msgid "Clear"
 msgstr "Tyhjennä"
 
-#: ../plugin.py:350
+#: ../plugin.py:329
 msgid "Clearing current EPG before import"
 msgstr "Tyhjennä nykyinen EPG ennen latausta"
 
-#: ../plugin.py:344
+#: ../plugin.py:323
 msgid "Consider setting \"Days Profile\""
 msgstr "Harkitse asetusta \"Valitse päivät\""
 
-#: ../plugin.py:616
+#: ../plugin.py:564
 msgid "Days Profile"
 msgstr "Valitse päivät"
 
@@ -94,33 +94,34 @@ msgstr ""
 msgid "Delete selected"
 msgstr ""
 
-#: ../plugin.py:274
+#: ../plugin.py:282
 msgid "EPG Import Configuration"
 msgstr "Asetukset"
 
-#: ../plugin.py:681
+#: ../plugin.py:638
 msgid "EPG Import Log"
 msgstr "Loki"
 
-#: ../plugin.py:559
+#: ../plugin.py:525
 msgid "EPG Import Sources"
 msgstr "Lähteet"
 
-#: ../plugin.py:749
+#: ../plugin.py:706
 #, python-format
 msgid "EPG Import finished, %d events"
 msgstr "Lataus valmis, %d tapahtumaa"
 
-#: ../plugin.py:721
-msgid "EPG Importer"
-msgstr "EPG:n lataus"
+#: ../plugin.py:678
+#, fuzzy
+msgid "EPG import now"
+msgstr "Loki"
 
-#: ../plugin.py:1046 ../plugin.py:1061
+#: ../plugin.py:1003 ../plugin.py:1008
 #, fuzzy
 msgid "EPGImport"
 msgstr "EPG:n lataus"
 
-#: ../plugin.py:451
+#: ../plugin.py:417
 msgid ""
 "EPGImport\n"
 "Import of epg data is still in progress. Please wait."
@@ -128,7 +129,7 @@ msgstr ""
 "EPG:n lataus\n"
 "EPG:n lataus käynnissä. Odota."
 
-#: ../plugin.py:467
+#: ../plugin.py:433
 msgid ""
 "EPGImport\n"
 "Import of epg data will start.\n"
@@ -140,7 +141,7 @@ msgstr ""
 "Tämä voi kestää muutaman minuutin.\n"
 "Onko tämä OK?"
 
-#: ../plugin.py:476
+#: ../plugin.py:442
 msgid ""
 "EPGImport Plugin\n"
 "Failed to start:\n"
@@ -148,7 +149,7 @@ msgstr ""
 "EPG lataus\n"
 " Käynnistys epäonnistui:\n"
 
-#: ../plugin.py:299
+#: ../plugin.py:305
 #, python-format
 msgid ""
 "Filtering: %s\n"
@@ -159,7 +160,7 @@ msgstr ""
 msgid "Friday"
 msgstr "Perjantai"
 
-#: ../plugin.py:489
+#: ../plugin.py:455
 msgid "Ignore services list"
 msgstr ""
 
@@ -167,11 +168,11 @@ msgstr ""
 msgid "Ignore services list(press OK to save)"
 msgstr ""
 
-#: ../plugin.py:547
+#: ../plugin.py:513
 msgid "Import current source"
 msgstr "Lataa tämä lähde"
 
-#: ../plugin.py:300
+#: ../plugin.py:306
 #, python-format
 msgid ""
 "Importing: %s\n"
@@ -180,29 +181,29 @@ msgstr ""
 "Lataa: %s\n"
 "%s events"
 
-#: ../plugin.py:703
+#: ../plugin.py:660
 msgid "Last import: "
 msgstr "Viimeisin lataus: "
 
-#: ../plugin.py:446
+#: ../plugin.py:412
 #, python-format
 msgid "Last import: %s events"
 msgstr "Viimeisin lataus: %s tapahtumaa"
 
-#: ../plugin.py:441
+#: ../plugin.py:407
 #, python-format
 msgid "Last: %s %s, %d events"
 msgstr "Ladattu: %s %s, %d tapahtumaa"
 
-#: ../plugin.py:343
+#: ../plugin.py:322
 msgid "Load EPG only services in bouquets"
 msgstr "Lataa EPG vain suosikkilistojen kanaville"
 
-#: ../plugin.py:348
+#: ../plugin.py:327
 msgid "Load long descriptions up to X days"
 msgstr "Lataa ohjelmakuvaukset X päivälle"
 
-#: ../plugin.py:280
+#: ../plugin.py:287
 msgid "Manual"
 msgstr "Lataa nyt"
 
@@ -210,7 +211,7 @@ msgstr "Lataa nyt"
 msgid "Monday"
 msgstr "Maanantai"
 
-#: ../plugin.py:462
+#: ../plugin.py:428
 msgid "No active EPG sources found, nothing to do"
 msgstr "Ei löytynyt aktiivisia EPG lähteitä"
 
@@ -222,11 +223,11 @@ msgstr "Paina OK"
 msgid "Really delete all list?"
 msgstr ""
 
-#: ../plugin.py:339
+#: ../plugin.py:318
 msgid "Return to deep standby after import"
 msgstr "Palaa virransäästötilaan latauksen jälkeen"
 
-#: ../plugin.py:349
+#: ../plugin.py:328
 msgid "Run AutoTimer after import"
 msgstr "Käynnistä automaattiajastusten haku latauksen jälkeen"
 
@@ -234,39 +235,40 @@ msgstr "Käynnistä automaattiajastusten haku latauksen jälkeen"
 msgid "Saturday"
 msgstr "Lauantai"
 
-#: ../plugin.py:279 ../plugin.py:525 ../plugin.py:604 ../plugin.py:660
+#: ../plugin.py:286 ../plugin.py:491 ../plugin.py:570 ../plugin.py:617
 msgid "Save"
 msgstr "Tallenna"
 
-#: ../filtersServices.py:265 ../plugin.py:490
+#: ../filtersServices.py:266 ../plugin.py:456
 msgid "Select action"
 msgstr ""
 
-#: ../plugin.py:347
-msgid "Show \"EPG Importer\" in main menu"
+#: ../plugin.py:326
+#, fuzzy
+msgid "Show \"EPG import now\" in main menu"
 msgstr "Näytä \"EPG:n lataus\" päävalikossa"
 
-#: ../plugin.py:346
+#: ../plugin.py:325
 msgid "Show \"EPGImport\" in extensions"
 msgstr "Näytä \"EPG:n lataus\" laajennusvalikossa"
 
-#: ../plugin.py:489
+#: ../plugin.py:455
 msgid "Show log"
 msgstr ""
 
-#: ../plugin.py:345
+#: ../plugin.py:324
 msgid "Skip import on restart GUI"
 msgstr "Ohita lataus uudelleenkäynnistyksessä"
 
-#: ../plugin.py:281
+#: ../plugin.py:288
 msgid "Sources"
 msgstr "Lähteet"
 
-#: ../plugin.py:340
+#: ../plugin.py:319
 msgid "Standby at startup"
 msgstr "Valmiustilassa lataus"
 
-#: ../plugin.py:342
+#: ../plugin.py:321
 msgid "Start import after booting up"
 msgstr "Lataa uudelleenkäynnistyksen jälkeen"
 
@@ -286,16 +288,16 @@ msgstr "Tiistai"
 msgid "Wednesday"
 msgstr "Keskiviikko"
 
-#: ../plugin.py:338
+#: ../plugin.py:317
 msgid "When in deep standby"
 msgstr "Virransäästötilassa lataus"
 
-#: ../plugin.py:687
+#: ../plugin.py:644
 #, fuzzy
 msgid "Write to /tmp/epgimport.log"
 msgstr "Kirjoita lokiin /tmp/EPGimport.log"
 
-#: ../plugin.py:626
+#: ../plugin.py:589
 msgid ""
 "You may not use this settings!\n"
 "At least one day a week should be included!"
@@ -303,7 +305,7 @@ msgstr ""
 "Et voi käyttää tätä asetusta!\n"
 "Vähintään yksi päivä pitää valita!"
 
-#: ../plugin.py:749
+#: ../plugin.py:706
 msgid ""
 "You must restart Enigma2 to load the EPG data,\n"
 "is this OK?"

@@ -3,7 +3,7 @@
 #  
 # Pre-requisite:
 # The following tools must be installed on your system and accessible from path
-# gawk, find, xgettext, gsed, python, msguniq, msgmerge, msgattrib, msgfmt, msginit
+# gawk, find, xgettext, sed, python, msguniq, msgmerge, msgattrib, msgfmt, msginit
 #
 # Run this script from within the po folder.
 #
@@ -22,7 +22,7 @@ printf "Po files update/creation from script starting.\n"
 #
 # To use the existing files as reference for languages
 #
-languages=($(ls *.po | gsed 's/\.po//'))		
+languages=($(ls *.po | sed 's/\.po//'))		
 
 # If you want to define the language locally in this script uncomment and defined languages
 #languages=("ar" "bg" "ca" "cs" "da" "de" "el" "en" "es" "et" "fa" "fi" "fr" "fy" "he" "hk" "hr" "hu" "id" "is" "it" "ku" "lt" "lv" "nl" "nb" "nn" "pl" "pt" "pt_BR" "ro" "ru" "sk" "sl" "sr" "sv" "th" "tr" "uk" "zh")
@@ -33,10 +33,10 @@ languages=($(ls *.po | gsed 's/\.po//'))
 #
 
 printf "Creating temporary file $PluginName-py.pot\n"
-find -s -X .. -name "*.py" -exec xgettext --no-wrap -L Python --from-code=UTF-8 -kpgettext:1c,2 --add-comments="TRANSLATORS:" -d $PluginName -s -o $PluginName-py.pot {} \+
-gsed --in-place $PluginName-py.pot --expression=s/CHARSET/UTF-8/
+find .. -name "*.py" -exec xgettext --no-wrap -L Python --from-code=UTF-8 -kpgettext:1c,2 --add-comments="TRANSLATORS:" -d $PluginName -s -o $PluginName-py.pot {} \+
+sed --in-place $PluginName-py.pot --expression=s/CHARSET/UTF-8/
 printf "Creating temporary file $PluginName-xml.pot\n"
-find -s -X .. -name "*.xml" -exec python xml2po.py {} \+ > $PluginName-xml.pot
+find .. -name "*.xml" -exec python xml2po.py {} \+ > $PluginName-xml.pot
 printf "Merging pot files to create: $PluginName.pot\n"
 cat $PluginName-py.pot $PluginName-xml.pot | msguniq --no-wrap -o $PluginName.pot -
 OLDIFS=$IFS
