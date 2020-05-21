@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-01 00:42+0100\n"
+"POT-Creation-Date: 2020-05-21 08:48+0200\n"
 "PO-Revision-Date: 2019-02-18 11:40+0100\n"
 "Last-Translator: mcfly82\n"
 "Language-Team: \n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../plugin.py:703
+#: ../plugin.py:660
 msgid ""
 "\n"
 "Import of epg data will start.\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Ez néhány percet igénybe vesz.\n"
 "Folytathatjuk?"
 
-#: ../plugin.py:703
+#: ../plugin.py:660
 msgid " events\n"
 msgstr " esemény\n"
 
@@ -42,47 +42,47 @@ msgstr "Csatorna hozzáadása"
 msgid "Add Provider"
 msgstr "Szolgáltató hozzáadása"
 
-#: ../filtersServices.py:247
+#: ../filtersServices.py:248
 msgid "All services provider"
 msgstr "Minden szolgáltató"
 
-#: ../plugin.py:1044
+#: ../plugin.py:1001
 msgid "Automated EPG Importer"
 msgstr "Automatikus EPG importáló"
 
-#: ../plugin.py:336
+#: ../plugin.py:315
 msgid "Automatic import EPG"
 msgstr "Automatikus EPG importálás"
 
-#: ../plugin.py:337
+#: ../plugin.py:316
 msgid "Automatic start time"
 msgstr "Automatikus importálás időpontja"
 
-#: ../plugin.py:278 ../plugin.py:524 ../plugin.py:603
+#: ../plugin.py:285 ../plugin.py:490 ../plugin.py:569
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: ../filtersServices.py:239
+#: ../filtersServices.py:240
 msgid "Channel Selection"
 msgstr "Csatornaválasztás"
 
-#: ../plugin.py:341
+#: ../plugin.py:320
 msgid "Choice days for start import"
 msgstr "Importálások napjai"
 
-#: ../plugin.py:657
+#: ../plugin.py:614
 msgid "Clear"
 msgstr "Alaphelyzet"
 
-#: ../plugin.py:350
+#: ../plugin.py:329
 msgid "Clearing current EPG before import"
 msgstr "Előző EPG felülírása az újjal"
 
-#: ../plugin.py:344
+#: ../plugin.py:323
 msgid "Consider setting \"Days Profile\""
 msgstr "Napi profil használata"
 
-#: ../plugin.py:616
+#: ../plugin.py:564
 msgid "Days Profile"
 msgstr "Napi profilok"
 
@@ -94,32 +94,33 @@ msgstr "Összes törlése"
 msgid "Delete selected"
 msgstr "Kijelöltek törlése"
 
-#: ../plugin.py:274
+#: ../plugin.py:282
 msgid "EPG Import Configuration"
 msgstr "EPG Import beállítások"
 
-#: ../plugin.py:681
+#: ../plugin.py:638
 msgid "EPG Import Log"
 msgstr "EPG Import napló"
 
-#: ../plugin.py:559
+#: ../plugin.py:525
 msgid "EPG Import Sources"
 msgstr "EPG Import források"
 
-#: ../plugin.py:749
+#: ../plugin.py:706
 #, python-format
 msgid "EPG Import finished, %d events"
 msgstr "EPG Import befejezve, %d esemény"
 
-#: ../plugin.py:721
-msgid "EPG Importer"
-msgstr "EPG Import"
+#: ../plugin.py:678
+#, fuzzy
+msgid "EPG import now"
+msgstr "EPG Import napló"
 
-#: ../plugin.py:1046 ../plugin.py:1061
+#: ../plugin.py:1003 ../plugin.py:1008
 msgid "EPGImport"
 msgstr "EPG Import"
 
-#: ../plugin.py:451
+#: ../plugin.py:417
 msgid ""
 "EPGImport\n"
 "Import of epg data is still in progress. Please wait."
@@ -127,7 +128,7 @@ msgstr ""
 "EPGImport\n"
 "Az EPG adatok importálása folyamatban van. Kérem, várjon."
 
-#: ../plugin.py:467
+#: ../plugin.py:433
 msgid ""
 "EPGImport\n"
 "Import of epg data will start.\n"
@@ -139,7 +140,7 @@ msgstr ""
 "Ez néhány percet igénybe vesz.\n"
 "Folytathatjuk?"
 
-#: ../plugin.py:476
+#: ../plugin.py:442
 msgid ""
 "EPGImport Plugin\n"
 "Failed to start:\n"
@@ -147,7 +148,7 @@ msgstr ""
 "Az EPGImport bővítmény\n"
 "Nem tudott elindulni:\n"
 
-#: ../plugin.py:299
+#: ../plugin.py:305
 #, python-format
 msgid ""
 "Filtering: %s\n"
@@ -160,7 +161,7 @@ msgstr ""
 msgid "Friday"
 msgstr "Péntek"
 
-#: ../plugin.py:489
+#: ../plugin.py:455
 msgid "Ignore services list"
 msgstr "Csatornalista kihagyása"
 
@@ -168,11 +169,11 @@ msgstr "Csatornalista kihagyása"
 msgid "Ignore services list(press OK to save)"
 msgstr "Csatornalista kihagyása (Nyomjon OK-t a mentéshez)"
 
-#: ../plugin.py:547
+#: ../plugin.py:513
 msgid "Import current source"
 msgstr "Jelenlegi forrás importálása"
 
-#: ../plugin.py:300
+#: ../plugin.py:306
 #, python-format
 msgid ""
 "Importing: %s\n"
@@ -181,29 +182,29 @@ msgstr ""
 "Importálás: %s\n"
 "%s esemény"
 
-#: ../plugin.py:703
+#: ../plugin.py:660
 msgid "Last import: "
 msgstr "Utolsó importálás: "
 
-#: ../plugin.py:446
+#: ../plugin.py:412
 #, python-format
 msgid "Last import: %s events"
 msgstr "Utolsó importálás: %s esemény"
 
-#: ../plugin.py:441
+#: ../plugin.py:407
 #, python-format
 msgid "Last: %s %s, %d events"
 msgstr "Frissítve: %s %s, %d esemény"
 
-#: ../plugin.py:343
+#: ../plugin.py:322
 msgid "Load EPG only services in bouquets"
 msgstr "EPG betöltése csak a könyvjelzőkben szereplő csatornákhoz"
 
-#: ../plugin.py:348
+#: ../plugin.py:327
 msgid "Load long descriptions up to X days"
 msgstr "Hány napra előre töltse be a leírást"
 
-#: ../plugin.py:280
+#: ../plugin.py:287
 msgid "Manual"
 msgstr "Manuális"
 
@@ -211,7 +212,7 @@ msgstr "Manuális"
 msgid "Monday"
 msgstr "Hétfő"
 
-#: ../plugin.py:462
+#: ../plugin.py:428
 msgid "No active EPG sources found, nothing to do"
 msgstr "Nincs aktív EPG forrás, nincs mit tenni"
 
@@ -223,11 +224,11 @@ msgstr "Nyomja meg az OK-t"
 msgid "Really delete all list?"
 msgstr "Biztosan törli az összes listát?"
 
-#: ../plugin.py:339
+#: ../plugin.py:318
 msgid "Return to deep standby after import"
 msgstr "Kikapcsolás importálás után"
 
-#: ../plugin.py:349
+#: ../plugin.py:328
 msgid "Run AutoTimer after import"
 msgstr "Automatikus időzítő futtatása importálás után"
 
@@ -235,39 +236,40 @@ msgstr "Automatikus időzítő futtatása importálás után"
 msgid "Saturday"
 msgstr "Szombat"
 
-#: ../plugin.py:279 ../plugin.py:525 ../plugin.py:604 ../plugin.py:660
+#: ../plugin.py:286 ../plugin.py:491 ../plugin.py:570 ../plugin.py:617
 msgid "Save"
 msgstr "Mentés"
 
-#: ../filtersServices.py:265 ../plugin.py:490
+#: ../filtersServices.py:266 ../plugin.py:456
 msgid "Select action"
 msgstr "Válasszon műveletet"
 
-#: ../plugin.py:347
-msgid "Show \"EPG Importer\" in main menu"
+#: ../plugin.py:326
+#, fuzzy
+msgid "Show \"EPG import now\" in main menu"
 msgstr "EPGImport mutatása a főmenüben"
 
-#: ../plugin.py:346
+#: ../plugin.py:325
 msgid "Show \"EPGImport\" in extensions"
 msgstr "EPGImport mutatása a bővítményeknél"
 
-#: ../plugin.py:489
+#: ../plugin.py:455
 msgid "Show log"
 msgstr "Naplófájl megjelenítése"
 
-#: ../plugin.py:345
+#: ../plugin.py:324
 msgid "Skip import on restart GUI"
 msgstr "Importálás kihagyása a kezelőfelület újraindításakor"
 
-#: ../plugin.py:281
+#: ../plugin.py:288
 msgid "Sources"
 msgstr "Források"
 
-#: ../plugin.py:340
+#: ../plugin.py:319
 msgid "Standby at startup"
 msgstr "Készenlét indításkor"
 
-#: ../plugin.py:342
+#: ../plugin.py:321
 msgid "Start import after booting up"
 msgstr "Importálás bootolás után"
 
@@ -287,15 +289,15 @@ msgstr "Kedd"
 msgid "Wednesday"
 msgstr "Szerda"
 
-#: ../plugin.py:338
+#: ../plugin.py:317
 msgid "When in deep standby"
 msgstr "Kikapcsolt állapotban"
 
-#: ../plugin.py:687
+#: ../plugin.py:644
 msgid "Write to /tmp/epgimport.log"
 msgstr "Írás ide: /tmp/epgimport.log"
 
-#: ../plugin.py:626
+#: ../plugin.py:589
 msgid ""
 "You may not use this settings!\n"
 "At least one day a week should be included!"
@@ -303,7 +305,7 @@ msgstr ""
 "Valószínűleg nincs szüksége erre a beállításra!\n"
 "Legalább egy napot ki kell választania!"
 
-#: ../plugin.py:749
+#: ../plugin.py:706
 msgid ""
 "You must restart Enigma2 to load the EPG data,\n"
 "is this OK?"
