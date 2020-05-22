@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plugins 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 08:48+0200\n"
+"POT-Creation-Date: 2020-05-22 17:02+0200\n"
 "PO-Revision-Date: 2018-05-22 18:19+0200\n"
 "Last-Translator: Javier Sayago <admin@lonasdigital.com>\n"
 "Language-Team: OpenLD\n"
@@ -318,6 +318,10 @@ msgstr "siempre"
 #: ../plugin.py:54
 msgid "never"
 msgstr "nunca"
+
+#: ../plugin.py:74
+msgid "none"
+msgstr ""
 
 #: ../plugin.py:53
 msgid "only automatic boot"

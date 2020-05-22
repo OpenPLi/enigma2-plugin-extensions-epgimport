@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EPG Import\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 08:48+0200\n"
+"POT-Creation-Date: 2020-05-22 17:02+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: MCelliot_g <mcelliot_g@hotmail.com>\n"
 "Language-Team: \n"
@@ -312,6 +312,10 @@ msgstr "πάντα"
 #: ../plugin.py:54
 msgid "never"
 msgstr "ποτέ"
+
+#: ../plugin.py:74
+msgid "none"
+msgstr ""
 
 #: ../plugin.py:53
 msgid "only automatic boot"

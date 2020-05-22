@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 08:48+0200\n"
+"POT-Creation-Date: 2020-05-22 17:02+0200\n"
 "PO-Revision-Date: 2016-05-27 22:10+0300\n"
 "Last-Translator: Dimitrij <Dima-73@inbox.lv>\n"
 "Language-Team: LANGUAGE <Dima-73@inbox.lv>\n"
@@ -312,6 +312,10 @@ msgstr "всегда"
 #: ../plugin.py:54
 msgid "never"
 msgstr "никогда"
+
+#: ../plugin.py:74
+msgid "none"
+msgstr ""
 
 #: ../plugin.py:53
 msgid "only automatic boot"

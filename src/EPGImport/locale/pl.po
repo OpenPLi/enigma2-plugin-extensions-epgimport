@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EPGImport\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 08:48+0200\n"
+"POT-Creation-Date: 2020-05-22 17:02+0200\n"
 "PO-Revision-Date: 2014-04-24 19:01+0100\n"
 "Last-Translator: Mariusz1970 <Mariusz1970@onet.eu>\n"
 "Language-Team: none <Mariusz1970@onet.eu>\n"
@@ -316,6 +316,10 @@ msgstr ""
 
 #: ../plugin.py:54
 msgid "never"
+msgstr ""
+
+#: ../plugin.py:74
+msgid "none"
 msgstr ""
 
 #: ../plugin.py:53

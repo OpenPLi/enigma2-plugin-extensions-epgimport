@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2-plugins 3.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 08:48+0200\n"
+"POT-Creation-Date: 2020-05-22 17:02+0200\n"
 "PO-Revision-Date: 2012-05-17 14:10+0000\n"
 "Last-Translator: jerry\n"
 "Language-Team: jerry\n"
@@ -319,6 +319,10 @@ msgstr ""
 
 #: ../plugin.py:54
 msgid "never"
+msgstr ""
+
+#: ../plugin.py:74
+msgid "none"
 msgstr ""
 
 #

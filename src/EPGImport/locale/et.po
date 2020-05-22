@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XMTV-Impoter for Enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-21 08:48+0200\n"
+"POT-Creation-Date: 2020-05-22 17:02+0200\n"
 "PO-Revision-Date: 2017-08-30 12:21+0300\n"
 "Last-Translator: rimas\n"
 "Language-Team: rimas\n"
@@ -314,6 +314,10 @@ msgstr "alati"
 #: ../plugin.py:54
 msgid "never"
 msgstr "mitte kunagi"
+
+#: ../plugin.py:74
+msgid "none"
+msgstr ""
 
 #: ../plugin.py:53
 msgid "only automatic boot"
