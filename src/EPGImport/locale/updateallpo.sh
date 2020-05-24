@@ -22,6 +22,7 @@ printf "Po files update/creation from script starting.\n"
 #
 # To use the existing files as reference for languages
 #
+localgsed="sed"
 gsed --version 2> /dev/null | grep -q "GNU"
 if [ $? -eq 0 ]; then
         localgsed="gsed"
