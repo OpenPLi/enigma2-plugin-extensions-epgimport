@@ -106,9 +106,8 @@ msgid "EPG Import finished, %d events"
 msgstr "EPG импорт закончен, %d событий"
 
 #: ../plugin.py:678
-#, fuzzy
 msgid "EPG import now"
-msgstr "EPG импорт - лог"
+msgstr "Импорт EPG сейчас"
 
 #: ../plugin.py:1003 ../plugin.py:1008
 msgid "EPGImport"
@@ -148,6 +147,8 @@ msgid ""
 "Filtering: %s\n"
 "Please wait!"
 msgstr ""
+"Фильтрация: %s\n"
+"Пожалуйста, подождите!"
 
 #: ../plugin.py:84
 msgid "Friday"
@@ -237,9 +238,8 @@ msgid "Select action"
 msgstr "Выбор действия"
 
 #: ../plugin.py:326
-#, fuzzy
 msgid "Show \"EPG import now\" in main menu"
-msgstr "Показать \"Импортер EPG\" в главном меню"
+msgstr "Показать \"Импорт EPG сейчас\" в главном меню"
 
 #: ../plugin.py:325
 msgid "Show \"EPGImport\" in extensions"
