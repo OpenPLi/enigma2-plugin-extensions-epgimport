@@ -30,15 +30,15 @@ msgstr " передач\n"
 
 #: ../filtersServices.py:139
 msgid "Add Channel"
-msgstr ""
+msgstr "Додати Канал"
 
 #: ../filtersServices.py:138
 msgid "Add Provider"
-msgstr ""
+msgstr "Додати Провайдер"
 
 #: ../filtersServices.py:248
 msgid "All services provider"
-msgstr ""
+msgstr "Всі канали провайдера"
 
 #: ../plugin.py:1001
 msgid "Automated EPG Importer"
@@ -57,9 +57,8 @@ msgid "Cancel"
 msgstr "Скасувати"
 
 #: ../filtersServices.py:240
-#, fuzzy
 msgid "Channel Selection"
-msgstr "Виберіть дію"
+msgstr "Вибір Каналів"
 
 #: ../plugin.py:320
 msgid "Choice days for start import"
@@ -83,11 +82,11 @@ msgstr "Профіль днів"
 
 #: ../filtersServices.py:216
 msgid "Delete all"
-msgstr ""
+msgstr "Видалити все"
 
 #: ../filtersServices.py:215
 msgid "Delete selected"
-msgstr ""
+msgstr "Видалити вибране"
 
 #: ../plugin.py:282
 msgid "EPG Import Configuration"
@@ -120,7 +119,7 @@ msgid ""
 "Import of epg data is still in progress. Please wait."
 msgstr ""
 "Завантаження ЕПГ\n"
-"Завантаження даних ЕПГ ще продовжується. Будь ласка, почекайте."
+"Ще йде завантаження даних ЕПГ. Будь ласка, почекайте."
 
 #: ../plugin.py:433
 msgid ""
@@ -160,9 +159,8 @@ msgid "Ignore services list"
 msgstr "Ігнорувати список каналів"
 
 #: ../filtersServices.py:153
-#, fuzzy
 msgid "Ignore services list(press OK to save)"
-msgstr "Ігнорувати список каналів"
+msgstr "Ігнорувати список каналів (ОК для запису)"
 
 #: ../plugin.py:513
 msgid "Import current source"
@@ -217,7 +215,7 @@ msgstr "Натисніть ОК"
 
 #: ../filtersServices.py:182
 msgid "Really delete all list?"
-msgstr ""
+msgstr "Дійсно видалити весь список?"
 
 #: ../plugin.py:318
 msgid "Return to deep standby after import"
@@ -242,11 +240,11 @@ msgstr "Виберіть дію"
 #: ../plugin.py:326
 #, fuzzy
 msgid "Show \"EPG import now\" in main menu"
-msgstr "Показати \"EPG Importer\" в головному меню"
+msgstr "Показати \"EPG Import\" в головному меню"
 
 #: ../plugin.py:325
 msgid "Show \"EPGImport\" in extensions"
-msgstr "Показати \"EPG importer\" в меню плагінів"
+msgstr "Показати \"EPG import\" в меню плагінів"
 
 #: ../plugin.py:455
 msgid "Show log"
