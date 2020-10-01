@@ -1,0 +1,254 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: plugins 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-20 02:30+0300\n"
+"PO-Revision-Date: 2020-10-01 16:11+0300\n"
+"Last-Translator: mosad - مساعد الجعيد <abo-mishal@hotmail.com>\n"
+"Language-Team: mosad - مساعد الجعيد\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 2.4.1\n"
+
+msgid ""
+"\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+"\n"
+"سيبدأ استيراد بيانات الدليل.\n"
+"قد يستغرق هذا بضع دقائق.\n"
+"هل هذا جيد؟"
+
+msgid " events\n"
+msgstr " الاحداث\n"
+
+msgid "Add Channel"
+msgstr "إضافة قناة"
+
+msgid "Add Provider"
+msgstr "إضافة مزود خدمة"
+
+msgid "All services provider"
+msgstr "جميع مقدمي الخدمات"
+
+msgid "Automated EPG Importer"
+msgstr "إستيراد دليل البرامج الإلكترونية الآلي"
+
+msgid "Automatic import EPG"
+msgstr "الإستيراد التلقائي لدليل البرامج الإلكتروينة"
+
+msgid "Automatic start time"
+msgstr "وقت بدء التشغيل التلقائي"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Choice days for start import"
+msgstr "أختار الأيام لبدء الاستيراد"
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "Clearing current EPG before import"
+msgstr "مسح دليل البرامج الإلكتروني الحالي قبل الاستيراد"
+
+msgid "Consider setting \"Days Profile\""
+msgstr "ضع في اعتبارك تعيين \"ملف تعريف الأيام\""
+
+msgid "Days Profile"
+msgstr "ملف تعريف الأيام"
+
+msgid "Delete all"
+msgstr "حذف الكل"
+
+msgid "Delete selected"
+msgstr "حذف المحدد"
+
+msgid "EPG Import Configuration"
+msgstr "إعدادات إستيراد دليل البرامج الإلكترونية"
+
+msgid "EPG Import Log"
+msgstr "سجل إستيراد دليل البرامج الإلكترونية"
+
+msgid "EPG Import Sources"
+msgstr "مصادر إستيراد دليل البرامج الإلكترونية"
+
+msgid "EPG Import finished, %d events"
+msgstr "إنتهاء إستيراد دليل البرامج الإلكترونية, %d الأحداث"
+
+msgid "EPG Importer"
+msgstr "إستيراد دليل البرامج الإلكترونية"
+
+msgid "EPG-Importer"
+msgstr "إستيراد دليل البرامج الإلكترونية"
+
+msgid ""
+"EPGImport\n"
+"Import of epg data is still in progress. Please wait."
+msgstr ""
+"إستيراد الدليل الالكتروني\n"
+"لا يزال استيراد بيانات الدليل الالكتروني قيد التنفيذ. الرجاء الانتظار."
+
+msgid ""
+"EPGImport\n"
+"Import of epg data will start.\n"
+"This may take a few minutes.\n"
+"Is this ok?"
+msgstr ""
+"إستيراد الدليل الالكتروني\n"
+"سيبدأ استيراد بيانات الدليل.\n"
+"قد يستغرق هذا بضع دقائق.\n"
+"هل هذا جيد؟"
+
+msgid ""
+"EPGImport Plugin\n"
+"Failed to start:\n"
+msgstr ""
+"بلجن إستيراد الدليل الاكتروني\n"
+"فشل بدء الاستيراد:\n"
+
+msgid "Friday"
+msgstr "الجمعه"
+
+msgid "Ignore services list"
+msgstr "تجاهل قائمة القنوات"
+
+msgid "Import current source"
+msgstr "استيراد المصدر الحالي"
+
+msgid ""
+"Importing: %s\n"
+"%s events"
+msgstr ""
+"المستورد: %s\n"
+"%s الاحداث"
+
+msgid "Last import: "
+msgstr "آخر استيراد: "
+
+msgid "Last import: %s events"
+msgstr "آخر استيراد: %s الاحداث"
+
+msgid "Last: %s %s, %d events"
+msgstr "أخر: %s %s, %d الاحداث"
+
+msgid "Load EPG only for IPTV channels"
+msgstr "تحميل دليل البرامج الإلكترونية لقنوات الايبي تيفي فقط"
+
+msgid "Load EPG only services in bouquets"
+msgstr "تحميل دليل البرامج الإلكترونية فقط للقنوات الموجودة في الباقات"
+
+msgid "Load long descriptions up to X days"
+msgstr "تحميل وصف مطول إضغط على عدد الايام"
+
+msgid "Manual"
+msgstr "يدوي"
+
+msgid "Monday"
+msgstr "الاثنين"
+
+msgid "No active EPG sources found, nothing to do"
+msgstr "لا توجد مصادر لدليل البرامج الإلكترونية مفعلة، عليك أن تفعل شيئا"
+
+msgid "Press OK"
+msgstr "أضغط موافق"
+
+msgid "Really delete all list?"
+msgstr "حقا تريد حذف جميع القائمة؟"
+
+msgid "Return to deep standby after import"
+msgstr "العودة إلى وضع الاستعداد العميق بعد الاستيراد"
+
+msgid "Run AutoTimer after import"
+msgstr "تشغيل المؤقت التلقائي بعد الاستيراد"
+
+msgid "Saturday"
+msgstr "السبت"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Select action"
+msgstr "حدد الاجراء"
+
+msgid "Select service to add..."
+msgstr "أختار القناة لإضافتها..."
+
+msgid "Show \"EPG Importer\" in main menu"
+msgstr "عرض \"دليل البرامج الإلكترونية المستوردة\" في القائمة الرئيسية"
+
+msgid "Show \"EPGImport\" in extensions"
+msgstr "عرض \"إستيراد دليل البرامج الإلكترونية\" في الملحقات"
+
+msgid "Show log"
+msgstr "عرض السجل"
+
+msgid "Skip import on restart GUI"
+msgstr "تخطي الاستيراد عند إعادة تشغيل الانجما"
+
+msgid "Sources"
+msgstr "المصادر"
+
+msgid "Standby at startup"
+msgstr "الاستعداد عند بدء التشغيل"
+
+msgid "Start import after booting up"
+msgstr "تشغيل الإستيراد بعد الإقلاع"
+
+msgid "Sunday"
+msgstr "الاحد"
+
+msgid "Thursday"
+msgstr "الخميس"
+
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+msgid "Wednesday"
+msgstr "الاربعاء"
+
+msgid "When in deep standby"
+msgstr "عندما تكون في وضع الاستعداد العميق"
+
+msgid "Write to /tmp/epgimport.log"
+msgstr "الكتابة في مسار سجل إستيراد الدليل"
+
+msgid ""
+"You may not use this settings!\n"
+"At least one day a week should be included!"
+msgstr ""
+"لا يجوز لك استخدام هذه الإعدادات!\n"
+"يجب تضمين يوم واحد على الأقل في الأسبوع!"
+
+msgid ""
+"You must restart Enigma2 to load the EPG data,\n"
+"is this OK?"
+msgstr ""
+"يجب إعادة تشغيل الانجما لتحميل بيانات دليل البرامج الإلكتروني,\n"
+"هل هذا جيد؟"
+
+msgid "always"
+msgstr "دائما"
+
+msgid "never"
+msgstr "أبدا"
+
+msgid "only automatic boot"
+msgstr "أثناء التشغيل التلقائي فقط"
+
+msgid "only manual boot"
+msgstr "أثناء التشغيل اليدوي فقط"
+
+msgid "press OK to save list"
+msgstr "اضغط موافق لحفظ القائمة"
+
+msgid "skip the import"
+msgstr "تخطي عملية الاستيراد"
+
+msgid "wake up and import"
+msgstr "بعد التشغيل والاستيراد"
