@@ -252,6 +252,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 				<widget font="Regular;18" halign="left" position="545,480" render="Label" size="55,20" source="global.CurrentTime" transparent="1" valign="center" zPosition="3">
 					<convert type="ClockToText">Default</convert>
 				</widget>
+				<widget name="description" position="10,400" size="590,150" itemHeight="18" font="Regular;18" valign="top"/>
 				<widget name="statusbar" position="10,480" size="500,20" font="Regular;18" />
 				<widget name="status" position="10,400" size="580,60" font="Regular;20" />
 			</screen>"""
@@ -273,6 +274,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 				<widget font="Regular;18" halign="left" position="545,400" render="Label" size="55,20" source="global.CurrentTime" transparent="1" valign="center" zPosition="3">
 					<convert type="ClockToText">Default</convert>
 				</widget>
+				<widget name="description" position="10,315" size="590,75" itemHeight="18" font="Regular;18" valign="top"/>
 				<widget name="statusbar" position="10,410" size="500,20" font="Regular;18" />
 				<widget name="status" position="10,330" size="580,60" font="Regular;20" />
 			</screen>"""
@@ -286,6 +288,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self["key_green"] = Button(_("Save"))
 		self["key_yellow"] = Button(_("Manual"))
 		self["key_blue"] = Button(_("Sources"))
+		self["description"] = Label("")
 		self["setupActions"] = ActionMap(["SetupActions", "ColorActions", "TimerEditActions", "MovieSelectionActions"],
 		{
 			"red": self.keyCancel,
@@ -312,50 +315,64 @@ class EPGImportConfig(ConfigListScreen, Screen):
 
 	def initConfig(self):
 		self.EPG = config.plugins.epgimport
-		self.cfg_enabled = getConfigListEntry(_("Automatic import EPG"), self.EPG.enabled)
-		self.cfg_wakeup = getConfigListEntry(_("Automatic start time"), self.EPG.wakeup)
-		self.cfg_deepstandby = getConfigListEntry(_("When in deep standby"), self.EPG.deepstandby)
-		self.cfg_shutdown = getConfigListEntry(_("Return to deep standby after import"), self.EPG.shutdown)
-		self.cfg_standby_afterwakeup = getConfigListEntry(_("Standby at startup"), self.EPG.standby_afterwakeup)
-		self.cfg_day_profile = getConfigListEntry(_("Choice days for start import"), self.EPG.day_profile)
-		self.cfg_runboot = getConfigListEntry(_("Start import after booting up"), self.EPG.runboot)
-		self.cfg_import_onlybouquet = getConfigListEntry(_("Load EPG only services in bouquets"), self.EPG.import_onlybouquet)
-		self.cfg_runboot_day = getConfigListEntry(_("Consider setting \"Days Profile\""), self.EPG.runboot_day)
-		self.cfg_runboot_restart = getConfigListEntry(_("Skip import on restart GUI"), self.EPG.runboot_restart)
-		self.cfg_showinextensions = getConfigListEntry(_("Show \"EPGImport\" in extensions"), self.EPG.showinextensions)
-		self.cfg_showinmainmenu = getConfigListEntry(_("Show \"EPG import now\" in main menu"), self.EPG.showinmainmenu)
-		self.cfg_longDescDays = getConfigListEntry(_("Load long descriptions up to X days"), self.EPG.longDescDays)
-		self.cfg_parse_autotimer = getConfigListEntry(_("Run AutoTimer after import"), self.EPG.parse_autotimer)
-		self.cfg_clear_oldepg = getConfigListEntry(_("Clearing current EPG before import"), config.plugins.epgimport.clear_oldepg)
+		self.cfg_enabled = getConfigListEntry(_("Automatic import EPG"), self.EPG.enabled, _("When enabled, it allows you to schedule an automatic EPG update at the given days and time."))
+		self.cfg_wakeup = getConfigListEntry(_("Automatic start time"), self.EPG.wakeup, _("Specify the time for the automatic EPG update."))
+		self.cfg_deepstandby = getConfigListEntry(_("When in deep standby"), self.EPG.deepstandby, _("Choose the action to perform when the box is in deep standby and the automatic EPG update should normally start."))
+		self.cfg_shutdown = getConfigListEntry(_("Return to deep standby after import"), self.EPG.shutdown, _("This will turn back waked up box into deep-standby after automatic EPG import."))
+		self.cfg_standby_afterwakeup = getConfigListEntry(_("Standby at startup"), self.EPG.standby_afterwakeup, _("The waked up box will be turned into standby after automatic EPG import wake up."))
+		self.cfg_day_profile = getConfigListEntry(_("Choice days for start import"), self.EPG.day_profile, _("You can select the day(s) when the EPG update must be performed."))
+		self.cfg_runboot = getConfigListEntry(_("Start import after booting up"), self.EPG.runboot, _("Specify in which case the EPG must be automatically updated after the box has booted."))
+		self.cfg_import_onlybouquet = getConfigListEntry(_("Load EPG only services in bouquets"), self.EPG.import_onlybouquet, _("To save memory you can decide to only load EPG data for the services that you have in your bouquet files."))
+		self.cfg_runboot_day = getConfigListEntry(_("Consider setting \"Days Profile\""), self.EPG.runboot_day, _("When you decide to load the EPG after GUI restart mention if the \"days profile\" must be take into consideration or not."))
+		self.cfg_runboot_restart = getConfigListEntry(_("Skip import on restart GUI"), self.EPG.runboot_restart,_("When you restart the GUI you can decide to skip or not the EPG data import."))
+		self.cfg_showinextensions = getConfigListEntry(_("Show \"EPGImport\" in extensions"), self.EPG.showinextensions, _("Display or not the EPGImport menu in the extension menu."))
+		self.cfg_showinmainmenu = getConfigListEntry(_("Show \"EPG import now\" in main menu"), self.EPG.showinmainmenu, _("Display a shortcut \"EPG import now\" on your STB main screen. This menu entry will immediately start the EPG update process when selected."))
+		self.cfg_longDescDays = getConfigListEntry(_("Load long descriptions up to X days"), self.EPG.longDescDays, _("Define the number of days that you want to get the full EPG data, reducing this number can help you to save memory usage on your box. But you are also limited with the EPG provider available data. You will not have 15 days EPG if it only provide 7 days data."))
+		self.cfg_parse_autotimer = getConfigListEntry(_("Run AutoTimer after import"), self.EPG.parse_autotimer, _("You can start automatically the plugin AutoTimer after the EPG data update to have it refreshing its scheduling after EPG data refresh."))
+		self.cfg_clear_oldepg = getConfigListEntry(_("Clearing current EPG before import"), config.plugins.epgimport.clear_oldepg, _("This will clear the current EPG data in memory before updating the EPG data. This allows you to always have a clean new EPG with the latest EPG data, for example in case of program changes between refresh, otherwise EPG data are cumulative."))
 
 	def createSetup(self):
-		list = [self.cfg_enabled]
+		self.list = [self.cfg_enabled]
 		if self.EPG.enabled.value:
-			list.append(self.cfg_wakeup)
-			list.append(self.cfg_deepstandby)
+			self.list.append(self.cfg_wakeup)
+			self.list.append(self.cfg_deepstandby)
 			if self.EPG.deepstandby.value == "wakeup":
-				list.append(self.cfg_shutdown)
+				self.list.append(self.cfg_shutdown)
 				if not self.EPG.shutdown.value:
-					list.append(self.cfg_standby_afterwakeup)
-		list.append(self.cfg_day_profile)
-		list.append(self.cfg_runboot)
+					self.list.append(self.cfg_standby_afterwakeup)
+		self.list.append(self.cfg_day_profile)
+		self.list.append(self.cfg_runboot)
 		if self.EPG.runboot.value != "4":
-			list.append(self.cfg_runboot_day)
+			self.list.append(self.cfg_runboot_day)
 			if self.EPG.runboot.value == "1" or self.EPG.runboot.value == "2":
-				list.append(self.cfg_runboot_restart)
-		list.append(self.cfg_showinextensions)
-		list.append(self.cfg_showinmainmenu)
-		list.append(self.cfg_import_onlybouquet)
+				self.list.append(self.cfg_runboot_restart)
+		self.list.append(self.cfg_showinextensions)
+		self.list.append(self.cfg_showinmainmenu)
+		self.list.append(self.cfg_import_onlybouquet)
 		if hasattr(enigma.eEPGCache, 'flushEPG'):
-			list.append(self.cfg_clear_oldepg)
-		list.append(self.cfg_longDescDays)
+			self.list.append(self.cfg_clear_oldepg)
+		self.list.append(self.cfg_longDescDays)
 		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.py")):
 			try:
 				from Plugins.Extensions.AutoTimer.AutoTimer import AutoTimer
-				list.append(self.cfg_parse_autotimer)
+				self.list.append(self.cfg_parse_autotimer)
 			except:
 				print>>log, "[EPGImport] AutoTimer Plugin not installed"
-		self["config"].setList(list)
+		self["config"].list = self.list
+		self["config"].setList(self.list)
+
+	# for summary:
+	def getCurrentEntry(self):
+		self.updateDescription()
+		return ConfigListScreen.getCurrentEntry(self)
+
+	def createSummary(self):
+		from Screens.Setup import SetupSummary
+		return SetupSummary
+
+	def updateDescription(self):
+		self["description"].setText(self.getCurrentDescription())
+	###
 
 	def newConfig(self):
 		cur = self["config"].getCurrent()

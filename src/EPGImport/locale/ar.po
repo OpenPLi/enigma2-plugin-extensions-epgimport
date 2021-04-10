@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plugins 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-20 02:30+0300\n"
+"POT-Creation-Date: 2021-04-10 16:28+0200\n"
 "PO-Revision-Date: 2020-10-01 16:11+0300\n"
 "Last-Translator: mosad - مساعد الجعيد <abo-mishal@hotmail.com>\n"
 "Language-Team: mosad - مساعد الجعيد\n"
@@ -13,6 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 2.4.1\n"
 
+#: ../plugin.py:678
 msgid ""
 "\n"
 "Import of epg data will start.\n"
@@ -24,69 +25,115 @@ msgstr ""
 "قد يستغرق هذا بضع دقائق.\n"
 "هل هذا جيد؟"
 
+#: ../plugin.py:678
 msgid " events\n"
 msgstr " الاحداث\n"
 
+#: ../filtersServices.py:139
 msgid "Add Channel"
 msgstr "إضافة قناة"
 
+#: ../filtersServices.py:138
 msgid "Add Provider"
 msgstr "إضافة مزود خدمة"
 
+#: ../filtersServices.py:248
 msgid "All services provider"
 msgstr "جميع مقدمي الخدمات"
 
+#: ../plugin.py:1019
 msgid "Automated EPG Importer"
 msgstr "إستيراد دليل البرامج الإلكترونية الآلي"
 
+#: ../plugin.py:318
 msgid "Automatic import EPG"
 msgstr "الإستيراد التلقائي لدليل البرامج الإلكتروينة"
 
+#: ../plugin.py:319
 msgid "Automatic start time"
 msgstr "وقت بدء التشغيل التلقائي"
 
+#: ../plugin.py:287 ../plugin.py:508 ../plugin.py:587
 msgid "Cancel"
 msgstr "إلغاء"
 
+#: ../filtersServices.py:240
+#, fuzzy
+msgid "Channel Selection"
+msgstr "حدد الاجراء"
+
+#: ../plugin.py:323
 msgid "Choice days for start import"
 msgstr "أختار الأيام لبدء الاستيراد"
 
+#: ../plugin.py:320
+msgid "Choose the action to perform when the box is in deep standby and the automatic EPG update should normally start."
+msgstr ""
+
+#: ../plugin.py:632
 msgid "Clear"
 msgstr "مسح"
 
+#: ../plugin.py:332
 msgid "Clearing current EPG before import"
 msgstr "مسح دليل البرامج الإلكتروني الحالي قبل الاستيراد"
 
+#: ../plugin.py:326
 msgid "Consider setting \"Days Profile\""
 msgstr "ضع في اعتبارك تعيين \"ملف تعريف الأيام\""
 
+#: ../plugin.py:582
 msgid "Days Profile"
 msgstr "ملف تعريف الأيام"
 
+#: ../plugin.py:330
+msgid "Define the number of days that you want to get the full EPG data, reducing this number can help you to save memory usage on your box. But you are also limited with the EPG provider available data. You will not have 15 days EPG if it only provide 7 days data."
+msgstr ""
+
+#: ../filtersServices.py:216
 msgid "Delete all"
 msgstr "حذف الكل"
 
+#: ../filtersServices.py:215
 msgid "Delete selected"
 msgstr "حذف المحدد"
 
+#: ../plugin.py:329
+msgid "Display a shortcut \"EPG import now\" on your STB main screen. This menu entry will immediately start the EPG update process when selected."
+msgstr ""
+
+#: ../plugin.py:328
+msgid "Display or not the EPGImport menu in the extension menu."
+msgstr ""
+
+#: ../plugin.py:284
 msgid "EPG Import Configuration"
 msgstr "إعدادات إستيراد دليل البرامج الإلكترونية"
 
+#: ../plugin.py:656
 msgid "EPG Import Log"
 msgstr "سجل إستيراد دليل البرامج الإلكترونية"
 
+#: ../plugin.py:543
 msgid "EPG Import Sources"
 msgstr "مصادر إستيراد دليل البرامج الإلكترونية"
 
+#: ../plugin.py:724
+#, python-format
 msgid "EPG Import finished, %d events"
 msgstr "إنتهاء إستيراد دليل البرامج الإلكترونية, %d الأحداث"
 
-msgid "EPG Importer"
+#: ../plugin.py:696
+#, fuzzy
+msgid "EPG import now"
+msgstr "سجل إستيراد دليل البرامج الإلكترونية"
+
+#: ../plugin.py:1021 ../plugin.py:1026
+#, fuzzy
+msgid "EPGImport"
 msgstr "إستيراد دليل البرامج الإلكترونية"
 
-msgid "EPG-Importer"
-msgstr "إستيراد دليل البرامج الإلكترونية"
-
+#: ../plugin.py:435
 msgid ""
 "EPGImport\n"
 "Import of epg data is still in progress. Please wait."
@@ -94,6 +141,7 @@ msgstr ""
 "إستيراد الدليل الالكتروني\n"
 "لا يزال استيراد بيانات الدليل الالكتروني قيد التنفيذ. الرجاء الانتظار."
 
+#: ../plugin.py:451
 msgid ""
 "EPGImport\n"
 "Import of epg data will start.\n"
@@ -105,6 +153,7 @@ msgstr ""
 "قد يستغرق هذا بضع دقائق.\n"
 "هل هذا جيد؟"
 
+#: ../plugin.py:460
 msgid ""
 "EPGImport Plugin\n"
 "Failed to start:\n"
@@ -112,15 +161,32 @@ msgstr ""
 "بلجن إستيراد الدليل الاكتروني\n"
 "فشل بدء الاستيراد:\n"
 
+#: ../plugin.py:308
+#, python-format
+msgid ""
+"Filtering: %s\n"
+"Please wait!"
+msgstr ""
+
+#: ../plugin.py:84
 msgid "Friday"
 msgstr "الجمعه"
 
+#: ../plugin.py:473
 msgid "Ignore services list"
 msgstr "تجاهل قائمة القنوات"
 
+#: ../filtersServices.py:153
+#, fuzzy
+msgid "Ignore services list(press OK to save)"
+msgstr "تجاهل قائمة القنوات"
+
+#: ../plugin.py:531
 msgid "Import current source"
 msgstr "استيراد المصدر الحالي"
 
+#: ../plugin.py:309
+#, python-format
 msgid ""
 "Importing: %s\n"
 "%s events"
@@ -128,96 +194,166 @@ msgstr ""
 "المستورد: %s\n"
 "%s الاحداث"
 
+#: ../plugin.py:678
 msgid "Last import: "
 msgstr "آخر استيراد: "
 
+#: ../plugin.py:430
+#, python-format
 msgid "Last import: %s events"
 msgstr "آخر استيراد: %s الاحداث"
 
+#: ../plugin.py:425
+#, python-format
 msgid "Last: %s %s, %d events"
 msgstr "أخر: %s %s, %d الاحداث"
 
-msgid "Load EPG only for IPTV channels"
-msgstr "تحميل دليل البرامج الإلكترونية لقنوات الايبي تيفي فقط"
-
+#: ../plugin.py:325
 msgid "Load EPG only services in bouquets"
 msgstr "تحميل دليل البرامج الإلكترونية فقط للقنوات الموجودة في الباقات"
 
+#: ../plugin.py:330
 msgid "Load long descriptions up to X days"
 msgstr "تحميل وصف مطول إضغط على عدد الايام"
 
+#: ../plugin.py:289
 msgid "Manual"
 msgstr "يدوي"
 
+#: ../plugin.py:80
 msgid "Monday"
 msgstr "الاثنين"
 
+#: ../plugin.py:446
 msgid "No active EPG sources found, nothing to do"
 msgstr "لا توجد مصادر لدليل البرامج الإلكترونية مفعلة، عليك أن تفعل شيئا"
 
+#: ../plugin.py:72
 msgid "Press OK"
 msgstr "أضغط موافق"
 
+#: ../filtersServices.py:182
 msgid "Really delete all list?"
 msgstr "حقا تريد حذف جميع القائمة؟"
 
+#: ../plugin.py:321
 msgid "Return to deep standby after import"
 msgstr "العودة إلى وضع الاستعداد العميق بعد الاستيراد"
 
+#: ../plugin.py:331
 msgid "Run AutoTimer after import"
 msgstr "تشغيل المؤقت التلقائي بعد الاستيراد"
 
+#: ../plugin.py:85
 msgid "Saturday"
 msgstr "السبت"
 
+#: ../plugin.py:288 ../plugin.py:509 ../plugin.py:588 ../plugin.py:635
 msgid "Save"
 msgstr "حفظ"
 
+#: ../plugin.py:474 ../filtersServices.py:266
 msgid "Select action"
 msgstr "حدد الاجراء"
 
-msgid "Select service to add..."
-msgstr "أختار القناة لإضافتها..."
-
-msgid "Show \"EPG Importer\" in main menu"
+#: ../plugin.py:329
+#, fuzzy
+msgid "Show \"EPG import now\" in main menu"
 msgstr "عرض \"دليل البرامج الإلكترونية المستوردة\" في القائمة الرئيسية"
 
+#: ../plugin.py:328
 msgid "Show \"EPGImport\" in extensions"
 msgstr "عرض \"إستيراد دليل البرامج الإلكترونية\" في الملحقات"
 
+#: ../plugin.py:473
 msgid "Show log"
 msgstr "عرض السجل"
 
+#: ../plugin.py:327
 msgid "Skip import on restart GUI"
 msgstr "تخطي الاستيراد عند إعادة تشغيل الانجما"
 
+#: ../plugin.py:290
 msgid "Sources"
 msgstr "المصادر"
 
+#: ../plugin.py:324
+msgid "Specify in which case the EPG must be automatically updated after the box has booted."
+msgstr ""
+
+#: ../plugin.py:319
+msgid "Specify the time for the automatic EPG update."
+msgstr ""
+
+#: ../plugin.py:322
 msgid "Standby at startup"
 msgstr "الاستعداد عند بدء التشغيل"
 
+#: ../plugin.py:324
 msgid "Start import after booting up"
 msgstr "تشغيل الإستيراد بعد الإقلاع"
 
+#: ../plugin.py:86
 msgid "Sunday"
 msgstr "الاحد"
 
+#: ../plugin.py:322
+msgid "The waked up box will be turned into standby after automatic EPG import wake up."
+msgstr ""
+
+#: ../plugin.py:332
+msgid "This will clear the current EPG data in memory before updating the EPG data. This allows you to always have a clean new EPG with the latest EPG data, for example in case of program changes between refresh, otherwise EPG data are cumulative."
+msgstr ""
+
+#: ../plugin.py:321
+msgid "This will turn back waked up box into deep-standby after automatic EPG import."
+msgstr ""
+
+#: ../plugin.py:83
 msgid "Thursday"
 msgstr "الخميس"
 
+#: ../plugin.py:325
+msgid "To save memory you can decide to only load EPG data for the services that you have in your bouquet files."
+msgstr ""
+
+#: ../plugin.py:81
 msgid "Tuesday"
 msgstr "الثلاثاء"
 
+#: ../plugin.py:82
 msgid "Wednesday"
 msgstr "الاربعاء"
 
+#: ../plugin.py:318
+msgid "When enabled, it allows you to schedule an automatic EPG update at the given days and time."
+msgstr ""
+
+#: ../plugin.py:320
 msgid "When in deep standby"
 msgstr "عندما تكون في وضع الاستعداد العميق"
 
+#: ../plugin.py:326
+msgid "When you decide to load the EPG after GUI restart mention if the \"days profile\" must be take into consideration or not."
+msgstr ""
+
+#: ../plugin.py:327
+msgid "When you restart the GUI you can decide to skip or not the EPG data import."
+msgstr ""
+
+#: ../plugin.py:662
 msgid "Write to /tmp/epgimport.log"
 msgstr "الكتابة في مسار سجل إستيراد الدليل"
 
+#: ../plugin.py:323
+msgid "You can select the day(s) when the EPG update must be performed."
+msgstr ""
+
+#: ../plugin.py:331
+msgid "You can start automatically the plugin AutoTimer after the EPG data update to have it refreshing its scheduling after EPG data refresh."
+msgstr ""
+
+#: ../plugin.py:607
 msgid ""
 "You may not use this settings!\n"
 "At least one day a week should be included!"
@@ -225,6 +361,7 @@ msgstr ""
 "لا يجوز لك استخدام هذه الإعدادات!\n"
 "يجب تضمين يوم واحد على الأقل في الأسبوع!"
 
+#: ../plugin.py:724
 msgid ""
 "You must restart Enigma2 to load the EPG data,\n"
 "is this OK?"
@@ -232,23 +369,26 @@ msgstr ""
 "يجب إعادة تشغيل الانجما لتحميل بيانات دليل البرامج الإلكتروني,\n"
 "هل هذا جيد؟"
 
+#: ../plugin.py:51
 msgid "always"
 msgstr "دائما"
 
+#: ../plugin.py:54
 msgid "never"
 msgstr "أبدا"
 
+#: ../plugin.py:53
 msgid "only automatic boot"
 msgstr "أثناء التشغيل التلقائي فقط"
 
+#: ../plugin.py:52
 msgid "only manual boot"
 msgstr "أثناء التشغيل اليدوي فقط"
 
-msgid "press OK to save list"
-msgstr "اضغط موافق لحفظ القائمة"
-
+#: ../plugin.py:62
 msgid "skip the import"
 msgstr "تخطي عملية الاستيراد"
 
+#: ../plugin.py:61
 msgid "wake up and import"
 msgstr "بعد التشغيل والاستيراد"
