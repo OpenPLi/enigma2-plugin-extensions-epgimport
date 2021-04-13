@@ -172,7 +172,7 @@ class EPGImport:
 			# default to 7 days ahead
 			self.longDescUntil = time.time() + 24*3600*7
 		else:
-			self.longDescUntil = longDescUntil;
+			self.longDescUntil = longDescUntil
 		self.nextImport()
 
 	def nextImport(self):
