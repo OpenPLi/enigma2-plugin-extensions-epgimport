@@ -120,16 +120,16 @@ class EPGImport:
 			try:
 				response = req.open(FullString, timeout=5)
 			except urllib2.HTTPError, e:
-				print ('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
+				print('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
 				dlderror=1
 			except urllib2.URLError, e:
-				print ('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
+				print('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
 				dlderror=1
 			except httplib.HTTPException, e:
-				print ('[EPGImport] HTTPException in checkValidServer')
+				print('[EPGImport] HTTPException in checkValidServer')
 				dlderror=1
 			except Exception:
-				print ('[EPGImport] Generic exception in checkValidServer')
+				print('[EPGImport] Generic exception in checkValidServer')
 				dlderror=1
 
 			if not dlderror:

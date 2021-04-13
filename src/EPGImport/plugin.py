@@ -118,7 +118,7 @@ def getRefNum(ref):
 		return
 
 def getBouquetChannelList():
-	channels = [ ]
+	channels = []
 	global isFilterRunning, filterCounter
 	isFilterRunning = 1
 	serviceHandler = enigma.eServiceCenter.getInstance()
@@ -542,7 +542,7 @@ class EPGImportSources(Screen):
 			try:
 				idx = self["list"].getSelectedIndex()
 				item = self["list"].list[idx][0]
-				source = [ item[1] or "" ]
+				source = [item[1] or ""]
 				cfg = {"sources": source}
 				print>>log, "[EPGImport] Selected source: ", source
 			except Exception, e:
@@ -693,7 +693,7 @@ def doneImport(reboot=False, epgfile=None):
 	lastImportResult = (time.time(), epgimport.eventCount)
 	try:
 		start, count = lastImportResult
-		localtime = time.asctime( time.localtime(time.time()))
+		localtime = time.asctime(time.localtime(time.time()))
 		lastimport = "%s, %d" % (localtime, count)
 		config.plugins.extra_epgimport.last_import.value = lastimport
 		config.plugins.extra_epgimport.last_import.save()
