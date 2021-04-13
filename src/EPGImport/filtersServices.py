@@ -152,7 +152,7 @@ class filtersServicesSetup(Screen):
 				"green": self.keyGreen,
 				"yellow": self.keyYellow,
 				"blue": self.keyBlue,
-			},-1)
+			}, -1)
 
 		self.setTitle(_("Ignore services list(press OK to save)"))
 
