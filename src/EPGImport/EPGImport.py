@@ -16,7 +16,8 @@ from twisted.internet import reactor, threads
 from twisted.web.client import downloadPage
 import twisted.python.runtime
 
-import urllib2, httplib
+import urllib2
+import httplib
 from datetime import datetime
 
 # Used to check server validity
