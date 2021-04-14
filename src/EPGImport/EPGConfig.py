@@ -74,6 +74,8 @@ class EPGChannel:
 						if filterCallback(ref):
 							if self.items.has_key(id):
 								self.items[id].append(ref)
+								# turning list into dict will make the reference unique to avoid loading twice the same EPG data.
+								self.items[id] = list(dict.fromkeys(self.items[id]))
 							else:
 								self.items[id] = [ref]
 					elem.clear()
