@@ -157,7 +157,7 @@ class EPGImport:
 				ServerStatusList[dirname]=0
 		return ServerStatusList[dirname]
 
-	def beginImport(self, longDescUntil = None):
+	def beginImport(self, longDescUntil=None):
 		'Starts importing using Enigma reactor. Set self.sources before calling this.'
 		if hasattr(self.epgcache, 'importEvents'):
 			self.storage = self.epgcache
