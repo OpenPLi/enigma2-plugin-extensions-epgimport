@@ -68,7 +68,7 @@ class FiltersList():
 		except:
 			return
 		for ref in self.services:
-			cfg.write('%s\n'%(ref))
+			cfg.write('%s\n' % (ref))
 		cfg.close()
 
 	def load(self):
