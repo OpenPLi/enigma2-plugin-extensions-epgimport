@@ -69,6 +69,7 @@ config.plugins.epgimport.deepstandby_afterimport = NoSave(ConfigYesNo(default=Fa
 config.plugins.epgimport.parse_autotimer = ConfigYesNo(default=False)
 config.plugins.epgimport.import_onlybouquet = ConfigYesNo(default=False)
 config.plugins.epgimport.clear_oldepg = ConfigYesNo(default=False)
+config.plugins.epgimport.filter_custom_channel = ConfigYesNo(default=True)
 config.plugins.epgimport.day_profile = ConfigSelection(choices=[("1", _("Press OK"))], default="1")
 config.plugins.extra_epgimport = ConfigSubsection()
 config.plugins.extra_epgimport.last_import = ConfigText(default="0")
@@ -216,6 +217,10 @@ lastImportResult = None
 
 def startImport():
 	EPGImport.HDD_EPG_DAT = config.misc.epgcache_filename.value
+	if config.plugins.epgimport.filter_custom_channel.value:
+		EPGConfig.filterCustomChannel = True
+	else:
+		EPGConfig.filterCustomChannel = False
 	if config.plugins.epgimport.clear_oldepg.value and hasattr(epgimport.epgcache, 'flushEPG'):
 		EPGImport.unlink_if_exists(EPGImport.HDD_EPG_DAT)
 		EPGImport.unlink_if_exists(EPGImport.HDD_EPG_DAT + '.backup')
@@ -330,6 +335,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.cfg_longDescDays = getConfigListEntry(_("Load long descriptions up to X days"), self.EPG.longDescDays, _("Define the number of days that you want to get the full EPG data, reducing this number can help you to save memory usage on your box. But you are also limited with the EPG provider available data. You will not have 15 days EPG if it only provide 7 days data."))
 		self.cfg_parse_autotimer = getConfigListEntry(_("Run AutoTimer after import"), self.EPG.parse_autotimer, _("You can start automatically the plugin AutoTimer after the EPG data update to have it refreshing its scheduling after EPG data refresh."))
 		self.cfg_clear_oldepg = getConfigListEntry(_("Clearing current EPG before import"), config.plugins.epgimport.clear_oldepg, _("This will clear the current EPG data in memory before updating the EPG data. This allows you to always have a clean new EPG with the latest EPG data, for example in case of program changes between refresh, otherwise EPG data are cumulative."))
+		self.cfg_filter_custom_channel =  getConfigListEntry(_("Also apply \"channel id\" filtering on custom.channels.xml"), self.EPG.filter_custom_channel, _("This is for advanced users that are using the channel id filtering feature. If enabled, the filter rules defined into /etc/epgimport/channel_id_filter.conf will also be applied on your /etc/epgimport/custom.channels.xml file."))
 
 	def createSetup(self):
 		self.list = [self.cfg_enabled]
@@ -351,6 +357,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.list.append(self.cfg_import_onlybouquet)
 		if hasattr(enigma.eEPGCache, 'flushEPG'):
 			self.list.append(self.cfg_clear_oldepg)
+		self.list.append(self.cfg_filter_custom_channel)
 		self.list.append(self.cfg_longDescDays)
 		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.py")):
 			try:

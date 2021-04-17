@@ -1,0 +1,7 @@
+<!-- This is sample file to show you the structure of the custom.channels.xml -->
+<!-- This allows you to make you own mapping between a given channel id and an real or self generated service reference -->
+<?xml version="1.0" encoding="latin-1"?>
+<channels>
+	<channel id="MyChannel1.uk">4097:0:1:BA08:3:0:0:0:0:0:http%3a//dummy.com/</channel> <!-- Your comment -->
+	<channel id="MyChannel2.fr">5001:0:1:A315:3:0:0:0:0:0:http%3a//dummy.com/</channel> <!-- Your comment -->
+</channels>

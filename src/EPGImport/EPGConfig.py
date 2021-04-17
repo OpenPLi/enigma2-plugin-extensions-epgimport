@@ -5,11 +5,13 @@ import cPickle as pickle
 import gzip
 import time
 import random
+import re
 
 # User selection stored here, so it goes into a user settings backup
 SETTINGS_FILE = '/etc/enigma2/epgimport.conf'
 
 channelCache = {}
+global filterCustomChannel
 
 def isLocalFile(filename):
 	# we check on a '://' as a silly way to check local file
@@ -35,6 +37,47 @@ def getChannels(path, name):
 	channelCache[channelfile] = c
 	return c
 
+def set_channel_id_filter():
+	full_filter=""
+	try:
+		with open('/etc/epgimport/channel_id_filter.conf', 'r') as channel_id_file:
+			for channel_id_line in channel_id_file:
+				# Skipping comments in channel_id_filter.conf
+				if not channel_id_line.startswith("#"):
+					clean_channel_id_line=channel_id_line.strip()
+					# Blank line in channel_id_filter.conf will produce a full match so we need to skip them.
+					if clean_channel_id_line:
+						try:
+							# We compile indivually every line just to report error
+							re_test=re.compile(clean_channel_id_line)
+						except re.error:
+							print>>log, "[EPGImport] ERROR: "+clean_channel_id_line+" is not a valid regex. It will be ignored."
+						else:	
+							full_filter=full_filter+clean_channel_id_line+"|"
+	except IOError:
+		print>>log, "[EPGImport] INFO: no channel_id_filter.conf file found."
+		# Return a dummy filter (empty line filter) all accepted except empty channel id
+		compiled_filter=re.compile("^$")
+		return(compiled_filter)
+	# Last char is | so remove it	
+	full_filter=full_filter[:-1]
+	# all channel id are matched in lower case so creating the filter in lowercase too
+	full_filter=full_filter.lower()
+	# channel_id_filter.conf file exist but is empty, it has only comments, or only invalid regex
+	if len(full_filter) == 0 :
+		# full_filter is empty returning dummy filter
+		compiled_filter=re.compile("^$")
+	else:
+		try:
+			compiled_filter=re.compile(full_filter)
+		except re.error:
+			print>>log, "[EPGImport] ERROR: final regex "+full_filter+" doesn't compile properly."
+			# Return a dummy filter  (empty line filter) all accepted except empty channel id
+			compiled_filter=re.compile("^$")
+		else:
+			print>>log, "[EPGImport] INFO : final regex "+full_filter+" compiled successfully."
+	
+	return(compiled_filter)
 
 class EPGChannel:
 	def __init__(self, filename, urls=None):
@@ -58,8 +101,9 @@ class EPGChannel:
 				from backports import lzma
 			fd = lzma.open(filename, 'rb')
 		return fd
-	def parse(self, filterCallback, downloadedFile):
+	def parse(self, filterCallback, downloadedFile, FilterChannelEnabled):
 		print>>log,"[EPGImport] Parsing channels from '%s'" % self.name
+		channel_id_filter=set_channel_id_filter()
 		if self.items is None:
 			self.items = {}
 		try:
@@ -68,16 +112,33 @@ class EPGChannel:
 				if elem.tag == 'channel':
 					id = elem.get('id')
 					id = id.lower()
-					ref = elem.text
-					if id and ref:
-						ref = ref.encode('latin-1')
-						if filterCallback(ref):
-							if self.items.has_key(id):
-								self.items[id].append(ref)
-								# turning list into dict will make the reference unique to avoid loading twice the same EPG data.
-								self.items[id] = list(dict.fromkeys(self.items[id]))
-							else:
-								self.items[id] = [ref]
+					filter_result=channel_id_filter.match(id)
+					if filter_result and FilterChannelEnabled:
+						print>>log, "[EPGImport] INFO : skipping", filter_result.group(),"due to channel_id_filter.conf"
+						ref = elem.text
+						if id and ref:
+							ref = ref.encode('latin-1')
+							if filterCallback(ref):
+								if self.items.has_key(id):
+									try:
+										if ref in self.items[id] :
+											# remove only remove the first occurrence turning list into dict will make the reference unique so remove will work as expected.
+											self.items[id] = list(dict.fromkeys(self.items[id]))
+											self.items[id].remove(ref)
+									except Exception as e:
+										print>>log, "[EPGImport] failed to remove from list ", self.items[id], " ref ", ref, "Error:", e
+					else:
+						print>>log, "[EPGImport] INFO : processing", id
+						ref = elem.text
+						if id and ref:
+							ref = ref.encode('latin-1')
+							if filterCallback(ref):
+								if self.items.has_key(id):
+									self.items[id].append(ref)
+									# turning list into dict will make the reference unique to avoid loading twice the same EPG data.
+									self.items[id] = list(dict.fromkeys(self.items[id]))
+								else:
+									self.items[id] = [ref]
 					elem.clear()
 		except Exception as e:
 			print>>log, "[EPGImport] failed to parse", downloadedFile, "Error:", e
@@ -88,14 +149,14 @@ class EPGChannel:
 		# and we don't have multiple download from server problem since it is always a local file.
 		if os.path.exists(customFile):
 			print>>log,"[EPGImport] Parsing channels from '%s'" % customFile
-			self.parse(filterCallback, customFile)
+			self.parse(filterCallback, customFile, filterCustomChannel)
 		if downloadedFile is not None:
 			self.mtime = time.time()
-			return self.parse(filterCallback, downloadedFile)
+			return self.parse(filterCallback, downloadedFile, True)
 		elif (len(self.urls) == 1) and isLocalFile(self.urls[0]):
 			mtime = os.path.getmtime(self.urls[0])
 			if (not self.mtime) or (self.mtime < mtime):
-				self.parse(filterCallback, self.urls[0])
+				self.parse(filterCallback, self.urls[0], True)
 				self.mtime = mtime
 	def downloadables(self):
 		if (len(self.urls) == 1) and isLocalFile(self.urls[0]):
