@@ -276,7 +276,7 @@ class epgdat_class:
 			self.EPG_TMP_FD.close()
 			epgdat_fd=open(self.EPGDAT_FILENAME,"wb")
 			# HEADER 1
-			pack_1=struct.pack(self.LB_ENDIAN+"I13sI",0x98765432,'ENIGMA_EPG_V7',self.EPG_HEADER1_channel_count)
+			pack_1=struct.pack(self.LB_ENDIAN+"I13sI",0x98765432,'ENIGMA_EPG_V8',self.EPG_HEADER1_channel_count)
 			epgdat_fd.write(pack_1)
 			# write first EPG.DAT section
 			EPG_TMP_FD=open(self.EPGDAT_TMP_FILENAME,"rb")
