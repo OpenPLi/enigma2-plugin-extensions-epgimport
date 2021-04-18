@@ -1,0 +1,33 @@
+# This file allows you to filter out some "channel id" that you don't want to be loaded into your EPG data.
+#
+# Its usage is very limited and it will mostly be used by advanced users that encountered the following problem:
+#
+# <!-- DK --><!-- 0.8W --><channel id="AnimalPlanet.dk">1:0:1:4274:4:46:E080000:0:0:0:</channel><!-- Animal Planet -->
+# <!-- FI --><!-- 0.8W --><channel id="AnimalPlanet.fi">1:0:1:4274:4:46:E080000:0:0:0:</channel><!-- Animal Planet -->
+# <!-- NO --><!-- 0.8W --><channel id="AnimalPlanet.no">1:0:1:4274:4:46:E080000:0:0:0:</channel><!-- Animal Planet -->
+# <!-- SE --><!-- 0.8W --><channel id="AnimalPlanet.se">1:0:1:4274:4:46:E080000:0:0:0:</channel><!-- Animal Planet -->
+#
+# AnimalPlantet shares the same service reference but can get several EPG languages data source.
+# It is always the latest loaded data source that will be displayed in your EPG and you have no easy way to change the EPG data load order.
+#
+# With this file, you can now define a filter to exclude the channel id that you don't want to be loaded.
+# To keep only the NO languages you need to exclude the other one by adding the follwing lines (without the # ) in this file:
+# AnimalPlanet.dk
+# AnimalPlanet.fi
+# AnimalPlanet.se
+#
+# Remarks for advanced users:
+# -> one filter per line
+# -> the filtering is not case sensitive (since the channel id is always turned into lowercase during data loading.)
+# -> the filtering supports regular expression style formatting.
+# -> since it use regex format the wildcard to replace any character is .* (and not just * )
+# -> if a line is not valid (wrong regex) it will simply be ignored (the log will show it).
+# -> an OR operation is performed between every lines.
+# -> filter is always applied to the data sources.
+# -> you can control in the GUI if you want it to be applied to your custom.channels.xml or not.
+#
+# Knowing that you can decide to exclude once for all the channel id reference with the given extension. 
+# So if you want to exclude all the DK, FI, SE you can add the following lines without the #
+# .*\.dk
+# .*\.fi
+# .*\.se
