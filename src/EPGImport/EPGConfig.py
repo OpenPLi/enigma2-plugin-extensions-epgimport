@@ -128,7 +128,7 @@ class EPGChannel:
 									except Exception as e:
 										print>>log, "[EPGImport] failed to remove from list ", self.items[id], " ref ", ref, "Error:", e
 					else:
-						print>>log, "[EPGImport] INFO : processing", id
+						# print>>log, "[EPGImport] INFO : processing", id
 						ref = elem.text
 						if id and ref:
 							ref = ref.encode('latin-1')
