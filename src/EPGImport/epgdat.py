@@ -157,7 +157,7 @@ class epgdat_class:
 		self.s_I = struct.Struct(self.LB_ENDIAN+"I")
 		self.s_II = struct.Struct(self.LB_ENDIAN+"II")
 		self.s_IIII = struct.Struct(self.LB_ENDIAN+"IIII")
-		self.s_B3sBBB = struct.Struct("B3sBBB")
+		self.s_B3sHBB = struct.Struct("B3sHBB")
 		self.s_3sBB = struct.Struct("3sBB")
 
 	def set_endian(self,endian):
@@ -183,7 +183,7 @@ class epgdat_class:
 		num_tot_desc = (len(s) + 244) // 245
 		for i in range(num_tot_desc):
 			ssub = s[i*245:i*245+245]
-			sres = self.s_B3sBBB.pack((i << 4) + (num_tot_desc-1),'eng',0x00,len(ssub)+1,0x15) + str(ssub)
+			sres = self.s_B3sHBB.pack((i << 4) + (num_tot_desc-1),'eng',0x0000,len(ssub)+1,0x15) + str(ssub)
 			r.append((crc32_dreambox(sres,0x4e), sres))
 		return r
 
