@@ -19,8 +19,8 @@
 # Remarks for advanced users:
 # -> one filter per line
 # -> the filtering is not case sensitive (since the channel id is always turned into lowercase during data loading.)
-# -> the filtering supports regular expression style formating.
-# -> since it use regex format the wilcard to replace any character is .* (and not just * )
+# -> the filtering supports regular expression style formatting.
+# -> since it use regex format the wildcard to replace any character is .* (and not just * )
 # -> if a line is not valid (wrong regex) it will simply be ignored (the log will show it).
 # -> an OR operation is performed between every lines.
 # -> filter is always applied to the data sources.
