@@ -114,7 +114,9 @@ class EPGChannel:
 					id = id.lower()
 					filter_result=channel_id_filter.match(id)
 					if filter_result and FilterChannelEnabled:
-						print>>log, "[EPGImport] INFO : skipping", filter_result.group(),"due to channel_id_filter.conf"
+						# Just to avoid false positive in logging since the same parse function is used in two different cases.
+						if filter_result.group():
+							print>>log, "[EPGImport] INFO : skipping", filter_result.group(),"due to channel_id_filter.conf"
 						ref = elem.text
 						if id and ref:
 							ref = ref.encode('latin-1')
