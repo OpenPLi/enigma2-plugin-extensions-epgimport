@@ -12,12 +12,24 @@ import random
 
 HDD_EPG_DAT = "/hdd/epg.dat"
 
-from twisted.internet import reactor, threads
+from twisted.internet import reactor, threads, ssl
 from twisted.web.client import downloadPage
 import twisted.python.runtime
-
+from twisted.internet._sslverify import ClientTLSOptions
 import urllib2, httplib
+from urlparse import urlparse
+
 from datetime import datetime
+
+class SNIFactory(ssl.ClientContextFactory):
+	def __init__(self, hostname = None):
+		self.hostname = urlparse(hostname).hostname
+
+	def getContext(self):
+		ctx = self._contextFactory(self.method)
+		if self.hostname:
+			ClientTLSOptions(self.hostname, ctx)
+		return ctx
 
 # Used to check server validity
 date_format = "%Y-%m-%d"
@@ -184,7 +196,7 @@ class EPGImport:
 		self.fetchUrl(self.source.url)
 
 	def fetchUrl(self, filename):
-		if filename.startswith('http:') or filename.startswith('ftp:'):
+		if filename.startswith('http:') or filename.startswith('https:') or filename.startswith('ftp:'):
 			self.do_download(filename, self.afterDownload, self.downloadFail)
 		else:
 			self.afterDownload(None, filename, deleteFile=False)
@@ -418,14 +430,15 @@ class EPGImport:
 		if ext and len(ext) < 6:
 			filename += ext
 		sourcefile = sourcefile.encode('utf-8')
+		sslcf = SNIFactory(sourcefile) if sourcefile.startswith('https:') else None
 		print>>log, "[EPGImport] Downloading: " + sourcefile + " to local path: " + filename
 		if self.source.nocheck == 1:
 			print>>log, "[EPGImport] Not cheching the server since nocheck is set for it: " + sourcefile
-			downloadPage(sourcefile, filename).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
+			downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
 			return filename
 		else:
 			if self.checkValidServer(sourcefile) == 1:
-				downloadPage(sourcefile, filename).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
+				downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
 				return filename
 			else:
 				self.downloadFail("checkValidServer reject the server")
