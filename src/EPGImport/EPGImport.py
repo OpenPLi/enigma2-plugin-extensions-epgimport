@@ -22,6 +22,7 @@ from urlparse import urlparse
 
 from datetime import datetime
 
+
 class SNIFactory(ssl.ClientContextFactory):
 	def __init__(self, hostname=None):
 		self.hostname = urlparse(hostname).hostname
@@ -31,6 +32,7 @@ class SNIFactory(ssl.ClientContextFactory):
 		if self.hostname:
 			ClientTLSOptions(self.hostname, ctx)
 		return ctx
+
 
 # Used to check server validity
 date_format = "%Y-%m-%d"
@@ -44,6 +46,7 @@ PARSERS = {
 	'genxmltv': 'gen_xmltv',
 }
 
+
 def relImport(name):
 	fullname = __name__.split('.')
 	fullname[-1] = name
@@ -52,16 +55,19 @@ def relImport(name):
 		mod = getattr(mod, n)
 	return mod
 
+
 def getParser(name):
 	module = PARSERS.get(name, name)
 	mod = relImport(module)
 	return mod.new()
+
 
 def getTimeFromHourAndMinutes(hour, minute):
 	now = time.localtime()
 	begin = int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday,
 						hour, minute, 0, now.tm_wday, now.tm_yday, now.tm_isdst)))
 	return begin
+
 
 def bigStorage(minFree, default, *candidates):
 	try:
@@ -85,21 +91,26 @@ def bigStorage(minFree, default, *candidates):
 				pass
 	return default
 
+
 class OudeisImporter:
 	'Wrapper to convert original patch to new one that accepts multiple services'
+
 	def __init__(self, epgcache):
 		self.epgcache = epgcache
 	# difference with old patch is that services is a list or tuple, this
 	# wrapper works around it.
+
 	def importEvents(self, services, events):
 		for service in services:
 			self.epgcache.importEvent(service, events)
+
 
 def unlink_if_exists(filename):
 	try:
 		os.unlink(filename)
 	except:
 		pass
+
 
 class EPGImport:
 	"""Simple Class to import EPGData"""
