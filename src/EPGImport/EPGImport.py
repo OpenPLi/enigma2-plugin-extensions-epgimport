@@ -16,7 +16,8 @@ from twisted.internet import reactor, threads, ssl
 from twisted.web.client import downloadPage
 import twisted.python.runtime
 from twisted.internet._sslverify import ClientTLSOptions
-import urllib2, httplib
+import urllib2
+import httplib
 from urlparse import urlparse
 
 from datetime import datetime
