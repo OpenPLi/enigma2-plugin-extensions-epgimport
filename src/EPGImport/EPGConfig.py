@@ -55,14 +55,14 @@ def set_channel_id_filter():
 							re_test = re.compile(clean_channel_id_line)
 						except re.error:
 							print>>log, "[EPGImport] ERROR: " + clean_channel_id_line + " is not a valid regex. It will be ignored."
-						else:	
+						else:
 							full_filter = full_filter + clean_channel_id_line + "|"
 	except IOError:
 		print>>log, "[EPGImport] INFO: no channel_id_filter.conf file found."
 		# Return a dummy filter (empty line filter) all accepted except empty channel id
 		compiled_filter = re.compile("^$")
 		return(compiled_filter)
-	# Last char is | so remove it	
+	# Last char is | so remove it
 	full_filter = full_filter[:-1]
 	# all channel id are matched in lower case so creating the filter in lowercase too
 	full_filter = full_filter.lower()
@@ -79,7 +79,7 @@ def set_channel_id_filter():
 			compiled_filter = re.compile("^$")
 		else:
 			print>>log, "[EPGImport] INFO : final regex " + full_filter + " compiled successfully."
-	
+
 	return(compiled_filter)
 
 
