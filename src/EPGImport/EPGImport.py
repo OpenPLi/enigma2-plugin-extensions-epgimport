@@ -123,7 +123,7 @@ class EPGImport:
 		FullString = dirname + "/" + CheckFile
 		req = urllib2.build_opener()
 		req.addheaders = [('User-Agent', 'Twisted Client')]
-		dlderror=0
+		dlderror = 0
 		if ServerStatusList.has_key(dirname):
 			# If server is know return its status immediately
 			return ServerStatusList[dirname]
@@ -133,16 +133,16 @@ class EPGImport:
 				response = req.open(FullString, timeout=5)
 			except urllib2.HTTPError, e:
 				print('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
-				dlderror=1
+				dlderror = 1
 			except urllib2.URLError, e:
 				print('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
-				dlderror=1
+				dlderror = 1
 			except httplib.HTTPException, e:
 				print('[EPGImport] HTTPException in checkValidServer')
-				dlderror=1
+				dlderror = 1
 			except Exception:
 				print('[EPGImport] Generic exception in checkValidServer')
-				dlderror=1
+				dlderror = 1
 
 			if not dlderror:
 				LastTime = response.read().strip('\n')
@@ -150,23 +150,23 @@ class EPGImport:
 					FileDate = datetime.strptime(LastTime, date_format)
 				except ValueError:
 					print>>log, "[EPGImport] checkValidServer wrong date format in file rejecting server %s" % dirname
-					ServerStatusList[dirname]=0
+					ServerStatusList[dirname] = 0
 					response.close()
 					return ServerStatusList[dirname]
 				delta = (now - FileDate).days
 				if delta <= alloweddelta:
 					# OK the delta is in the foreseen windows
-					ServerStatusList[dirname]=1
+					ServerStatusList[dirname] = 1
 				else:
 					# Sorry the delta is higher removing this site
 					print>>log, "[EPGImport] checkValidServer rejected server delta days too high: %s" % dirname
-					ServerStatusList[dirname]=0
+					ServerStatusList[dirname] = 0
 				response.close()
 
 			else:
 				# We need to exclude this server
 				print>>log, "[EPGImport] checkValidServer rejected server download error for: %s" % dirname
-				ServerStatusList[dirname]=0
+				ServerStatusList[dirname] = 0
 		return ServerStatusList[dirname]
 
 	def beginImport(self, longDescUntil=None):
@@ -182,7 +182,7 @@ class EPGImport:
 		self.eventCount = 0
 		if longDescUntil is None:
 			# default to 7 days ahead
-			self.longDescUntil = time.time() + 24*3600*7
+			self.longDescUntil = time.time() + 24 * 3600 * 7
 		else:
 			self.longDescUntil = longDescUntil
 		self.nextImport()
