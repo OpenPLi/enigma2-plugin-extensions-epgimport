@@ -64,7 +64,7 @@ def set_channel_id_filter():
 	# all channel id are matched in lower case so creating the filter in lowercase too
 	full_filter=full_filter.lower()
 	# channel_id_filter.conf file exist but is empty, it has only comments, or only invalid regex
-	if len(full_filter) == 0 :
+	if len(full_filter) == 0:
 		# full_filter is empty returning dummy filter
 		compiled_filter=re.compile("^$")
 	else:
@@ -123,7 +123,7 @@ class EPGChannel:
 							if filterCallback(ref):
 								if self.items.has_key(id):
 									try:
-										if ref in self.items[id] :
+										if ref in self.items[id]:
 											# remove only remove the first occurrence turning list into dict will make the reference unique so remove will work as expected.
 											self.items[id] = list(dict.fromkeys(self.items[id]))
 											self.items[id].remove(ref)
