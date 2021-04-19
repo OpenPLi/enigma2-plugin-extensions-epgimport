@@ -7,6 +7,7 @@ import skin
 expandableIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "icons/expandable.png"))
 expandedIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "icons/expanded.png"))
 
+
 def loadSettings():
 	global cat_desc_loc, entry_desc_loc, cat_icon_loc, entry_icon_loc
 
@@ -24,6 +25,7 @@ def loadSettings():
 	x, y, w, h = skin.parameters.get("SelectionListLock", (0, 2, 25, 24))
 	entry_icon_loc = (x + indent, y, w, h)
 
+
 def category(description, isExpanded=False):
 	global cat_desc_loc, cat_icon_loc
 	if isExpanded:
@@ -35,6 +37,7 @@ def category(description, isExpanded=False):
 		(eListboxPythonMultiContent.TYPE_TEXT,) + cat_desc_loc + (0, RT_HALIGN_LEFT, description),
 		(eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND,) + cat_icon_loc + (icon,)
 	]
+
 
 def entry(description, value, selected):
 	global entry_desc_loc, entry_icon_loc
@@ -49,6 +52,7 @@ def entry(description, value, selected):
 	res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND,) + entry_icon_loc + (selectionpng,))
 	return res
 
+
 def expand(cat, value=True):
 	# cat is a list of data and icons
 	if cat[0][1] != value:
@@ -60,12 +64,15 @@ def expand(cat, value=True):
 		cat[0] = (t[0], value, t[2])
 		cat[2] = (eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND,) + cat_icon_loc + (icon,)
 
+
 def isExpanded(cat):
 	return cat[0][1]
+
 
 def isCategory(item):
 	# Return whether list enty is a Category
 	return hasattr(item[0][2], 'append')
+
 
 class ExpandableSelectionList(MenuList):
 	def __init__(self, tree=None, enableWrapAround=False):
@@ -114,5 +121,6 @@ class ExpandableSelectionList(MenuList):
 			for entry in cat[0][2]:
 				if entry[2]:
 					yield entry
+
 
 loadSettings()

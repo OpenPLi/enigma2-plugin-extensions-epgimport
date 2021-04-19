@@ -15,6 +15,7 @@ OFF = 0
 EDIT_BOUQUET = 1
 EDIT_ALTERNATIVES = 2
 
+
 def getProviderName(ref):
 	typestr = ref.getData(0) in (2, 10) and service_types_radio or service_types_tv
 	pos = typestr.rfind(':')
@@ -25,17 +26,20 @@ def getProviderName(ref):
 	if not providerlist is None:
 		while True:
 			provider = providerlist.getNext()
-			if not provider.valid(): break
+			if not provider.valid():
+				break
 			if provider.flags & eServiceReference.isDirectory:
 				servicelist = serviceHandler.list(provider)
 				if not servicelist is None:
 					while True:
 						service = servicelist.getNext()
-						if not service.valid(): break
+						if not service.valid():
+							break
 						if service == ref:
 							info = serviceHandler.info(provider)
 							return info and info.getName(provider) or "Unknown"
 	return ''
+
 
 class FiltersList():
 	def __init__(self):
@@ -49,8 +53,10 @@ class FiltersList():
 			return
 		while True:
 			line = cfg.readline()
-			if not line: break
-			if line[0] in '#;\n': continue
+			if not line:
+				break
+			if line[0] in '#;\n':
+				continue
 			ref = line.strip()
 			if not ref in self.services:
 				self.services.append(ref)
@@ -64,7 +70,7 @@ class FiltersList():
 		except:
 			return
 		for ref in self.services:
-			cfg.write('%s\n'%(ref))
+			cfg.write('%s\n' % (ref))
 		cfg.close()
 
 	def load(self):
@@ -100,7 +106,9 @@ class FiltersList():
 		self.services = []
 		self.save()
 
+
 filtersServicesList = FiltersList()
+
 
 class filtersServicesSetup(Screen):
 	skin = """
@@ -126,6 +134,7 @@ class filtersServicesSetup(Screen):
 			</convert>
 		</widget>
 	</screen>"""
+
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		self.RefList = filtersServicesList
@@ -148,7 +157,7 @@ class filtersServicesSetup(Screen):
 				"green": self.keyGreen,
 				"yellow": self.keyYellow,
 				"blue": self.keyBlue,
-			},-1)
+			}, -1)
 
 		self.setTitle(_("Ignore services list(press OK to save)"))
 
@@ -201,7 +210,7 @@ class filtersServicesSetup(Screen):
 		self.close()
 
 	def updateList(self):
-		self.list = [ ]
+		self.list = []
 		for service in self.RefList.servicesList():
 			if '1:0:' in service:
 				provname = getProviderName(eServiceReference(service))
@@ -217,6 +226,7 @@ class filtersServicesSetup(Screen):
 		else:
 			self["key_red"].setText("")
 			self["key_blue"].setText("")
+
 
 class filtersServicesSelection(ChannelSelectionBase):
 	skin = """
@@ -246,6 +256,7 @@ class filtersServicesSelection(ChannelSelectionBase):
 		if self.providers and (ref.flags & 7) == 7:
 			if 'provider' in ref.toString():
 				menu = [(_("All services provider"), "providerlist")]
+
 				def addAction(choice):
 					if choice is not None:
 						if choice[1] == "providerlist":

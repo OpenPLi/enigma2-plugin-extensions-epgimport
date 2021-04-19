@@ -16,13 +16,15 @@ from twisted.internet import reactor, threads, ssl
 from twisted.web.client import downloadPage
 import twisted.python.runtime
 from twisted.internet._sslverify import ClientTLSOptions
-import urllib2, httplib
+import urllib2
+import httplib
 from urlparse import urlparse
 
 from datetime import datetime
 
+
 class SNIFactory(ssl.ClientContextFactory):
-	def __init__(self, hostname = None):
+	def __init__(self, hostname=None):
 		self.hostname = urlparse(hostname).hostname
 
 	def getContext(self):
@@ -30,6 +32,7 @@ class SNIFactory(ssl.ClientContextFactory):
 		if self.hostname:
 			ClientTLSOptions(self.hostname, ctx)
 		return ctx
+
 
 # Used to check server validity
 date_format = "%Y-%m-%d"
@@ -43,6 +46,7 @@ PARSERS = {
 	'genxmltv': 'gen_xmltv',
 }
 
+
 def relImport(name):
 	fullname = __name__.split('.')
 	fullname[-1] = name
@@ -51,16 +55,19 @@ def relImport(name):
 		mod = getattr(mod, n)
 	return mod
 
+
 def getParser(name):
 	module = PARSERS.get(name, name)
 	mod = relImport(module)
 	return mod.new()
+
 
 def getTimeFromHourAndMinutes(hour, minute):
 	now = time.localtime()
 	begin = int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday,
 						hour, minute, 0, now.tm_wday, now.tm_yday, now.tm_isdst)))
 	return begin
+
 
 def bigStorage(minFree, default, *candidates):
 	try:
@@ -84,21 +91,26 @@ def bigStorage(minFree, default, *candidates):
 				pass
 	return default
 
+
 class OudeisImporter:
 	'Wrapper to convert original patch to new one that accepts multiple services'
+
 	def __init__(self, epgcache):
 		self.epgcache = epgcache
 	# difference with old patch is that services is a list or tuple, this
 	# wrapper works around it.
+
 	def importEvents(self, services, events):
 		for service in services:
 			self.epgcache.importEvent(service, events)
+
 
 def unlink_if_exists(filename):
 	try:
 		os.unlink(filename)
 	except:
 		pass
+
 
 class EPGImport:
 	"""Simple Class to import EPGData"""
@@ -122,7 +134,7 @@ class EPGImport:
 		FullString = dirname + "/" + CheckFile
 		req = urllib2.build_opener()
 		req.addheaders = [('User-Agent', 'Twisted Client')]
-		dlderror=0
+		dlderror = 0
 		if ServerStatusList.has_key(dirname):
 			# If server is know return its status immediately
 			return ServerStatusList[dirname]
@@ -131,17 +143,17 @@ class EPGImport:
 			try:
 				response = req.open(FullString, timeout=5)
 			except urllib2.HTTPError, e:
-				print ('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
-				dlderror=1
+				print('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
+				dlderror = 1
 			except urllib2.URLError, e:
-				print ('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
-				dlderror=1
+				print('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
+				dlderror = 1
 			except httplib.HTTPException, e:
-				print ('[EPGImport] HTTPException in checkValidServer')
-				dlderror=1
+				print('[EPGImport] HTTPException in checkValidServer')
+				dlderror = 1
 			except Exception:
-				print ('[EPGImport] Generic exception in checkValidServer')
-				dlderror=1
+				print('[EPGImport] Generic exception in checkValidServer')
+				dlderror = 1
 
 			if not dlderror:
 				LastTime = response.read().strip('\n')
@@ -149,26 +161,26 @@ class EPGImport:
 					FileDate = datetime.strptime(LastTime, date_format)
 				except ValueError:
 					print>>log, "[EPGImport] checkValidServer wrong date format in file rejecting server %s" % dirname
-					ServerStatusList[dirname]=0
+					ServerStatusList[dirname] = 0
 					response.close()
 					return ServerStatusList[dirname]
 				delta = (now - FileDate).days
 				if delta <= alloweddelta:
 					# OK the delta is in the foreseen windows
-					ServerStatusList[dirname]=1
+					ServerStatusList[dirname] = 1
 				else:
 					# Sorry the delta is higher removing this site
 					print>>log, "[EPGImport] checkValidServer rejected server delta days too high: %s" % dirname
-					ServerStatusList[dirname]=0
+					ServerStatusList[dirname] = 0
 				response.close()
 
 			else:
 				# We need to exclude this server
 				print>>log, "[EPGImport] checkValidServer rejected server download error for: %s" % dirname
-				ServerStatusList[dirname]=0
+				ServerStatusList[dirname] = 0
 		return ServerStatusList[dirname]
 
-	def beginImport(self, longDescUntil = None):
+	def beginImport(self, longDescUntil=None):
 		'Starts importing using Enigma reactor. Set self.sources before calling this.'
 		if hasattr(self.epgcache, 'importEvents'):
 			self.storage = self.epgcache
@@ -181,9 +193,9 @@ class EPGImport:
 		self.eventCount = 0
 		if longDescUntil is None:
 			# default to 7 days ahead
-			self.longDescUntil = time.time() + 24*3600*7
+			self.longDescUntil = time.time() + 24 * 3600 * 7
 		else:
-			self.longDescUntil = longDescUntil;
+			self.longDescUntil = longDescUntil
 		self.nextImport()
 
 	def nextImport(self):
@@ -250,7 +262,7 @@ class EPGImport:
 			try:
 				# read a bit to make sure it's a gzip file
 				self.fd.read(10)
-				self.fd.seek(0,0)
+				self.fd.seek(0, 0)
 			except Exception, e:
 				print>>log, "[EPGImport] File downloaded is not a valid gzip file", filename
 				self.downloadFail(e)
@@ -264,7 +276,7 @@ class EPGImport:
 			try:
 				# read a bit to make sure it's an xz file
 				self.fd.read(10)
-				self.fd.seek(0,0)
+				self.fd.seek(0, 0)
 			except Exception, e:
 				print>>log, "[EPGImport] File downloaded is not a valid xz file", filename
 				self.downloadFail(e)
@@ -317,7 +329,7 @@ class EPGImport:
 			if data is not None:
 				self.eventCount += 1
 				try:
-					r,d = data
+					r, d = data
 					if d[0] > self.longDescUntil:
 						# Remove long description (save RAM memory)
 						d = d[:4] + ('',) + d[5:]
@@ -339,7 +351,7 @@ class EPGImport:
 			if data is not None:
 				self.eventCount += 1
 				try:
-					r,d = data
+					r, d = data
 					if d[0] > self.longDescUntil:
 						# Remove long description (save RAM memory)
 						d = d[:4] + ('',) + d[5:]
@@ -434,11 +446,11 @@ class EPGImport:
 		print>>log, "[EPGImport] Downloading: " + sourcefile + " to local path: " + filename
 		if self.source.nocheck == 1:
 			print>>log, "[EPGImport] Not cheching the server since nocheck is set for it: " + sourcefile
-			downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
+			downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
 			return filename
 		else:
 			if self.checkValidServer(sourcefile) == 1:
-				downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
+				downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
 				return filename
 			else:
 				self.downloadFail("checkValidServer reject the server")
