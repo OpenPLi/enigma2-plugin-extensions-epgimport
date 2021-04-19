@@ -251,7 +251,7 @@ class EPGImport:
 			try:
 				# read a bit to make sure it's a gzip file
 				self.fd.read(10)
-				self.fd.seek(0,0)
+				self.fd.seek(0, 0)
 			except Exception, e:
 				print>>log, "[EPGImport] File downloaded is not a valid gzip file", filename
 				self.downloadFail(e)
@@ -265,7 +265,7 @@ class EPGImport:
 			try:
 				# read a bit to make sure it's an xz file
 				self.fd.read(10)
-				self.fd.seek(0,0)
+				self.fd.seek(0, 0)
 			except Exception, e:
 				print>>log, "[EPGImport] File downloaded is not a valid xz file", filename
 				self.downloadFail(e)
@@ -318,7 +318,7 @@ class EPGImport:
 			if data is not None:
 				self.eventCount += 1
 				try:
-					r,d = data
+					r, d = data
 					if d[0] > self.longDescUntil:
 						# Remove long description (save RAM memory)
 						d = d[:4] + ('',) + d[5:]
@@ -340,7 +340,7 @@ class EPGImport:
 			if data is not None:
 				self.eventCount += 1
 				try:
-					r,d = data
+					r, d = data
 					if d[0] > self.longDescUntil:
 						# Remove long description (save RAM memory)
 						d = d[:4] + ('',) + d[5:]
@@ -435,11 +435,11 @@ class EPGImport:
 		print>>log, "[EPGImport] Downloading: " + sourcefile + " to local path: " + filename
 		if self.source.nocheck == 1:
 			print>>log, "[EPGImport] Not cheching the server since nocheck is set for it: " + sourcefile
-			downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
+			downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
 			return filename
 		else:
 			if self.checkValidServer(sourcefile) == 1:
-				downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename,True))
+				downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
 				return filename
 			else:
 				self.downloadFail("checkValidServer reject the server")
