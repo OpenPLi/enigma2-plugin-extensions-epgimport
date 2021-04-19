@@ -228,7 +228,7 @@ def startImport():
 		EPGImport.unlink_if_exists(EPGImport.HDD_EPG_DAT + '.backup')
 		epgimport.epgcache.flushEPG()
 	epgimport.onDone = doneImport
-	epgimport.beginImport(longDescUntil = config.plugins.epgimport.longDescDays.value * 24 * 3600 + time.time())
+	epgimport.beginImport(longDescUntil=config.plugins.epgimport.longDescDays.value * 24 * 3600 + time.time())
 
 
 ##################################
@@ -813,7 +813,7 @@ class AutoStartTimer:
 		else:
 			return -1
 
-	def update(self, atLeast = 0):
+	def update(self, atLeast=0):
 		self.timer.stop()
 		wake = self.getWakeTime()
 		now_t = time.time()

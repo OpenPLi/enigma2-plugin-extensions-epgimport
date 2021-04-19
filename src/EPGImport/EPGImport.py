@@ -23,7 +23,7 @@ from urlparse import urlparse
 from datetime import datetime
 
 class SNIFactory(ssl.ClientContextFactory):
-	def __init__(self, hostname = None):
+	def __init__(self, hostname=None):
 		self.hostname = urlparse(hostname).hostname
 
 	def getContext(self):
@@ -169,7 +169,7 @@ class EPGImport:
 				ServerStatusList[dirname]=0
 		return ServerStatusList[dirname]
 
-	def beginImport(self, longDescUntil = None):
+	def beginImport(self, longDescUntil=None):
 		'Starts importing using Enigma reactor. Set self.sources before calling this.'
 		if hasattr(self.epgcache, 'importEvents'):
 			self.storage = self.epgcache
