@@ -2,7 +2,8 @@ from Components.MenuList import MenuList
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN
 from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT
 from Tools.LoadPixmap import LoadPixmap
-import skin
+from skin import applySkinFactor, fonts, parameters
+
 
 expandableIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "icons/expandable.png"))
 expandedIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "icons/expanded.png"))
@@ -12,17 +13,17 @@ def loadSettings():
 	global cat_desc_loc, entry_desc_loc, cat_icon_loc, entry_icon_loc
 
 	# expandable list (skin parameters defined by the plugin)
-	x, y, w, h = skin.parameters.get("ExpandableListDescr", (40, 3, 650, 30))
+	x, y, w, h = parameters.get("ExpandableListDescr", applySkinFactor(40, 3, 650, 30))
 	cat_desc_loc = (x, y, w, h)
-	x, y, w, h = skin.parameters.get("ExpandableListIcon", (0, 2, 30, 25))
+	x, y, w, h = parameters.get("ExpandableListIcon", applySkinFactor(0, 2, 30, 25))
 	cat_icon_loc = (x, y, w, h)
 
 	indent = x + w # indentation for the selection list entries
 
 	# selection list (skin parameters also used in enigma2)
-	x, y, w, h = skin.parameters.get("SelectionListDescr", (25, 3, 650, 30))
+	x, y, w, h = parameters.get("SelectionListDescr", applySkinFactor(25, 3, 650, 30))
 	entry_desc_loc = (x + indent, y, w - indent, h)
-	x, y, w, h = skin.parameters.get("SelectionListLock", (0, 2, 25, 24))
+	x, y, w, h = parameters.get("SelectionListLock", applySkinFactor(0, 2, 25, 24))
 	entry_icon_loc = (x + indent, y, w, h)
 
 
@@ -78,7 +79,7 @@ class ExpandableSelectionList(MenuList):
 	def __init__(self, tree=None, enableWrapAround=False):
 		'tree is expected to be a list of categories'
 		MenuList.__init__(self, [], enableWrapAround, content=eListboxPythonMultiContent)
-		font = skin.fonts.get("SelectionList", ("Regular", 20, 30))
+		font = fonts.get("SelectionList", applySkinFactor("Regular", 20, 30))
 		self.l.setFont(0, gFont(font[0], font[1]))
 		self.l.setItemHeight(font[2])
 		self.tree = tree or []
