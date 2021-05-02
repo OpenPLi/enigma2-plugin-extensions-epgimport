@@ -3,6 +3,7 @@ import calendar
 import log
 #from pprint import pprint
 from xml.etree.cElementTree import ElementTree, Element, SubElement, tostring, iterparse
+from xml.sax.saxutils import unescape
 
 # %Y%m%d%H%M%S
 
@@ -42,8 +43,14 @@ def get_xml_string(elem, name):
 				r = txt
 	except Exception, e:
 		print "[XMLTVConverter] get_xml_string error:", e
-	# Now returning UTF-8 by default, the epgdat/oudeis must be adjusted to make this work.
-	return r.encode('utf-8')
+        # Now returning UTF-8 by default, the epgdat/oudeis must be adjusted to make this work.
+        # Note that the default xml.sax.saxutils.unescape() function don't unescape
+        # some characters and we have to manually add them to the entities dictionary.
+        r = unescape(r, entities={r"&apos;": r"'", r"&quot;": r'"',
+                                  r"&#124;": r"|", r"&nbsp;": r" ",
+                                  r"&#91;" : r"[", r"&#93;" : r"]", })
+
+        return r.encode('utf-8')
 
 
 def enumerateProgrammes(fp):
