@@ -254,7 +254,7 @@ except:
 class EPGImportConfig(ConfigListScreen, Screen):
 	if HD:
 		skin = """
-			<screen position="center,center" size="600,500" title="EPG Import Configuration" >
+			<screen position="center,center" size="600,605" title="EPG Import Configuration" >
 				<ePixmap name="red" position="0,0" zPosition="2" size="140,40" pixmap="buttons/red.png" transparent="1" alphatest="on" />
 				<ePixmap name="green" position="140,0" zPosition="2" size="140,40" pixmap="buttons/green.png" transparent="1" alphatest="on" />
 				<ePixmap name="yellow" position="280,0" zPosition="2" size="140,40" pixmap="buttons/yellow.png" transparent="1" alphatest="on" />
@@ -265,14 +265,14 @@ class EPGImportConfig(ConfigListScreen, Screen):
 				<widget name="key_green" position="140,0" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;19" transparent="1" shadowColor="background" shadowOffset="-2,-2" />
 				<widget name="key_yellow" position="280,0" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;19" transparent="1" shadowColor="background" shadowOffset="-2,-2" />
 				<widget name="key_blue" position="420,0" size="140,40" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;19" transparent="1" shadowColor="background" shadowOffset="-2,-2" />
-				<widget name="config" position="10,70" size="590,320" scrollbarMode="showOnDemand" />
-				<ePixmap alphatest="on" pixmap="icons/clock.png" position="520,483" size="14,14" zPosition="3"/>
-				<widget font="Regular;18" halign="left" position="545,480" render="Label" size="55,20" source="global.CurrentTime" transparent="1" valign="center" zPosition="3">
+				<widget name="config" position="10,70" size="590,355" scrollbarMode="showOnDemand" />
+				<ePixmap alphatest="on" pixmap="icons/clock.png" position="520,583" size="14,14" zPosition="3"/>
+				<widget font="Regular;18" halign="left" position="545,580" render="Label" size="55,20" source="global.CurrentTime" transparent="1" valign="center" zPosition="3">
 					<convert type="ClockToText">Default</convert>
 				</widget>
-				<widget name="description" position="10,400" size="590,150" itemHeight="18" font="Regular;18" valign="top"/>
-				<widget name="statusbar" position="10,480" size="500,20" font="Regular;18" />
-				<widget name="status" position="10,400" size="580,60" font="Regular;20" />
+				<widget name="description" position="10,430" size="590,100" font="Regular;17" valign="top"/>
+				<widget name="statusbar" position="10,535" size="590,20" font="Regular;18" />
+				<widget name="status" position="10,560" size="590,40" font="Regular;19" />
 			</screen>"""
 	else:
 		skin = """
