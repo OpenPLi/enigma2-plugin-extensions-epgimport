@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-17 20:40+0200\n"
-"PO-Revision-Date: 2020-05-05 00:12+0300\n"
+"PO-Revision-Date: 2020-08-11 00:12+0300\n"
 "Last-Translator: kvinto <badsystem@ukr.net>\n"
 "Language-Team: kvinto\n"
 "Language: uk_UA\n"
@@ -42,7 +42,7 @@ msgstr "Всі канали провайдера"
 
 #: ../plugin.py:338
 msgid "Also apply \"channel id\" filtering on custom.channels.xml"
-msgstr ""
+msgstr "Також застосовати фільтр 'channel id' в custom.channels.xml"
 
 #: ../plugin.py:1025
 msgid "Automated EPG Importer"
@@ -70,7 +70,7 @@ msgstr "Вибір днів для завантаження даних"
 
 #: ../plugin.py:325
 msgid "Choose the action to perform when the box is in deep standby and the automatic EPG update should normally start."
-msgstr ""
+msgstr "Виберіть дію, яку потрібно виконати, коли тюнер знаходиться в глибокому режимі очікування, і автоматичне оновлення EPG має нормально запуститися."
 
 #: ../plugin.py:638
 msgid "Clear"
@@ -90,7 +90,7 @@ msgstr "Профіль днів"
 
 #: ../plugin.py:335
 msgid "Define the number of days that you want to get the full EPG data, reducing this number can help you to save memory usage on your box. But you are also limited with the EPG provider available data. You will not have 15 days EPG if it only provide 7 days data."
-msgstr ""
+msgstr "Визначте кількість днів, протягом яких Ви хочете отримати повні дані EPG. Зменшення може допомогти Вам заощадити використання пам’яті у вашому тюнері. Але ви також обмежені наявними даними провайдера EPG. Ви не матимете 15-ти денного EPG, якщо він надасть лише 7 денні дані."
 
 #: ../filtersServices.py:216
 msgid "Delete all"
@@ -102,11 +102,11 @@ msgstr "Видалити вибране"
 
 #: ../plugin.py:334
 msgid "Display a shortcut \"EPG import now\" on your STB main screen. This menu entry will immediately start the EPG update process when selected."
-msgstr ""
+msgstr "Відобразити ярлик ’EPG import now’ в Головному меню. Цей пункт меню негайно запускає процес оновлення EPG, якщо його вибрати."
 
 #: ../plugin.py:333
 msgid "Display or not the EPGImport menu in the extension menu."
-msgstr ""
+msgstr "Відображти EPGImport у меню розширень."
 
 #: ../plugin.py:289
 msgid "EPG Import Configuration"
@@ -280,11 +280,11 @@ msgstr "Джерела"
 
 #: ../plugin.py:329
 msgid "Specify in which case the EPG must be automatically updated after the box has booted."
-msgstr ""
+msgstr "Вкажіть, у якому випадку EPG має автоматично оновлюватися після включення тюнера."
 
 #: ../plugin.py:324
 msgid "Specify the time for the automatic EPG update."
-msgstr ""
+msgstr "Вкажіть час автоматичного оновлення EPG."
 
 #: ../plugin.py:327
 msgid "Standby at startup"
@@ -300,19 +300,19 @@ msgstr "Неділя"
 
 #: ../plugin.py:327
 msgid "The waked up box will be turned into standby after automatic EPG import wake up."
-msgstr ""
+msgstr "Після автоматичного оновлення EPG тюнер буде переведено в режим очікування."
 
 #: ../plugin.py:338
 msgid "This is for advanced users that are using the channel id filtering feature. If enabled, the filter rules defined into /etc/epgimport/channel_id_filter.conf will also be applied on your /etc/epgimport/custom.channels.xml file."
-msgstr ""
+msgstr "Це для просунутих користувачів, які використовують функцію фільтрації id-каналу. Якщо ввімкнено, правила фільтрування, визначені у /etc/epgimport/channel_id_filter.conf, також застосовуватимуться до вашого /etc/epgimport/custom.channels.xml файлу."
 
 #: ../plugin.py:337
 msgid "This will clear the current EPG data in memory before updating the EPG data. This allows you to always have a clean new EPG with the latest EPG data, for example in case of program changes between refresh, otherwise EPG data are cumulative."
-msgstr ""
+msgstr "Видалення поточного EPG в пам'яті перед оновленням даних EPG. Це дозволяє завжди мати чистий новий EPG з останніми змінами в EPG, наприклад, у разі зміни програми між оновленням, інакше дані EPG є сукупними."
 
 #: ../plugin.py:326
 msgid "This will turn back waked up box into deep-standby after automatic EPG import."
-msgstr ""
+msgstr "Після автоматичного імпорту EPG тюнер буде повернено у режим глибокого очікування."
 
 #: ../plugin.py:84
 msgid "Thursday"
@@ -320,7 +320,7 @@ msgstr "Четвер"
 
 #: ../plugin.py:330
 msgid "To save memory you can decide to only load EPG data for the services that you have in your bouquet files."
-msgstr ""
+msgstr "Для економії пам’яті Ви можете завантажувати лише дані EPG для каналів, які є у Ваших фаворитах."
 
 #: ../plugin.py:82
 msgid "Tuesday"
@@ -332,7 +332,7 @@ msgstr "Середа"
 
 #: ../plugin.py:323
 msgid "When enabled, it allows you to schedule an automatic EPG update at the given days and time."
-msgstr ""
+msgstr "Якщо цей параметр увімкнено це дозволить запланувати автоматичне оновлення EPG на певні дні та час."
 
 #: ../plugin.py:325
 msgid "When in deep standby"
@@ -340,11 +340,11 @@ msgstr "Дія в глибокому режимі очікування"
 
 #: ../plugin.py:331
 msgid "When you decide to load the EPG after GUI restart mention if the \"days profile\" must be take into consideration or not."
-msgstr ""
+msgstr "Коли Ви вирішуєте завантажити EPG після перезапуску GUI, зазначте, чи потрібно враховувати ’профіль днів’."
 
 #: ../plugin.py:332
 msgid "When you restart the GUI you can decide to skip or not the EPG data import."
-msgstr ""
+msgstr "Після перезапуску GUI Ви можете вирішити пропускати, або не імпортувати дані EPG."
 
 #: ../plugin.py:668
 msgid "Write to /tmp/epgimport.log"
@@ -352,11 +352,11 @@ msgstr "Записати в /tmp/epgimport.log"
 
 #: ../plugin.py:328
 msgid "You can select the day(s) when the EPG update must be performed."
-msgstr ""
+msgstr "Ви можете вибрати день (дні), коли необхідно виконати оновлення EPG."
 
 #: ../plugin.py:336
 msgid "You can start automatically the plugin AutoTimer after the EPG data update to have it refreshing its scheduling after EPG data refresh."
-msgstr ""
+msgstr "Ви можете автоматично запустити плагін AutoTimer після оновлення даних EPG, щоб оновити авто-таймер після оновлення даних EPG."
 
 #: ../plugin.py:613
 msgid ""
