@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-17 20:40+0200\n"
-"PO-Revision-Date: 2020-08-11 00:12+0300\n"
+"PO-Revision-Date: 2020-08-14 00:12+0300\n"
 "Last-Translator: kvinto <badsystem@ukr.net>\n"
 "Language-Team: kvinto\n"
 "Language: uk_UA\n"
@@ -258,9 +258,8 @@ msgid "Select action"
 msgstr "Виберіть дію"
 
 #: ../plugin.py:334
-#, fuzzy
 msgid "Show \"EPG import now\" in main menu"
-msgstr "Показати \"EPG Import\" в головному меню"
+msgstr "Показати ’EPG import now’ в головному меню"
 
 #: ../plugin.py:333
 msgid "Show \"EPGImport\" in extensions"
