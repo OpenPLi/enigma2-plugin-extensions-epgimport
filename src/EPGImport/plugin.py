@@ -64,6 +64,11 @@ config.plugins.epgimport.deepstandby = ConfigSelection(default="skip", choices=[
 		("wakeup", _("wake up and import")),
 		("skip", _("skip the import"))
 		])
+config.plugins.epgimport.loadepg_only = ConfigSelection(default="default", choices=[
+		("default", _("checking service reference(default)")),
+		("iptv", _("only IPTV channels")),
+		("all", _("all channels"))
+		])
 config.plugins.epgimport.standby_afterwakeup = ConfigYesNo(default=False)
 config.plugins.epgimport.shutdown = ConfigYesNo(default=False)
 config.plugins.epgimport.longDescDays = ConfigNumber(default=5)
@@ -193,6 +198,12 @@ def getBouquetChannelList():
 def channelFilter(ref):
 	if not ref:
 		return False
+	loadepg_only = config.plugins.epgimport.loadepg_only.value
+	if loadepg_only != "default":
+		if loadepg_only == "all":
+			return True
+		elif loadepg_only == "iptv":
+			return ("%3a//" not in ref.lower() or ref.startswith("1")) and False or True
 	sref = enigma.eServiceReference(ref)
 	refnum = getRefNum(sref.toString())
 	if config.plugins.epgimport.import_onlybouquet.value:
@@ -341,6 +352,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.cfg_day_profile = getConfigListEntry(_("Choice days for start import"), self.EPG.day_profile, _("You can select the day(s) when the EPG update must be performed."))
 		self.cfg_runboot = getConfigListEntry(_("Start import after booting up"), self.EPG.runboot, _("Specify in which case the EPG must be automatically updated after the box has booted."))
 		self.cfg_import_onlybouquet = getConfigListEntry(_("Load EPG only services in bouquets"), self.EPG.import_onlybouquet, _("To save memory you can decide to only load EPG data for the services that you have in your bouquet files."))
+		self.cfg_loadepg_only = getConfigListEntry(_("Load EPG"), self.EPG.loadepg_only, _("Select load EPG mode for services."))
 		self.cfg_runboot_day = getConfigListEntry(_("Consider setting \"Days Profile\""), self.EPG.runboot_day, _("When you decide to load the EPG after GUI restart mention if the \"days profile\" must be take into consideration or not."))
 		self.cfg_runboot_restart = getConfigListEntry(_("Skip import on restart GUI"), self.EPG.runboot_restart, _("When you restart the GUI you can decide to skip or not the EPG data import."))
 		self.cfg_showinextensions = getConfigListEntry(_("Show \"EPGImport\" in extensions"), self.EPG.showinextensions, _("Display or not the EPGImport menu in the extension menu."))
@@ -367,7 +379,9 @@ class EPGImportConfig(ConfigListScreen, Screen):
 				self.list.append(self.cfg_runboot_restart)
 		self.list.append(self.cfg_showinextensions)
 		self.list.append(self.cfg_showinmainmenu)
-		self.list.append(self.cfg_import_onlybouquet)
+		self.list.append(self.cfg_loadepg_only)
+		if self.EPG.loadepg_only.value == "default":
+			self.list.append(self.cfg_import_onlybouquet)
 		if hasattr(enigma.eEPGCache, 'flushEPG'):
 			self.list.append(self.cfg_clear_oldepg)
 		self.list.append(self.cfg_filter_custom_channel)
@@ -396,7 +410,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 
 	def newConfig(self):
 		cur = self["config"].getCurrent()
-		if cur in (self.cfg_enabled, self.cfg_shutdown, self.cfg_deepstandby, self.cfg_runboot):
+		if cur in (self.cfg_enabled, self.cfg_shutdown, self.cfg_deepstandby, self.cfg_runboot, self.cfg_loadepg_only):
 			self.createSetup()
 
 	def keyGreen(self):
@@ -489,7 +503,9 @@ class EPGImportConfig(ConfigListScreen, Screen):
 			self.doimport(one_source=cfg)
 
 	def openMenu(self):
-		menu = [(_("Show log"), self.showLog), (_("Ignore services list"), self.openIgnoreList)]
+		menu = [(_("Show log"), self.showLog)]
+		if config.plugins.epgimport.loadepg_only.value == "default":
+			menu.append((_("Ignore services list"), self.openIgnoreList))
 		text = _("Select action")
 
 		def setAction(choice):
