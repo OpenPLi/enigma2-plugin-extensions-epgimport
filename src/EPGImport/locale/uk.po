@@ -396,3 +396,18 @@ msgstr "пропускати завантаження"
 #: ../plugin.py:61
 msgid "wake up and import"
 msgstr "ввімкнути для завантаження"
+
+msgid "Load EPG"
+msgstr "Завантаження ЕПГ"
+
+msgid "Select load EPG mode for services."
+msgstr "Виберіть режим завантаження ЕПГ для каналів."
+
+msgid "all channels"
+msgstr "всі канали"
+
+msgid "checking service reference(default)"
+msgstr "перевірка референсів каналів (за замовчуванням)"
+
+msgid "only IPTV channels"
+msgstr "тільки АПТВ канали"
