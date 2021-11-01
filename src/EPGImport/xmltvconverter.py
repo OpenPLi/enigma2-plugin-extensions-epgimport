@@ -37,7 +37,7 @@ def get_xml_string(elem, name):
 		for node in elem.findall(name):
 			txt = node.text
 			lang = node.get('lang', None)
-			if not r:
+			if not r and txt is not None:
 				r = txt
 			elif lang == "nl":
 				r = txt
