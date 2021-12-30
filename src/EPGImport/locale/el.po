@@ -52,7 +52,7 @@ msgstr "Αυτόματη εισαγωγή EPG"
 
 #: ../plugin.py:348
 msgid "Automatic start time"
-msgstr "Ώρα έναρξης"
+msgstr "Ώρα αυτόματης έναρξης"
 
 #: ../plugin.py:316 ../plugin.py:545 ../plugin.py:625
 msgid "Cancel"
@@ -68,11 +68,11 @@ msgstr "Επιλογή ημερών για εκκίνηση εισαγωγής"
 
 #: ../plugin.py:349
 msgid "Choose the action to perform when the box is in deep standby and the automatic EPG update should normally start."
-msgstr ""
+msgstr "Επιλέξτε τι θα γίνεται σε περίπτωση που ο δέκτης βρίσκεται σε κατάσταση βαθιάς αναμονής τη στιγμή που πρόκειται να ξεκκινήσει η αυτοματοποιημένη εισαγωγή EPG."
 
 #: ../plugin.py:671
 msgid "Clear"
-msgstr "Διαγραφή"
+msgstr "Εκκαθάριση"
 
 #: ../plugin.py:362
 msgid "Clearing current EPG before import"
@@ -149,7 +149,7 @@ msgstr "Θα γίνει λήψη πληροφοριών EPG. Αυτό μπορε
 msgid ""
 "EPGImport Plugin\n"
 "Failed to start:\n"
-msgstr "Αδυναμία εκκίνησης:\n"
+msgstr "Αδυναμία εκκίνησης προσθέτου:\n"
 
 #: ../plugin.py:337
 #, python-format
@@ -157,6 +157,8 @@ msgid ""
 "Filtering: %s\n"
 "Please wait!"
 msgstr ""
+"Φιλτράρισμα: %s\n"
+"Παρακαλώ περιμένετε!"
 
 #: ../plugin.py:93
 msgid "Friday"
@@ -181,7 +183,7 @@ msgid ""
 "%s events"
 msgstr ""
 "Εισαγωγή σε εξέλιξη: %s\n"
-"(εισήχθησαν %d προγράμματα)"
+"(εισήχθησαν %s προγράμματα)"
 
 #: ../plugin.py:718
 msgid "Last import: "
@@ -190,7 +192,7 @@ msgstr "Τελευταία εισαγωγή: "
 #: ../plugin.py:463
 #, python-format
 msgid "Last import: %s events"
-msgstr "Τελευταία εισαγωγή: %d προγράμματα"
+msgstr "Τελευταία εισαγωγή: %s προγράμματα"
 
 #: ../plugin.py:458
 #, python-format
@@ -219,7 +221,7 @@ msgstr "Δευτέρα"
 
 #: ../plugin.py:479
 msgid "No active EPG sources found, nothing to do"
-msgstr "Δεν επιλέχθηκαν πηγές EPG. Δεν θα γίνει λήψη πληροφοριών EPG."
+msgstr "Δεν έχουν επιλεγεί πηγές EPG. Δεν θα γίνει λήψη πληροφοριών EPG."
 
 #: ../plugin.py:81
 msgid "Press OK"
@@ -357,9 +359,7 @@ msgstr ""
 msgid ""
 "You may not use this settings!\n"
 "At least one day a week should be included!"
-msgstr ""
-"Μπορείτε να μη χρησιμοποιήσετε αυτές τις ρυθμίσεις!\n"
-"Πρέπει να συμπεριλαμβάνεται τουλάχιστον μία ημέρα της εβδομάδας!"
+msgstr "Οι ρυθμίσεις δεν είναι έγκυρες! Πρέπει να επιλέξετε τουλάχιστον μία ημέρα της εβδομάδας!"
 
 #: ../plugin.py:770
 msgid ""
