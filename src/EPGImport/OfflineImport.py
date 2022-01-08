@@ -1,17 +1,15 @@
-#!/usr/bin/python
-#
 # To test this script on something that is not a Dreambox, such as a Windows PC
 # just run it with Python. You'll need Python's "twisted" library.
 # Supply the test .xml files on the command line, and the input files
 # where they can be found. On Linux, you can also download from the internet,
 # on windows the xmltv files must be local files.
-#
-from __future__ import print_function
-import os
+
+from __future__ import absolute_import, print_function
+
 import sys
 import time
-import EPGConfig
-import EPGImport
+
+from . import EPGConfig, EPGImport
 
 EPGImport.HDD_EPG_DAT = "./epg.dat.new"
 
