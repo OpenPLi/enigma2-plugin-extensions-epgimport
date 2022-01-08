@@ -108,9 +108,9 @@ except:
 
 def TL_hexconv(dt):
 	return (
-		(dt.hour % 10) + (16 * (dt.hour / 10)),
-		(dt.minute % 10) + (16 * (dt.minute / 10)),
-		(dt.second % 10) + (16 * (dt.second / 10))
+		(dt.hour % 10) + (16 * (dt.hour // 10)),
+		(dt.minute % 10) + (16 * (dt.minute // 10)),
+		(dt.second % 10) + (16 * (dt.second // 10))
 		)
 
 
