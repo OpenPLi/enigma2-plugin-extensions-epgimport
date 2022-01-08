@@ -1,35 +1,32 @@
-from __future__ import print_function
-# for localized messages
-from . import _
-import time
-import os
-import enigma
-import log
+from __future__ import absolute_import, print_function
 
+import os
+import time
+
+import Components.PluginComponent
+import enigma
 import Screens.Standby
-from Components.config import config, ConfigEnableDisable, ConfigSubsection, \
-			 ConfigYesNo, ConfigClock, getConfigListEntry, ConfigText, \
-			 ConfigSelection, ConfigNumber, ConfigSubDict, NoSave
-from Screens.MessageBox import MessageBox
-from Screens.Screen import Screen
-from Screens.ChoiceBox import ChoiceBox
-from Components.ConfigList import ConfigListScreen
 from Components.ActionMap import ActionMap
 from Components.Button import Button
+from Components.config import (ConfigClock, ConfigEnableDisable, ConfigNumber, ConfigSelection, ConfigSubDict,
+                               ConfigSubsection, ConfigText, ConfigYesNo, NoSave, config, getConfigListEntry)
+from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
-import Components.PluginComponent
+from NavigationInstance import instance as navInstance
+from Plugins.Plugin import PluginDescriptor
+from Screens.ChoiceBox import ChoiceBox
+from Screens.MessageBox import MessageBox
+from Screens.Screen import Screen
 from Tools import Notifications
+from Tools.Directories import SCOPE_PLUGINS, fileExists, resolveFilename
 from Tools.FuzzyDate import FuzzyTime
-from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS
-import ExpandableSelectionList
 try:
 	from Tools.StbHardware import getFPWasTimerWakeup
 except:
 	from Tools.DreamboxHardware import getFPWasTimerWakeup
-import NavigationInstance
 
-import filtersServices
+from . import EPGConfig, EPGImport, ExpandableSelectionList, _, filtersServices, log
 
 
 def lastMACbyte():
@@ -95,13 +92,6 @@ weekdays = [
 	_("Saturday"),
 	_("Sunday"),
 	]
-
-# Plugin
-import EPGImport
-import EPGConfig
-
-# Plugin definition
-from Plugins.Plugin import PluginDescriptor
 
 # historically located (not a problem, we want to update it)
 CONFIG_PATH = '/etc/epgimport'
@@ -223,10 +213,10 @@ def channelFilter(ref):
 	if "%3a//" in ref.lower():
 		# print("URL detected in serviceref, not checking fake recording on serviceref:", ref, file=log)
 		return True
-	fakeRecService = NavigationInstance.instance.recordService(sref, True)
+	fakeRecService = navInstance.recordService(sref, True)
 	if fakeRecService:
 		fakeRecResult = fakeRecService.start(True)
-		NavigationInstance.instance.stopRecordService(fakeRecService)
+		navInstance.stopRecordService(fakeRecService)
 		# -7 (errNoSourceFound) occurs when tuner is disconnected.
 		r = fakeRecResult in (0, -7)
 		return r

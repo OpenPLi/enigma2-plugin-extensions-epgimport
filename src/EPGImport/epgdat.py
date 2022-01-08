@@ -1,17 +1,15 @@
-#!/usr/bin/python
 # epgdat.py  by Ambrosa http://www.dreamboxonline.com
 # Heavily modified by MiLo http://www.sat4all.com/
 # Lots of stuff removed that i did not need.
 
-from __future__ import print_function
+from __future__ import absolute_import, print_function
+
 import os
-import sys
-import codecs
 import struct
 from datetime import datetime
 
 try:
-	import dreamcrc
+	from . import dreamcrc
 	crc32_dreambox = lambda d, t: dreamcrc.crc32(d, t) & 0xffffffff
 	print("[EPGImport] using C module, yay")
 except:

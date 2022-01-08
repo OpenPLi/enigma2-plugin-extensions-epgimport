@@ -1,5 +1,6 @@
-from __future__ import print_function
-import xmltvconverter
+from __future__ import absolute_import, print_function
+
+from . import xmltvconverter
 
 date_format = '%Y%m%d%H%M%S'
 gen_categories = {

@@ -1,10 +1,11 @@
-from __future__ import print_function
-import time
+from __future__ import absolute_import, print_function
+
 import calendar
-import log
-#from pprint import pprint
-from xml.etree.cElementTree import ElementTree, Element, SubElement, tostring, iterparse
+import time
+from xml.etree.cElementTree import iterparse
 from xml.sax.saxutils import unescape
+
+from . import log
 
 # %Y%m%d%H%M%S
 
@@ -44,14 +45,14 @@ def get_xml_string(elem, name):
 				r = txt
 	except Exception as e:
 		print("[XMLTVConverter] get_xml_string error:", e)
-        # Now returning UTF-8 by default, the epgdat/oudeis must be adjusted to make this work.
-        # Note that the default xml.sax.saxutils.unescape() function don't unescape
-        # some characters and we have to manually add them to the entities dictionary.
-        r = unescape(r, entities={r"&apos;": r"'", r"&quot;": r'"',
-                                  r"&#124;": r"|", r"&nbsp;": r" ",
-                                  r"&#91;" : r"[", r"&#93;" : r"]", })
+		# Now returning UTF-8 by default, the epgdat/oudeis must be adjusted to make this work.
+		# Note that the default xml.sax.saxutils.unescape() function don't unescape
+		# some characters and we have to manually add them to the entities dictionary.
+		r = unescape(r, entities={r"&apos;": r"'", r"&quot;": r'"',
+								  r"&#124;": r"|", r"&nbsp;": r" ",
+								  r"&#91;" : r"[", r"&#93;" : r"]", })
 
-        return r.encode('utf-8')
+		return r.encode('utf-8')
 
 
 def enumerateProgrammes(fp):
