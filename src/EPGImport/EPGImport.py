@@ -247,7 +247,7 @@ class EPGImport:
 		print>>log, "[EPGImport] afterDownload", filename
 		try:
 			if not os.path.getsize(filename):
-				raise Exception, "File is empty"
+				raise Exception("File is empty")
 		except Exception, e:
 			self.downloadFail(e)
 			return
@@ -303,7 +303,7 @@ class EPGImport:
 		if filename:
 			try:
 				if not os.path.getsize(filename):
-					raise Exception, "File is empty"
+					raise Exception("File is empty")
 			except Exception, e:
 				self.channelDownloadFail(e)
 				return

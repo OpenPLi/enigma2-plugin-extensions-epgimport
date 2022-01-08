@@ -97,7 +97,7 @@ class EPGChannel:
 	def openStream(self, filename):
 		fd = open(filename, 'rb')
 		if not os.fstat(fd.fileno()).st_size:
-			raise Exception, "File is empty"
+			raise Exception("File is empty")
 		if filename.endswith('.gz'):
 			fd = gzip.GzipFile(fileobj=fd, mode='rb')
 		elif filename.endswith('.xz') or filename.endswith('.lzma'):
