@@ -111,11 +111,11 @@ class XMLTVConverter:
 			except Exception as e:
 				print("[XMLTVConverter] parsing event error:", e)
 
-	def get_category(self, str, duration):
-		if (not str) or (type(str) != type('str')):
+	def get_category(self, cat, duration):
+		if (not cat) or (not isinstance(cat, type('str'))):
 			return 0
-		if str in self.categories:
-			category = self.categories[str]
+		if cat in self.categories:
+			category = self.categories[cat]
 			if len(category) > 1:
 				if duration > 60 * category[1]:
 					return category[0]
