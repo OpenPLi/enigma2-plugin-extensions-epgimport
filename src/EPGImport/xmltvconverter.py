@@ -1,3 +1,4 @@
+from __future__ import print_function
 import time
 import calendar
 import log
@@ -15,7 +16,7 @@ def quickptime(str):
 
 
 def get_time_utc(timestring, fdateparse):
-	#print "get_time_utc", timestring, format
+	#print("get_time_utc", timestring, format)
 	try:
 		values = timestring.split(' ')
 		tm = fdateparse(values[0])
@@ -24,7 +25,7 @@ def get_time_utc(timestring, fdateparse):
 		timegm -= (3600 * int(values[1]) / 100)
 		return timegm
 	except Exception, e:
-		print "[XMLTVConverter] get_time_utc error:", e
+		print("[XMLTVConverter] get_time_utc error:", e)
 		return 0
 
 # Preferred language should be configurable, but for now,
@@ -42,7 +43,7 @@ def get_xml_string(elem, name):
 			elif lang == "nl":
 				r = txt
 	except Exception, e:
-		print "[XMLTVConverter] get_xml_string error:", e
+		print("[XMLTVConverter] get_xml_string error:", e)
         # Now returning UTF-8 by default, the epgdat/oudeis must be adjusted to make this work.
         # Note that the default xml.sax.saxutils.unescape() function don't unescape
         # some characters and we have to manually add them to the entities dictionary.
@@ -100,10 +101,10 @@ class XMLTVConverter:
 				cat_nr = self.get_category(category, stop - start)
 				# data_tuple = (data.start, data.duration, data.title, data.short_description, data.long_description, data.type)
 				if not stop or not start or (stop <= start):
-					print "[XMLTVConverter] Bad start/stop time: %s (%s) - %s (%s) [%s]" % (elem.get('start'), start, elem.get('stop'), stop, title)
+					print("[XMLTVConverter] Bad start/stop time: %s (%s) - %s (%s) [%s]" % (elem.get('start'), start, elem.get('stop'), stop, title))
 				yield (services, (start, stop - start, title, subtitle, description, cat_nr))
 			except Exception, e:
-				print "[XMLTVConverter] parsing event error:", e
+				print("[XMLTVConverter] parsing event error:", e)
 
 	def get_category(self, str, duration):
 		if (not str) or (type(str) != type('str')):

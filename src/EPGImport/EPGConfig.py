@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import log
 from xml.etree.cElementTree import ElementTree, Element, SubElement, tostring, iterparse
@@ -266,7 +267,7 @@ if __name__ == '__main__':
 	for p in enumSources(path):
 		t = (p.description, p.urls, p.parser, p.format, p.channels, p.nocheck)
 		l.append(t)
-		print t
+		print(t)
 		x.append(p.description)
 	storeUserSettings('settings.pkl', [1, "twee"])
 	assert loadUserSettings('settings.pkl') == {"sources": [1, "twee"]}
@@ -277,6 +278,6 @@ if __name__ == '__main__':
 		l.remove(t)
 	assert not l
 	for name, c in channelCache.items():
-		print "Update:", name
+		print("Update:", name)
 		c.update()
-		print "# of channels:", len(c.items)
+		print("# of channels:", len(c.items))

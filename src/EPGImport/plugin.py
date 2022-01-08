@@ -1,4 +1,5 @@
 # for localized messages
+from __future__ import print_function
 from . import _
 import time
 import os
@@ -1069,7 +1070,7 @@ def setExtensionsmenu(el):
 		else:
 			Components.PluginComponent.plugins.removePlugin(extDescriptor)
 	except Exception, e:
-		print "[EPGImport] Failed to update extensions menu:", e
+		print("[EPGImport] Failed to update extensions menu:", e)
 
 
 description = _("Automated EPG Importer")

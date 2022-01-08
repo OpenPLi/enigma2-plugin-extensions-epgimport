@@ -4,6 +4,7 @@
 # you can supply a similar interface. See plugin.py and OfflineImport.py for
 # the contract.
 #
+from __future__ import print_function
 import time
 import os
 import gzip
@@ -187,7 +188,7 @@ class EPGImport:
 		elif hasattr(self.epgcache, 'importEvent'):
 			self.storage = OudeisImporter(self.epgcache)
 		else:
-			print "[EPGImport] oudeis patch not detected, using epg.dat instead."
+			print("[EPGImport] oudeis patch not detected, using epg.dat instead.")
 			import epgdat_importer
 			self.storage = epgdat_importer.epgdatclass()
 		self.eventCount = 0
