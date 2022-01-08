@@ -34,7 +34,7 @@ class Gen_Xmltv():
 			xmltv_parser = xmltvconverter.XMLTVConverter(channelsDict, gen_categories, date_format)
 			for r in xmltv_parser.enumFile(fd):
 				yield r
-		except Exception, e:
+		except Exception as e:
 			print("[gen_xmltv] Error:", e)
 			import traceback
 			traceback.print_exc()

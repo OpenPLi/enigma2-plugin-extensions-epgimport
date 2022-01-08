@@ -489,7 +489,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 			return
 		try:
 			startImport()
-		except Exception, e:
+		except Exception as e:
 			print("[EPGImport] Error at start:", e, file=log)
 			self.session.open(MessageBox, _("EPGImport Plugin\nFailed to start:\n") + str(e), MessageBox.TYPE_ERROR, timeout=15, close_on_any_key=True)
 		self.updateStatus()
@@ -599,7 +599,7 @@ class EPGImportSources(Screen):
 				source = [item[1] or ""]
 				cfg = {"sources": source}
 				print("[EPGImport] Selected source: ", source, file=log)
-			except Exception, e:
+			except Exception as e:
 				print("[EPGImport] Error at selected source:", e, file=log)
 			else:
 				if cfg["sources"] != "":
@@ -701,7 +701,7 @@ class EPGImportLog(Screen):
 			f.write(log.getvalue())
 			self.session.open(MessageBox, _("Write to /tmp/epgimport.log"), MessageBox.TYPE_INFO, timeout=5, close_on_any_key=True)
 			f.close()
-		except Exception, e:
+		except Exception as e:
 			self["list"].setText("Failed to write /tmp/epgimport.log:str" + str(e))
 		self.close(True)
 
@@ -1069,7 +1069,7 @@ def setExtensionsmenu(el):
 			Components.PluginComponent.plugins.addPlugin(extDescriptor)
 		else:
 			Components.PluginComponent.plugins.removePlugin(extDescriptor)
-	except Exception, e:
+	except Exception as e:
 		print("[EPGImport] Failed to update extensions menu:", e)
 
 

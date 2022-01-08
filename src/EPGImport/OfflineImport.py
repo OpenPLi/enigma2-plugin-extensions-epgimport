@@ -41,7 +41,7 @@ def importFrom(epgimport, sourceXml):
 				if self.r is r:
 					self.r = None
 				else:
-					raise Exception, "Removed reader without adding it"
+					raise Exception("Removed reader without adding it")
 
 			def run(self):
 				while self.r is not None:

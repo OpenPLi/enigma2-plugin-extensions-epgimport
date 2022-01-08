@@ -76,7 +76,7 @@ def bigStorage(minFree, default, *candidates):
 		free = diskstat.f_bfree * diskstat.f_bsize
 		if (free > minFree) and (free > 50000000):
 			return default
-	except Exception, e:
+	except Exception as e:
 		print("[EPGImport] Failed to stat %s:" % default, e, file=log)
 	mounts = open('/proc/mounts', 'rb').readlines()
 	# format: device mountpoint fstype options #
@@ -143,13 +143,13 @@ class EPGImport:
 			# Server not in the list so checking it
 			try:
 				response = req.open(FullString, timeout=5)
-			except urllib2.HTTPError, e:
+			except urllib2.HTTPError as e:
 				print('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
 				dlderror = 1
-			except urllib2.URLError, e:
+			except urllib2.URLError as e:
 				print('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
 				dlderror = 1
-			except httplib.HTTPException, e:
+			except httplib.HTTPException as e:
 				print('[EPGImport] HTTPException in checkValidServer')
 				dlderror = 1
 			except Exception:
@@ -240,15 +240,15 @@ class EPGImport:
 			self.epgcache.load()
 			if deleteFile:
 				unlink_if_exists(filename)
-		except Exception, e:
+		except Exception as e:
 			print("[EPGImport] Failed to import %s:" % filename, e, file=log)
 
 	def afterDownload(self, result, filename, deleteFile=False):
 		print("[EPGImport] afterDownload", filename, file=log)
 		try:
 			if not os.path.getsize(filename):
-				raise Exception, "File is empty"
-		except Exception, e:
+				raise Exception("File is empty")
+		except Exception as e:
 			self.downloadFail(e)
 			return
 		if self.source.parser == 'epg.dat':
@@ -264,7 +264,7 @@ class EPGImport:
 				# read a bit to make sure it's a gzip file
 				self.fd.read(10)
 				self.fd.seek(0, 0)
-			except Exception, e:
+			except Exception as e:
 				print("[EPGImport] File downloaded is not a valid gzip file", filename, file=log)
 				self.downloadFail(e)
 				return
@@ -278,7 +278,7 @@ class EPGImport:
 				# read a bit to make sure it's an xz file
 				self.fd.read(10)
 				self.fd.seek(0, 0)
-			except Exception, e:
+			except Exception as e:
 				print("[EPGImport] File downloaded is not a valid xz file", filename, file=log)
 				self.downloadFail(e)
 				return
@@ -288,7 +288,7 @@ class EPGImport:
 			try:
 				print("[EPGImport] unlink", filename, file=log)
 				os.unlink(filename)
-			except Exception, e:
+			except Exception as e:
 				print("[EPGImport] warning: Could not remove '%s' intermediate" % filename, e, file=log)
 		self.channelFiles = self.source.channels.downloadables()
 		if not self.channelFiles:
@@ -303,8 +303,8 @@ class EPGImport:
 		if filename:
 			try:
 				if not os.path.getsize(filename):
-					raise Exception, "File is empty"
-			except Exception, e:
+					raise Exception("File is empty")
+			except Exception as e:
 				self.channelDownloadFail(e)
 				return
 		if twisted.python.runtime.platform.supportsThreads():
@@ -317,7 +317,7 @@ class EPGImport:
 		if deleteFile and filename:
 			try:
 				os.unlink(filename)
-			except Exception, e:
+			except Exception as e:
 				print("[EPGImport] warning: Could not remove '%s' intermediate" % filename, e, file=log)
 
 	def fileno(self):
@@ -335,13 +335,13 @@ class EPGImport:
 						# Remove long description (save RAM memory)
 						d = d[:4] + ('',) + d[5:]
 					self.storage.importEvents(r, (d,))
-				except Exception, e:
+				except Exception as e:
 					print("[EPGImport] ### importEvents exception:", e, file=log)
 		print("[EPGImport] ### thread is ready ### Events:", self.eventCount, file=log)
 		if filename:
 			try:
 				os.unlink(filename)
-			except Exception, e:
+			except Exception as e:
 				print("[EPGImport] warning: Could not remove '%s' intermediate" % filename, e, file=log)
 
 	def doRead(self):
@@ -357,7 +357,7 @@ class EPGImport:
 						# Remove long description (save RAM memory)
 						d = d[:4] + ('',) + d[5:]
 					self.storage.importEvents(r, (d,))
-				except Exception, e:
+				except Exception as e:
 					print("[EPGImport] importEvents exception:", e, file=log)
 		except StopIteration:
 			self.nextImport()
@@ -421,7 +421,7 @@ class EPGImport:
 							self.epgcache.load()
 							reboot = False
 							unlink_if_exists(needLoad)
-					except Exception, e:
+					except Exception as e:
 						print("[EPGImport] load() failed:", e, file=log)
 				elif hasattr(self.epgcache, 'save'):
 					self.epgcache.save()
