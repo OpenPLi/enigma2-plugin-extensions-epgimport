@@ -354,7 +354,7 @@ class EPGImport:
 		'called from reactor to read some data'
 		try:
 			# returns tuple (ref, data) or None when nothing available yet.
-			data = self.iterator.next()
+			data = next(self.iterator)
 			if data is not None:
 				self.eventCount += 1
 				try:
