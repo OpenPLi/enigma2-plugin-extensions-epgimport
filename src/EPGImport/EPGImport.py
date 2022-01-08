@@ -142,7 +142,7 @@ class EPGImport:
 		req = build_opener()
 		req.addheaders = [('User-Agent', 'Twisted Client')]
 		dlderror = 0
-		if ServerStatusList.has_key(dirname):
+		if dirname in ServerStatusList:
 			# If server is know return its status immediately
 			return ServerStatusList[dirname]
 		else:
