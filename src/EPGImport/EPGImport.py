@@ -1,27 +1,33 @@
-#!/usr/bin/python
-#
 # This file no longer has a direct link to Enigma2, allowing its use anywhere
 # you can supply a similar interface. See plugin.py and OfflineImport.py for
 # the contract.
-#
-from __future__ import print_function
-import time
-import os
+
+from __future__ import absolute_import, print_function
+
 import gzip
-import log
+import os
 import random
+import time
+from datetime import datetime
+
+import twisted.python.runtime
+from twisted.internet import reactor, ssl, threads
+from twisted.internet._sslverify import ClientTLSOptions
+from twisted.web.client import downloadPage
+
+try: # python3
+	from http.client import HTTPException
+	from urllib.error import HTTPError, URLError
+	from urllib.parse import urlparse
+	from urllib.request import build_opener
+except: #python2
+	from httplib import HTTPException
+	from urllib2 import build_opener, HTTPError, URLError
+	from urlparse import urlparse
+
+from . import log
 
 HDD_EPG_DAT = "/hdd/epg.dat"
-
-from twisted.internet import reactor, threads, ssl
-from twisted.web.client import downloadPage
-import twisted.python.runtime
-from twisted.internet._sslverify import ClientTLSOptions
-import urllib2
-import httplib
-from urlparse import urlparse
-
-from datetime import datetime
 
 
 class SNIFactory(ssl.ClientContextFactory):
@@ -133,7 +139,7 @@ class EPGImport:
 		print("[EPGImport] checkValidServer serverurl %s" % serverurl, file=log)
 		dirname, filename = os.path.split(serverurl)
 		FullString = dirname + "/" + CheckFile
-		req = urllib2.build_opener()
+		req = build_opener()
 		req.addheaders = [('User-Agent', 'Twisted Client')]
 		dlderror = 0
 		if ServerStatusList.has_key(dirname):
@@ -143,13 +149,13 @@ class EPGImport:
 			# Server not in the list so checking it
 			try:
 				response = req.open(FullString, timeout=5)
-			except urllib2.HTTPError as e:
+			except HTTPError as e:
 				print('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
 				dlderror = 1
-			except urllib2.URLError as e:
+			except URLError as e:
 				print('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
 				dlderror = 1
-			except httplib.HTTPException as e:
+			except HTTPException as e:
 				print('[EPGImport] HTTPException in checkValidServer')
 				dlderror = 1
 			except Exception:
@@ -189,7 +195,7 @@ class EPGImport:
 			self.storage = OudeisImporter(self.epgcache)
 		else:
 			print("[EPGImport] oudeis patch not detected, using epg.dat instead.")
-			import epgdat_importer
+			from . import epgdat_importer
 			self.storage = epgdat_importer.epgdatclass()
 		self.eventCount = 0
 		if longDescUntil is None:

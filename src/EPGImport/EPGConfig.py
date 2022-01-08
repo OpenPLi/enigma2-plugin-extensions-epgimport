@@ -1,12 +1,17 @@
-from __future__ import print_function
-import os
-import log
-from xml.etree.cElementTree import ElementTree, Element, SubElement, tostring, iterparse
-import cPickle as pickle
+from __future__ import absolute_import, print_function
+
 import gzip
-import time
+import os
+try: #python2
+	import cPickle as pickle
+except: #python3
+	import pickle
 import random
 import re
+import time
+from xml.etree.cElementTree import iterparse
+
+from . import log
 
 # User selection stored here, so it goes into a user settings backup
 SETTINGS_FILE = '/etc/enigma2/epgimport.conf'

@@ -1,8 +1,8 @@
-#!/usr/bin/python
-from __future__ import print_function
+from __future__ import absolute_import, print_function
+
 import os
-import time
 import shutil
+import time
 
 MEDIA = ("/media/hdd/", "/media/usb/", "/media/mmc/", "/media/cf/", "/tmp")
 

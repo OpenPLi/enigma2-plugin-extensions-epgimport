@@ -1,9 +1,10 @@
-from __future__ import print_function
-import epgdat
+from __future__ import absolute_import, print_function
+
 import os
 import sys
 
-import sys
+from . import epgdat
+
 # Hack to make this test run on Windows (where the reactor cannot handle files)
 if sys.platform.startswith('win'):
 	tmppath = '.'
