@@ -3,6 +3,7 @@
 # Heavily modified by MiLo http://www.sat4all.com/
 # Lots of stuff removed that i did not need.
 
+from __future__ import print_function
 import os
 import sys
 import codecs
@@ -12,9 +13,9 @@ from datetime import datetime
 try:
 	import dreamcrc
 	crc32_dreambox = lambda d, t: dreamcrc.crc32(d, t) & 0xffffffff
-	print "[EPGImport] using C module, yay"
+	print("[EPGImport] using C module, yay")
 except:
-	print "[EPGImport] failed to load C implementation, sorry"
+	print("[EPGImport] failed to load C implementation, sorry")
 
 	# this table is used by CRC32 routine below (used by Dreambox for
 	# computing REF DESC value).
@@ -191,7 +192,7 @@ class epgdat_class:
 		return r
 
 	def add_event(self, starttime, duration, title, description):
-		#print "add event : ",event_starttime_unix_gmt, "title : " ,event_title
+		#print("add event : ", event_starttime_unix_gmt, "title : ", event_title)
 		self.events.append((starttime, duration, self.short_desc(title[:240]), self.long_desc(description)))
 
 	def preprocess_events_channel(self, services):

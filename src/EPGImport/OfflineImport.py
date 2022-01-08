@@ -6,6 +6,7 @@
 # where they can be found. On Linux, you can also download from the internet,
 # on windows the xmltv files must be local files.
 #
+from __future__ import print_function
 import os
 import sys
 import time
@@ -21,9 +22,9 @@ class FakeEnigma:
 	def getInstance(self):
 		return self
 #	def load(self):
-#		print "...load..."
+#		print("...load...")
 #	def importEvents(self, *args):
-#		print args
+#		print(args)
 
 
 def importFrom(epgimport, sourceXml):
@@ -47,7 +48,7 @@ def importFrom(epgimport, sourceXml):
 					self.r.doRead()
 
 			def stop(self):
-				print "reactor stopped"
+				print("reactor stopped")
 				pass
 		EPGImport.reactor = FakeReactor()
 	sources = [s for s in EPGConfig.enumSourcesFile(sourceXml, filter=None)]
@@ -62,13 +63,13 @@ def importFrom(epgimport, sourceXml):
 
 def done(reboot=False, epgfile=None):
 	EPGImport.reactor.stop()
-	print "Done, data is in", epgfile
+	print("Done, data is in", epgfile)
 	### When code arrives here, EPG data is stored in filename EPGImport.HDD_EPG_DAT
 	### So to copy it to FTP or whatever, this is the place to add that code.
 
 
 if len(sys.argv) <= 1:
-	print "Usage: %s source.xml [...]" % sys.argv[0]
+	print("Usage: %s source.xml [...]" % sys.argv[0])
 epgimport = EPGImport.EPGImport(FakeEnigma(), lambda x: True)
 for xml in sys.argv[1:]:
 	importFrom(epgimport, xml)
