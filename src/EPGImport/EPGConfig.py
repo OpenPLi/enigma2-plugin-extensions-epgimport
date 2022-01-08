@@ -133,7 +133,7 @@ class EPGChannel:
 						if id and ref:
 							ref = ref.encode('latin-1')
 							if filterCallback(ref):
-								if self.items.has_key(id):
+								if id in self.items:
 									try:
 										if ref in self.items[id]:
 											# remove only remove the first occurrence turning list into dict will make the reference unique so remove will work as expected.
@@ -147,7 +147,7 @@ class EPGChannel:
 						if id and ref:
 							ref = ref.encode('latin-1')
 							if filterCallback(ref):
-								if self.items.has_key(id):
+								if id in self.items:
 									self.items[id].append(ref)
 									# turning list into dict will make the reference unique to avoid loading twice the same EPG data.
 									self.items[id] = list(dict.fromkeys(self.items[id]))
