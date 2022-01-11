@@ -1,32 +1,34 @@
-from __future__ import absolute_import, print_function
-
-import os
+# for localized messages
+from . import _
 import time
-
-import Components.PluginComponent
+import os
 import enigma
+import log
+
 import Screens.Standby
-from Components.ActionMap import ActionMap
-from Components.Button import Button
-from Components.config import (ConfigClock, ConfigEnableDisable, ConfigNumber, ConfigSelection, ConfigSubDict,
-                               ConfigSubsection, ConfigText, ConfigYesNo, NoSave, config, getConfigListEntry)
-from Components.ConfigList import ConfigListScreen
-from Components.Label import Label
-from Components.ScrollLabel import ScrollLabel
-from NavigationInstance import instance as navInstance
-from Plugins.Plugin import PluginDescriptor
-from Screens.ChoiceBox import ChoiceBox
+from Components.config import config, ConfigEnableDisable, ConfigSubsection, \
+			 ConfigYesNo, ConfigClock, getConfigListEntry, ConfigText, \
+			 ConfigSelection, ConfigNumber, ConfigSubDict, NoSave
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
+from Screens.ChoiceBox import ChoiceBox
+from Components.ConfigList import ConfigListScreen
+from Components.ActionMap import ActionMap
+from Components.Button import Button
+from Components.Label import Label
+from Components.ScrollLabel import ScrollLabel
+import Components.PluginComponent
 from Tools import Notifications
-from Tools.Directories import SCOPE_PLUGINS, fileExists, resolveFilename
 from Tools.FuzzyDate import FuzzyTime
+from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS
+import ExpandableSelectionList
 try:
 	from Tools.StbHardware import getFPWasTimerWakeup
 except:
 	from Tools.DreamboxHardware import getFPWasTimerWakeup
+import NavigationInstance
 
-from . import EPGConfig, EPGImport, ExpandableSelectionList, _, filtersServices, log
+import filtersServices
 
 
 def lastMACbyte():
@@ -92,6 +94,13 @@ weekdays = [
 	_("Saturday"),
 	_("Sunday"),
 	]
+
+# Plugin
+import EPGImport
+import EPGConfig
+
+# Plugin definition
+from Plugins.Plugin import PluginDescriptor
 
 # historically located (not a problem, we want to update it)
 CONFIG_PATH = '/etc/epgimport'
@@ -202,25 +211,25 @@ def channelFilter(ref):
 		if BouquetChannelListList is None:
 			BouquetChannelListList = getBouquetChannelList()
 		if refnum not in BouquetChannelListList:
-			print("Serviceref not in bouquets:", sref.toString(), file=log)
+			print>>log, "Serviceref not in bouquets:", sref.toString()
 			return False
 	global serviceIgnoreList
 	if serviceIgnoreList is None:
 		serviceIgnoreList = [getRefNum(x) for x in filtersServices.filtersServicesList.servicesList()]
 	if refnum in serviceIgnoreList:
-		print("Serviceref is in ignore list:", sref.toString(), file=log)
+		print>>log, "Serviceref is in ignore list:", sref.toString()
 		return False
 	if "%3a//" in ref.lower():
-		# print("URL detected in serviceref, not checking fake recording on serviceref:", ref, file=log)
+		# print>>log, "URL detected in serviceref, not checking fake recording on serviceref:", ref
 		return True
-	fakeRecService = navInstance.recordService(sref, True)
+	fakeRecService = NavigationInstance.instance.recordService(sref, True)
 	if fakeRecService:
 		fakeRecResult = fakeRecService.start(True)
-		navInstance.stopRecordService(fakeRecService)
+		NavigationInstance.instance.stopRecordService(fakeRecService)
 		# -7 (errNoSourceFound) occurs when tuner is disconnected.
 		r = fakeRecResult in (0, -7)
 		return r
-	print("Invalid serviceref string:", ref, file=log)
+	print>>log, "Invalid serviceref string:", ref
 	return False
 
 
@@ -382,7 +391,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 				from Plugins.Extensions.AutoTimer.AutoTimer import AutoTimer
 				self.list.append(self.cfg_parse_autotimer)
 			except:
-				print("[EPGImport] AutoTimer Plugin not installed", file=log)
+				print>>log, "[EPGImport] AutoTimer Plugin not installed"
 		self["config"].list = self.list
 		self["config"].setList(self.list)
 
@@ -455,7 +464,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 
 	def doimport(self, one_source=None):
 		if epgimport.isImportRunning():
-			print("[EPGImport] Already running, won't start again", file=log)
+			print>>log, "[EPGImport] Already running, won't start again"
 			self.session.open(MessageBox, _("EPGImport\nImport of epg data is still in progress. Please wait."), MessageBox.TYPE_ERROR, timeout=10, close_on_any_key=True)
 			return
 		if self.prev_onlybouquet != config.plugins.epgimport.import_onlybouquet.value or (autoStartTimer is not None and autoStartTimer.prev_multibouquet != config.usage.multibouquet.value):
@@ -479,8 +488,8 @@ class EPGImportConfig(ConfigListScreen, Screen):
 			return
 		try:
 			startImport()
-		except Exception as e:
-			print("[EPGImport] Error at start:", e, file=log)
+		except Exception, e:
+			print>>log, "[EPGImport] Error at start:", e
 			self.session.open(MessageBox, _("EPGImport Plugin\nFailed to start:\n") + str(e), MessageBox.TYPE_ERROR, timeout=15, close_on_any_key=True)
 		self.updateStatus()
 
@@ -489,7 +498,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 
 	def sourcesDone(self, confirmed, sources, cfg):
 		# Called with True and list of config items on Okay.
-		print("sourcesDone(): ", confirmed, sources, file=log)
+		print>>log, "sourcesDone(): ", confirmed, sources
 		if cfg is not None:
 			self.doimport(one_source=cfg)
 
@@ -573,7 +582,7 @@ class EPGImportSources(Screen):
 	def save(self):
 		# Make the entries unique through a set
 		sources = list(set([item[1] for item in self["list"].enumSelected()]))
-		print("[EPGImport] Selected sources:", sources, file=log)
+		print>>log, "[EPGImport] Selected sources:", sources
 		EPGConfig.storeUserSettings(sources=sources)
 		self.close(True, sources, None)
 
@@ -588,9 +597,9 @@ class EPGImportSources(Screen):
 				item = self["list"].list[idx][0]
 				source = [item[1] or ""]
 				cfg = {"sources": source}
-				print("[EPGImport] Selected source: ", source, file=log)
-			except Exception as e:
-				print("[EPGImport] Error at selected source:", e, file=log)
+				print>>log, "[EPGImport] Selected source: ", source
+			except Exception, e:
+				print>>log, "[EPGImport] Error at selected source:", e
 			else:
 				if cfg["sources"] != "":
 					self.close(False, None, cfg)
@@ -691,7 +700,7 @@ class EPGImportLog(Screen):
 			f.write(log.getvalue())
 			self.session.open(MessageBox, _("Write to /tmp/epgimport.log"), MessageBox.TYPE_INFO, timeout=5, close_on_any_key=True)
 			f.close()
-		except Exception as e:
+		except Exception, e:
 			self["list"].setText("Failed to write /tmp/epgimport.log:str" + str(e))
 		self.close(True)
 
@@ -699,7 +708,7 @@ class EPGImportLog(Screen):
 		self.close(False)
 
 	def clear(self):
-		log.logfile.seek(0, 0)
+		log.logfile.reset()
 		log.logfile.truncate()
 		self.close(False)
 
@@ -714,7 +723,7 @@ def msgClosed(ret):
 	global autoStartTimer
 	if ret:
 		if autoStartTimer is not None and not epgimport.isImportRunning():
-			print("[EPGImport] Run manual starting import", file=log)
+			print>>log, "[EPGImport] Run manual starting import"
 			autoStartTimer.runImport()
 
 
@@ -750,17 +759,17 @@ def doneImport(reboot=False, epgfile=None):
 		lastimport = "%s, %d" % (localtime, count)
 		config.plugins.extra_epgimport.last_import.value = lastimport
 		config.plugins.extra_epgimport.last_import.save()
-		print("[EPGImport] Save last import date and count event", file=log)
+		print>>log, "[EPGImport] Save last import date and count event"
 	except:
-		print("[EPGImport] Error to save last import date and count event", file=log)
+		print>>log, "[EPGImport] Error to save last import date and count event"
 	if reboot:
 		if Screens.Standby.inStandby:
-			print("[EPGImport] Restart enigma2", file=log)
+			print>>log, "[EPGImport] Restart enigma2"
 			restartEnigma(True)
 		else:
 			msg = _("EPG Import finished, %d events") % epgimport.eventCount + "\n" + _("You must restart Enigma2 to load the EPG data,\nis this OK?")
 			_session.openWithCallback(restartEnigma, MessageBox, msg, MessageBox.TYPE_YESNO, timeout=15, default=True)
-			print("[EPGImport] Need restart enigma2", file=log)
+			print>>log, "[EPGImport] Need restart enigma2"
 	else:
 		if config.plugins.epgimport.parse_autotimer.value and fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.py")):
 			try:
@@ -771,9 +780,9 @@ def doneImport(reboot=False, epgfile=None):
 				autotimer.readXml()
 				checkDeepstandby(_session, parse=True)
 				autotimer.parseEPGAsync(simulateOnly=False)
-				print("[EPGImport] Run start parse autotimers", file=log)
+				print>>log, "[EPGImport] Run start parse autotimers"
 			except:
-				print("[EPGImport] Could not start autotimers", file=log)
+				print>>log, "[EPGImport] Could not start autotimers"
 				checkDeepstandby(_session, parse=False)
 		else:
 			checkDeepstandby(_session, parse=False)
@@ -786,20 +795,20 @@ class checkDeepstandby:
 			self.FirstwaitCheck = enigma.eTimer()
 			self.FirstwaitCheck.callback.append(self.runCheckDeepstandby)
 			self.FirstwaitCheck.startLongTimer(600)
-			print("[EPGImport] Wait for parse autotimers 30 sec.", file=log)
+			print>>log, "[EPGImport] Wait for parse autotimers 30 sec."
 		else:
 			self.runCheckDeepstandby()
 
 	def runCheckDeepstandby(self):
-		print("[EPGImport] Run check deep standby after import")
+		print>>log, "[EPGImport] Run check deep standby after import"
 		if config.plugins.epgimport.shutdown.value and config.plugins.epgimport.deepstandby.value == 'wakeup':
 			if config.plugins.epgimport.deepstandby_afterimport.value and getFPWasTimerWakeup():
 				config.plugins.epgimport.deepstandby_afterimport.value = False
 				if Screens.Standby.inStandby and not self.session.nav.getRecordings() and not Screens.Standby.inTryQuitMainloop:
-					print("[EPGImport] Returning to deep standby after wake up for import", file=log)
+					print>>log, "[EPGImport] Returning to deep standby after wake up for import"
 					self.session.open(Screens.Standby.TryQuitMainloop, 1)
 				else:
-					print("[EPGImport] No return to deep standby, not standby or running recording", file=log)
+					print>>log, "[EPGImport] No return to deep standby, not standby or running recording"
 
 
 def restartEnigma(confirmed):
@@ -810,7 +819,7 @@ def restartEnigma(confirmed):
 		try:
 			open('/tmp/enigmastandby', 'wb').close()
 		except:
-			print("Failed to create /tmp/enigmastandby", file=log)
+			print>>log, "Failed to create /tmp/enigmastandby"
 	else:
 		try:
 			os.remove("/tmp/enigmastandby")
@@ -840,7 +849,7 @@ class AutoStartTimer:
 			clock = config.plugins.epgimport.wakeup.value
 			nowt = time.time()
 			now = time.localtime(nowt)
-			return int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday, clock[0], clock[1], lastMACbyte() // 5, 0, now.tm_yday, now.tm_isdst)))
+			return int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday, clock[0], clock[1], lastMACbyte() / 5, 0, now.tm_yday, now.tm_isdst)))
 		else:
 			return -1
 
@@ -855,7 +864,7 @@ class AutoStartTimer:
 			wakeup_day = WakeupDayOfWeek()
 			if wakeup_day == -1:
 				return -1
-				print("[EPGImport] wakeup day of week disabled", file=log)
+				print>>log, "[EPGImport] wakeup day of week disabled"
 			if wake < now + atLeast:
 				wake += 86400 * wakeup_day
 			else:
@@ -865,7 +874,7 @@ class AutoStartTimer:
 			self.timer.startLongTimer(next)
 		else:
 			wake = -1
-		print("[EPGImport] WakeUpTime now set to", wake, "(now=%s)" % now, file=log)
+		print>>log, "[EPGImport] WakeUpTime now set to", wake, "(now=%s)" % now
 		return wake
 
 	def runImport(self):
@@ -883,7 +892,7 @@ class AutoStartTimer:
 	def onTimer(self):
 		self.timer.stop()
 		now = int(time.time())
-		print("[EPGImport] onTimer occured at", now, file=log)
+		print>>log, "[EPGImport] onTimer occured at", now
 		wake = self.getWakeTime()
 		# If we're close enough, we're okay...
 		atLeast = 0
@@ -909,7 +918,7 @@ class AutoStartTimer:
 			wakeup_day = WakeupDayOfWeek()
 			if wakeup_day == -1:
 				return -1
-				print("[EPGImport] wakeup day of week disabled", file=log)
+				print>>log, "[EPGImport] wakeup day of week disabled"
 			if wake_up < now:
 				wake_up += 86400 * wakeup_day
 			else:
@@ -922,7 +931,7 @@ class AutoStartTimer:
 	def afterFinishImportCheck(self):
 		if config.plugins.epgimport.deepstandby.value == 'wakeup' and getFPWasTimerWakeup():
 			if os.path.exists("/tmp/enigmastandby") or os.path.exists("/tmp/.EPGImportAnswerBoot"):
-				print("[EPGImport] is restart enigma2", file=log)
+				print>>log, "[EPGImport] is restart enigma2"
 			else:
 				wake = self.getStatus()
 				now_t = time.time()
@@ -931,22 +940,22 @@ class AutoStartTimer:
 					if config.plugins.epgimport.standby_afterwakeup.value:
 						if not Screens.Standby.inStandby:
 							Notifications.AddNotification(Screens.Standby.Standby)
-							print("[EPGImport] Run to standby after wake up", file=log)
+							print>>log, "[EPGImport] Run to standby after wake up"
 					if config.plugins.epgimport.shutdown.value:
 						if not config.plugins.epgimport.standby_afterwakeup.value:
 							if not Screens.Standby.inStandby:
 								Notifications.AddNotification(Screens.Standby.Standby)
-								print("[EPGImport] Run to standby after wake up for checking", file=log)
+								print>>log, "[EPGImport] Run to standby after wake up for checking"
 						if not config.plugins.epgimport.deepstandby_afterimport.value:
 							config.plugins.epgimport.deepstandby_afterimport.value = True
 							self.wait_timer = enigma.eTimer()
 							self.wait_timer.timeout.get().append(self.startStandby)
-							print("[EPGImport] start wait_timer (10sec) for goto standby", file=log)
+							print>>log, "[EPGImport] start wait_timer (10sec) for goto standby"
 							self.wait_timer.start(10000, True)
 
 	def startStandby(self):
 		if Screens.Standby.inStandby:
-			print("[EPGImport] add checking standby", file=log)
+			print>>log, "[EPGImport] add checking standby"
 			try:
 				Screens.Standby.inStandby.onClose.append(self.onLeaveStandby)
 			except:
@@ -955,7 +964,7 @@ class AutoStartTimer:
 	def onLeaveStandby(self):
 		if config.plugins.epgimport.deepstandby_afterimport.value:
 			config.plugins.epgimport.deepstandby_afterimport.value = False
-			print("[EPGImport] checking standby remove, not deep standby after import", file=log)
+			print>>log, "[EPGImport] checking standby remove, not deep standby after import"
 
 
 def WakeupDayOfWeek():
@@ -975,49 +984,49 @@ def WakeupDayOfWeek():
 
 def onBootStartCheck():
 	global autoStartTimer
-	print("[EPGImport] onBootStartCheck", file=log)
+	print>>log, "[EPGImport] onBootStartCheck"
 	now = int(time.time())
 	wake = autoStartTimer.getStatus()
-	print("[EPGImport] now=%d wake=%d wake-now=%d" % (now, wake, wake - now), file=log)
+	print>>log, "[EPGImport] now=%d wake=%d wake-now=%d" % (now, wake, wake - now)
 	if (wake < 0) or (wake - now > 600):
 		on_start = False
 		if config.plugins.epgimport.runboot.value == "1":
 			on_start = True
-			print("[EPGImport] is boot", file=log)
+			print>>log, "[EPGImport] is boot"
 		elif config.plugins.epgimport.runboot.value == "2" and not getFPWasTimerWakeup():
 			on_start = True
-			print("[EPGImport] is manual boot", file=log)
+			print>>log, "[EPGImport] is manual boot"
 		elif config.plugins.epgimport.runboot.value == "3" and getFPWasTimerWakeup():
 			on_start = True
-			print("[EPGImport] is automatic boot", file=log)
+			print>>log, "[EPGImport] is automatic boot"
 		flag = '/tmp/.EPGImportAnswerBoot'
 		if config.plugins.epgimport.runboot_restart.value and config.plugins.epgimport.runboot.value != "3":
 			if os.path.exists(flag):
 				on_start = False
-				print("[EPGImport] not starting import - is restart enigma2", file=log)
+				print>>log, "[EPGImport] not starting import - is restart enigma2"
 			else:
 				try:
 					open(flag, 'wb').close()
 				except:
-					print("Failed to create /tmp/.EPGImportAnswerBoot", file=log)
+					print>>log, "Failed to create /tmp/.EPGImportAnswerBoot"
 		if config.plugins.epgimport.runboot_day.value:
 			now = time.localtime()
 			cur_day = int(now.tm_wday)
 			if not config.plugins.extra_epgimport.day_import[cur_day].value:
 				on_start = False
-				print("[EPGImport] wakeup day of week does not match", file=log)
+				print>>log, "[EPGImport] wakeup day of week does not match"
 		if on_start:
-			print("[EPGImport] starting import because auto-run on boot is enabled", file=log)
+			print>>log, "[EPGImport] starting import because auto-run on boot is enabled"
 			autoStartTimer.runImport()
 	else:
-		print("[EPGImport] import to start in less than 10 minutes anyway, skipping...", file=log)
+		print>>log, "[EPGImport] import to start in less than 10 minutes anyway, skipping..."
 
 
 def autostart(reason, session=None, **kwargs):
 	"called with reason=1 to during shutdown, with reason=0 at startup?"
 	global autoStartTimer
 	global _session
-	print("[EPGImport] autostart (%s) occured at" % reason, time.time(), file=log)
+	print>>log, "[EPGImport] autostart (%s) occured at" % reason, time.time()
 	if reason == 0 and _session is None:
 		if session is not None:
 			_session = session
@@ -1027,7 +1036,7 @@ def autostart(reason, session=None, **kwargs):
 				onBootStartCheck()
 		# If WE caused the reboot, put the box back in standby.
 		if os.path.exists("/tmp/enigmastandby"):
-			print("[EPGImport] Returning to standby", file=log)
+			print>>log, "[EPGImport] Returning to standby"
 			if not Screens.Standby.inStandby:
 				Notifications.AddNotification(Screens.Standby.Standby)
 			try:
@@ -1035,14 +1044,14 @@ def autostart(reason, session=None, **kwargs):
 			except:
 				pass
 	else:
-		print("[EPGImport] Stop", file=log)
+		print>>log, "[EPGImport] Stop"
 
 
 def getNextWakeup():
 	"returns timestamp of next time when autostart should be called"
 	if autoStartTimer:
 		if config.plugins.epgimport.deepstandby.value == 'wakeup' and autoStartTimer.getSources():
-			print("[EPGImport] Will wake up from deep sleep", file=log)
+			print>>log, "[EPGImport] Will wake up from deep sleep"
 			return autoStartTimer.getStatus()
 	return -1
 
@@ -1059,8 +1068,8 @@ def setExtensionsmenu(el):
 			Components.PluginComponent.plugins.addPlugin(extDescriptor)
 		else:
 			Components.PluginComponent.plugins.removePlugin(extDescriptor)
-	except Exception as e:
-		print("[EPGImport] Failed to update extensions menu:", e)
+	except Exception, e:
+		print "[EPGImport] Failed to update extensions menu:", e
 
 
 description = _("Automated EPG Importer")

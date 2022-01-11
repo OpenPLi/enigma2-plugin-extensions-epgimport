@@ -1,19 +1,20 @@
+#!/usr/bin/python
 # epgdat.py  by Ambrosa http://www.dreamboxonline.com
 # Heavily modified by MiLo http://www.sat4all.com/
 # Lots of stuff removed that i did not need.
 
-from __future__ import absolute_import, print_function
-
 import os
+import sys
+import codecs
 import struct
 from datetime import datetime
 
 try:
-	from . import dreamcrc
+	import dreamcrc
 	crc32_dreambox = lambda d, t: dreamcrc.crc32(d, t) & 0xffffffff
-	print("[EPGImport] using C module, yay")
+	print "[EPGImport] using C module, yay"
 except:
-	print("[EPGImport] failed to load C implementation, sorry")
+	print "[EPGImport] failed to load C implementation, sorry"
 
 	# this table is used by CRC32 routine below (used by Dreambox for
 	# computing REF DESC value).
@@ -92,12 +93,12 @@ except:
 
 	def crc32_dreambox(crcdata, crctype, crctable=CRCTABLE):
 		# ML Optimized: local CRCTABLE (locals are faster), remove self, remove code that has no effect, faster loop
-		#crc=0x00000000
-		#crc=((crc << 8 ) & 0xffffff00) ^ crctable[((crc >> 24) ^ crctype) & 0x000000ff]
-		crc = crctable[crctype & 0x000000ff]
-		crc = ((crc << 8) & 0xffffff00) ^ crctable[((crc >> 24) ^ len(crcdata)) & 0x000000ff]
+		#crc=0x00000000L
+		#crc=((crc << 8 ) & 0xffffff00L) ^ crctable[((crc >> 24) ^ crctype) & 0x000000ffL ]
+		crc = crctable[crctype & 0x000000ffL]
+		crc = ((crc << 8) & 0xffffff00L) ^ crctable[((crc >> 24) ^ len(crcdata)) & 0x000000ffL]
 		for d in crcdata:
-			crc = ((crc << 8) & 0xffffff00) ^ crctable[((crc >> 24) ^ ord(d)) & 0x000000ff]
+		    crc = ((crc << 8) & 0xffffff00L) ^ crctable[((crc >> 24) ^ ord(d)) & 0x000000ffL]
 		return crc
 
 # convert time or length from datetime format to 3 bytes hex value
@@ -106,9 +107,9 @@ except:
 
 def TL_hexconv(dt):
 	return (
-		(dt.hour % 10) + (16 * (dt.hour // 10)),
-		(dt.minute % 10) + (16 * (dt.minute // 10)),
-		(dt.second % 10) + (16 * (dt.second // 10))
+		(dt.hour % 10) + (16 * (dt.hour / 10)),
+		(dt.minute % 10) + (16 * (dt.minute / 10)),
+		(dt.second % 10) + (16 * (dt.second / 10))
 		)
 
 
@@ -190,7 +191,7 @@ class epgdat_class:
 		return r
 
 	def add_event(self, starttime, duration, title, description):
-		#print("add event : ", event_starttime_unix_gmt, "title : ", event_title)
+		#print "add event : ",event_starttime_unix_gmt, "title : " ,event_title
 		self.events.append((starttime, duration, self.short_desc(title[:240]), self.long_desc(description)))
 
 	def preprocess_events_channel(self, services):
@@ -218,9 +219,9 @@ class epgdat_class:
 				# short description (title) type 0x4d
 				short_d = event[2]
 				EPG_EVENT_HEADER_datasize += 4  # add 4 bytes for a sigle REF DESC (CRC32)
-				#if short_d[0] not in epg_event_description_dict:
+				#if not epg_event_description_dict.has_key(short_d[0]):
 				#if not exist_event(short_d[0]) :
-				if short_d[0] not in self.EPGDAT_HASH_EVENT_MEMORY_CONTAINER:
+				if not self.EPGDAT_HASH_EVENT_MEMORY_CONTAINER.has_key(short_d[0]):
 					# DESCRIPTION DATA
 					pack_1 = s_BB.pack(0x4d, len(short_d[1])) + short_d[1]
 					# DESCRIPTION HEADER (2 int) will be computed at the end just before EPG.DAT write
@@ -235,9 +236,9 @@ class epgdat_class:
 				long_d = event[3]
 				EPG_EVENT_HEADER_datasize += 4 * len(long_d) # add 4 bytes for a single REF DESC (CRC32)
 				for desc in long_d:
-					#if long_d[i][0] not in epg_event_description_dict:
+					#if not epg_event_description_dict.has_key(long_d[i][0]):
 					#if not exist_event(long_d[i][0]) :
-					if desc[0] not in self.EPGDAT_HASH_EVENT_MEMORY_CONTAINER:
+					if not self.EPGDAT_HASH_EVENT_MEMORY_CONTAINER.has_key(desc[0]):
 						# DESCRIPTION DATA
 						pack_1 = s_BB.pack(0x4e, len(desc[1])) + desc[1]
 						self.EPG_HEADER2_description_count += 1

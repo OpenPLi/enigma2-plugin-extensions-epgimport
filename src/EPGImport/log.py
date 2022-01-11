@@ -2,17 +2,12 @@
 #
 # One can simply use
 # import log
-# print("Some text", file=log)
+# print>>log, "Some text"
 # because the log unit looks enough like a file!
 
-from __future__ import absolute_import
-
 import sys
+from cStringIO import StringIO
 import threading
-try: #python2 only
-		from cStringIO import StringIO
-except: # both python2 and python3
-	from io import StringIO
 
 logfile = StringIO()
 # Need to make our operations thread-safe.
@@ -24,7 +19,7 @@ def write(data):
 	try:
 		if logfile.tell() > 8000:
 			# Do a sort of 8k round robin
-			logfile.seek(0, 0)
+			logfile.reset()
 		logfile.write(data)
 	finally:
 		mutex.release()
@@ -36,7 +31,7 @@ def getvalue():
 	try:
 		pos = logfile.tell()
 		head = logfile.read()
-		logfile.seek(0, 0)
+		logfile.reset()
 		tail = logfile.read(pos)
 	finally:
 		mutex.release()
