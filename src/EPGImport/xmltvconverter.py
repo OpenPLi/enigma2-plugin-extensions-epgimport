@@ -1,9 +1,11 @@
-import time
+from __future__ import absolute_import, print_function
+
 import calendar
-import log
-#from pprint import pprint
-from xml.etree.cElementTree import ElementTree, Element, SubElement, tostring, iterparse
+import time
+from xml.etree.cElementTree import iterparse
 from xml.sax.saxutils import unescape
+
+from . import log
 
 # %Y%m%d%H%M%S
 
@@ -15,16 +17,16 @@ def quickptime(str):
 
 
 def get_time_utc(timestring, fdateparse):
-	#print "get_time_utc", timestring, format
+	#print("get_time_utc", timestring, format)
 	try:
 		values = timestring.split(' ')
 		tm = fdateparse(values[0])
 		timegm = calendar.timegm(tm)
 		#suppose file says +0300 => that means we have to substract 3 hours from localtime to get gmt
-		timegm -= (3600 * int(values[1]) / 100)
+		timegm -= (3600 * int(values[1]) // 100)
 		return timegm
-	except Exception, e:
-		print "[XMLTVConverter] get_time_utc error:", e
+	except Exception as e:
+		print("[XMLTVConverter] get_time_utc error:", e)
 		return 0
 
 # Preferred language should be configurable, but for now,
@@ -41,16 +43,16 @@ def get_xml_string(elem, name):
 				r = txt
 			elif lang == "nl":
 				r = txt
-	except Exception, e:
-		print "[XMLTVConverter] get_xml_string error:", e
-        # Now returning UTF-8 by default, the epgdat/oudeis must be adjusted to make this work.
-        # Note that the default xml.sax.saxutils.unescape() function don't unescape
-        # some characters and we have to manually add them to the entities dictionary.
-        r = unescape(r, entities={r"&apos;": r"'", r"&quot;": r'"',
-                                  r"&#124;": r"|", r"&nbsp;": r" ",
-                                  r"&#91;" : r"[", r"&#93;" : r"]", })
+	except Exception as e:
+		print("[XMLTVConverter] get_xml_string error:", e)
+		# Now returning UTF-8 by default, the epgdat/oudeis must be adjusted to make this work.
+		# Note that the default xml.sax.saxutils.unescape() function don't unescape
+		# some characters and we have to manually add them to the entities dictionary.
+		r = unescape(r, entities={r"&apos;": r"'", r"&quot;": r'"',
+								  r"&#124;": r"|", r"&nbsp;": r" ",
+								  r"&#91;" : r"[", r"&#93;" : r"]", })
 
-        return r.encode('utf-8')
+		return r.encode('utf-8')
 
 
 def enumerateProgrammes(fp):
@@ -74,7 +76,7 @@ class XMLTVConverter:
 			self.dateParser = lambda x: time.strptime(x, dateformat)
 
 	def enumFile(self, fileobj):
-		print>>log, "[XMLTVConverter] Enumerating event information"
+		print("[XMLTVConverter] Enumerating event information", file=log)
 		lastUnknown = None
 		# there is nothing no enumerate if there are no channels loaded
 		if not self.channels:
@@ -84,7 +86,7 @@ class XMLTVConverter:
 			channel = channel.lower()
 			if not channel in self.channels:
 				if lastUnknown != channel:
-					print>>log, "Unknown channel: ", channel
+					print("Unknown channel: ", channel, file=log)
 					lastUnknown = channel
 				# return a None object to give up time to the reactor.
 				yield None
@@ -100,16 +102,16 @@ class XMLTVConverter:
 				cat_nr = self.get_category(category, stop - start)
 				# data_tuple = (data.start, data.duration, data.title, data.short_description, data.long_description, data.type)
 				if not stop or not start or (stop <= start):
-					print "[XMLTVConverter] Bad start/stop time: %s (%s) - %s (%s) [%s]" % (elem.get('start'), start, elem.get('stop'), stop, title)
+					print("[XMLTVConverter] Bad start/stop time: %s (%s) - %s (%s) [%s]" % (elem.get('start'), start, elem.get('stop'), stop, title))
 				yield (services, (start, stop - start, title, subtitle, description, cat_nr))
-			except Exception, e:
-				print "[XMLTVConverter] parsing event error:", e
+			except Exception as e:
+				print("[XMLTVConverter] parsing event error:", e)
 
-	def get_category(self, str, duration):
-		if (not str) or (type(str) != type('str')):
+	def get_category(self, cat, duration):
+		if (not cat) or (not isinstance(cat, type('str'))):
 			return 0
-		if str in self.categories:
-			category = self.categories[str]
+		if cat in self.categories:
+			category = self.categories[cat]
 			if len(category) > 1:
 				if duration > 60 * category[1]:
 					return category[0]
