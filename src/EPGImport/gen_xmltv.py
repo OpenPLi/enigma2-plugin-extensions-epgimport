@@ -1,6 +1,4 @@
-from __future__ import absolute_import, print_function
-
-from . import xmltvconverter
+import xmltvconverter
 
 date_format = '%Y%m%d%H%M%S'
 gen_categories = {
@@ -35,7 +33,7 @@ class Gen_Xmltv():
 			xmltv_parser = xmltvconverter.XMLTVConverter(channelsDict, gen_categories, date_format)
 			for r in xmltv_parser.enumFile(fd):
 				yield r
-		except Exception as e:
-			print("[gen_xmltv] Error:", e)
+		except Exception, e:
+			print "[gen_xmltv] Error:", e
 			import traceback
 			traceback.print_exc()
