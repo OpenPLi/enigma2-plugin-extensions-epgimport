@@ -1,8 +1,10 @@
-import epgdat
+from __future__ import absolute_import, print_function
+
 import os
 import sys
 
-import sys
+from . import epgdat
+
 # Hack to make this test run on Windows (where the reactor cannot handle files)
 if sys.platform.startswith('win'):
 	tmppath = '.'
@@ -49,14 +51,14 @@ class epgdatclass:
 			self.commitService()
 			self.epg.final_process()
 		except:
-			print "[EPGImport] Failure in epg_done"
+			print("[EPGImport] Failure in epg_done")
 			import traceback
 			traceback.print_exc()
 		self.epg = None
 
 	def checkPath(self, path):
 		f = os.popen('mount', "r")
-		for l in f.xreadlines():
+		for l in f:
 			if l.find(path) != -1:
 				return True
 		return False

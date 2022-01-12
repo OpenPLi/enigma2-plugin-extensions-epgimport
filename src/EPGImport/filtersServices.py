@@ -1,15 +1,18 @@
-from . import _
-from Screens.Screen import Screen
-from Screens.MessageBox import MessageBox
-from Screens.ChoiceBox import ChoiceBox
-from Components.ActionMap import ActionMap
-from ServiceReference import ServiceReference
-from Screens.ChannelSelection import service_types_radio, service_types_tv, ChannelSelection, ChannelSelectionBase
-from enigma import eServiceReference, eServiceCenter, iServiceInformation
-from Components.Sources.List import List
-from Components.Label import Label
-import EPGConfig
+from __future__ import absolute_import
+
 import os
+
+from Components.ActionMap import ActionMap
+from Components.Label import Label
+from Components.Sources.List import List
+from enigma import eServiceCenter, eServiceReference
+from Screens.ChannelSelection import ChannelSelectionBase, service_types_radio, service_types_tv
+from Screens.ChoiceBox import ChoiceBox
+from Screens.MessageBox import MessageBox
+from Screens.Screen import Screen
+from ServiceReference import ServiceReference
+
+from . import EPGConfig, _
 
 OFF = 0
 EDIT_BOUQUET = 1

@@ -1,9 +1,10 @@
-from Components.MenuList import MenuList
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN
-from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT
-from Tools.LoadPixmap import LoadPixmap
-from skin import applySkinFactor, fonts, parameters
+from __future__ import absolute_import
 
+from Components.MenuList import MenuList
+from enigma import RT_HALIGN_LEFT, eListboxPythonMultiContent, gFont
+from skin import applySkinFactor, fonts, parameters
+from Tools.Directories import SCOPE_CURRENT_SKIN, resolveFilename
+from Tools.LoadPixmap import LoadPixmap
 
 expandableIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "icons/expandable.png"))
 expandedIcon = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, "icons/expanded.png"))
