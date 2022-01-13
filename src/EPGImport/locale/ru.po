@@ -211,7 +211,7 @@ msgstr "Последний импорт: %s %s, %d событий"
 
 #: ../plugin.py:355
 msgid "Load EPG"
-msgstr ""
+msgstr "Загрузка EPG"
 
 #: ../plugin.py:354
 msgid "Load EPG only services in bouquets"
@@ -263,7 +263,7 @@ msgstr "Выбор действия"
 
 #: ../plugin.py:355
 msgid "Select load EPG mode for services."
-msgstr ""
+msgstr "Выбор режима загрузки EPG для сервисов."
 
 #: ../plugin.py:359
 msgid "Show \"EPG import now\" in main menu"
@@ -382,9 +382,8 @@ msgstr ""
 "сделать это сейчас?"
 
 #: ../plugin.py:70
-#, fuzzy
 msgid "all channels"
-msgstr "Добавить канал"
+msgstr "все каналы"
 
 #: ../plugin.py:54
 msgid "always"
@@ -392,7 +391,7 @@ msgstr "всегда"
 
 #: ../plugin.py:68
 msgid "checking service reference(default)"
-msgstr ""
+msgstr "проверка референса канала(дефолт)"
 
 #: ../plugin.py:57
 msgid "never"
@@ -400,7 +399,7 @@ msgstr "никогда"
 
 #: ../plugin.py:69
 msgid "only IPTV channels"
-msgstr ""
+msgstr "только каналы IPTV"
 
 #: ../plugin.py:56
 msgid "only automatic boot"
