@@ -131,7 +131,6 @@ class EPGChannel:
 							print("[EPGImport] INFO : skipping", filter_result.group(), "due to channel_id_filter.conf", file=log)
 						ref = elem.text
 						if id and ref:
-							ref = ref.encode('latin-1')
 							if filterCallback(ref):
 								if id in self.items:
 									try:
@@ -145,7 +144,6 @@ class EPGChannel:
 						# print("[EPGImport] INFO : processing", id, file=log)
 						ref = elem.text
 						if id and ref:
-							ref = ref.encode('latin-1')
 							if filterCallback(ref):
 								if id in self.items:
 									self.items[id].append(ref)
