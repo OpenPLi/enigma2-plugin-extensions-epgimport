@@ -449,10 +449,10 @@ class EPGImport:
 		if ext and len(ext) < 6:
 			filename += ext
 		sourcefile = sourcefile.encode('utf-8')
-		sslcf = SNIFactory(sourcefile) if sourcefile.startswith('https:') else None
-		print("[EPGImport] Downloading: " + sourcefile + " to local path: " + filename, file=log)
+		sslcf = SNIFactory(sourcefile) if sourcefile.decode().startswith('https:') else None
+		print("[EPGImport] Downloading: " + sourcefile.decode() + " to local path: " + filename, file=log)
 		if self.source.nocheck == 1:
-			print("[EPGImport] Not cheching the server since nocheck is set for it: " + sourcefile, file=log)
+			print("[EPGImport] Not cheching the server since nocheck is set for it: " + sourcefile.decode(), file=log)
 			downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
 			return filename
 		else:
