@@ -6,6 +6,7 @@ import time
 import Components.PluginComponent
 import enigma
 import Screens.Standby
+import NavigationInstance
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.config import (ConfigClock, ConfigEnableDisable, ConfigNumber, ConfigSelection, ConfigSubDict,
@@ -13,7 +14,6 @@ from Components.config import (ConfigClock, ConfigEnableDisable, ConfigNumber, C
 from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
-from NavigationInstance import instance as navInstance
 from Plugins.Plugin import PluginDescriptor
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
@@ -213,10 +213,10 @@ def channelFilter(ref):
 	if "%3a//" in ref.lower():
 		# print("URL detected in serviceref, not checking fake recording on serviceref:", ref, file=log)
 		return True
-	fakeRecService = navInstance.recordService(sref, True)
+	fakeRecService = NavigationInstance.instance.recordService(sref, True)
 	if fakeRecService:
 		fakeRecResult = fakeRecService.start(True)
-		navInstance.stopRecordService(fakeRecService)
+		NavigationInstance.instance.stopRecordService(fakeRecService)
 		# -7 (errNoSourceFound) occurs when tuner is disconnected.
 		r = fakeRecResult in (0, -7)
 		return r
