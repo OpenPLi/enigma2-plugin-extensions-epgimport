@@ -129,7 +129,7 @@ class EPGChannel:
 						# Just to avoid false positive in logging since the same parse function is used in two different cases.
 						if filter_result.group():
 							print("[EPGImport] INFO : skipping", filter_result.group(), "due to channel_id_filter.conf", file=log)
-						ref = elem.text
+						ref = str(elem.text)
 						if id and ref:
 							if filterCallback(ref):
 								if id in self.items:
@@ -142,7 +142,7 @@ class EPGChannel:
 										print("[EPGImport] failed to remove from list ", self.items[id], " ref ", ref, "Error:", e, file=log)
 					else:
 						# print("[EPGImport] INFO : processing", id, file=log)
-						ref = elem.text
+						ref = str(elem.text)
 						if id and ref:
 							if filterCallback(ref):
 								if id in self.items:
