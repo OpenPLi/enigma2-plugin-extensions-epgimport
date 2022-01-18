@@ -1,5 +1,6 @@
 from __future__ import absolute_import, print_function
 
+import six
 import calendar
 import time
 from xml.etree.cElementTree import iterparse
@@ -56,7 +57,7 @@ def get_xml_string(elem, name):
 		r"&#91;" : r"[",
 		r"&#93;" : r"]",
 	})
-	return r.encode('utf-8')
+	return six.ensure_str(r)
 
 
 def enumerateProgrammes(fp):
