@@ -1,5 +1,3 @@
-from __future__ import absolute_import, print_function
-
 import gettext
 
 from Components.Language import language
@@ -16,7 +14,6 @@ def localeInit():
 def _(txt):
     t = gettext.dgettext(PluginLanguageDomain, txt)
     if t == txt:
-        print("[" + PluginLanguageDomain + "] fallback to default translation for ", txt)
         t = gettext.gettext(txt)
     return t
 
