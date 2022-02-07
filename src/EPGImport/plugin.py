@@ -386,19 +386,6 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self["config"].list = self.list
 		self["config"].setList(self.list)
 
-	# for summary:
-	def getCurrentEntry(self):
-		self.updateDescription()
-		return ConfigListScreen.getCurrentEntry(self)
-
-	def createSummary(self):
-		from Screens.Setup import SetupSummary
-		return SetupSummary
-
-	def updateDescription(self):
-		self["description"].setText(self.getCurrentDescription())
-	###
-
 	def newConfig(self):
 		cur = self["config"].getCurrent()
 		if cur in (self.cfg_enabled, self.cfg_shutdown, self.cfg_deepstandby, self.cfg_runboot, self.cfg_loadepg_only):
@@ -531,8 +518,8 @@ class EPGImportSources(Screen):
 		</screen>"""
 
 	def __init__(self, session):
-		self.session = session
 		Screen.__init__(self, session)
+		self.setTitle(_("EPG Import Sources"))
 		self["key_red"] = Button(_("Cancel"))
 		self["key_green"] = Button(_("Save"))
 		self["key_blue"] = Button()
@@ -568,7 +555,6 @@ class EPGImportSources(Screen):
 			"cancel": self.cancel,
 			"ok": self["list"].toggleSelection,
 		}, -2)
-		self.setTitle(_("EPG Import Sources"))
 
 	def save(self):
 		# Make the entries unique through a set
@@ -623,7 +609,6 @@ class EPGImportProfile(ConfigListScreen, Screen):
 			"cancel": self.keyCancel,
 			"ok": self.save,
 		}, -2)
-		self.onLayoutFinish.append(self.createSummary)
 
 	def save(self):
 		if not config.plugins.extra_epgimport.day_import[0].value:
@@ -659,6 +644,7 @@ class EPGImportLog(Screen):
 	def __init__(self, session):
 		self.session = session
 		Screen.__init__(self, session)
+		self.setTitle(_("EPG Import Log"))
 		self["key_red"] = Button(_("Clear"))
 		self["key_green"] = Button()
 		self["key_yellow"] = Button()
@@ -680,10 +666,6 @@ class EPGImportLog(Screen):
 			"pageUp": self["list"].pageUp,
 			"pageDown": self["list"].pageDown
 		}, -2)
-		self.onLayoutFinish.append(self.setCustomTitle)
-
-	def setCustomTitle(self):
-		self.setTitle(_("EPG Import Log"))
 
 	def save(self):
 		try:
@@ -854,8 +836,8 @@ class AutoStartTimer:
 			cur_day = int(now_day.tm_wday)
 			wakeup_day = WakeupDayOfWeek()
 			if wakeup_day == -1:
-				return -1
 				print("[EPGImport] wakeup day of week disabled", file=log)
+				return -1
 			if wake < now + atLeast:
 				wake += 86400 * wakeup_day
 			else:
@@ -908,8 +890,8 @@ class AutoStartTimer:
 			cur_day = int(now_day.tm_wday)
 			wakeup_day = WakeupDayOfWeek()
 			if wakeup_day == -1:
-				return -1
 				print("[EPGImport] wakeup day of week disabled", file=log)
+				return -1
 			if wake_up < now:
 				wake_up += 86400 * wakeup_day
 			else:
