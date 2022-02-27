@@ -8,6 +8,7 @@ import gzip
 import os
 import random
 import time
+import six
 from datetime import datetime
 
 import twisted.python.runtime
@@ -138,7 +139,7 @@ class EPGImport:
 	def checkValidServer(self, serverurl):
 		print("[EPGImport] checkValidServer serverurl %s" % serverurl, file=log)
 		dirname, filename = os.path.split(serverurl)
-		FullString = dirname + "/" + CheckFile
+		FullString = dirname + b"/" + six.ensure_binary(CheckFile)
 		req = build_opener()
 		req.addheaders = [('User-Agent', 'Twisted Client')]
 		dlderror = 0
