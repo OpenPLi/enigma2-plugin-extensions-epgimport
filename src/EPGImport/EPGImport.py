@@ -139,7 +139,9 @@ class EPGImport:
 	def checkValidServer(self, serverurl):
 		print("[EPGImport] checkValidServer serverurl %s" % serverurl, file=log)
 		dirname, filename = os.path.split(serverurl)
-		FullString = dirname + b"/" + six.ensure_binary(CheckFile)
+		if six.PY3:
+			dirname = dirname.decode()
+		FullString = dirname + "/" + CheckFile
 		req = build_opener()
 		req.addheaders = [('User-Agent', 'Twisted Client')]
 		dlderror = 0
@@ -164,7 +166,10 @@ class EPGImport:
 				dlderror = 1
 
 			if not dlderror:
-				LastTime = response.read().strip('\n')
+				if six.PY3:
+					LastTime = response.read().decode().strip('\n')
+				else:
+					LastTime = response.read().strip('\n')
 				try:
 					FileDate = datetime.strptime(LastTime, date_format)
 				except ValueError:
