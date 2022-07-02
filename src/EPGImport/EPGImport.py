@@ -459,11 +459,11 @@ class EPGImport:
 		print("[EPGImport] Downloading: " + sourcefile.decode() + " to local path: " + filename, file=log)
 		if self.source.nocheck == 1:
 			print("[EPGImport] Not cheching the server since nocheck is set for it: " + sourcefile.decode(), file=log)
-			downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
+			downloadPage(sourcefile, filename, contextFactory=sslcf, timeout=90).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
 			return filename
 		else:
 			if self.checkValidServer(sourcefile) == 1:
-				downloadPage(sourcefile, filename, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
+				downloadPage(sourcefile, filename, contextFactory=sslcf, timeout=90).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
 				return filename
 			else:
 				self.downloadFail("checkValidServer reject the server")
