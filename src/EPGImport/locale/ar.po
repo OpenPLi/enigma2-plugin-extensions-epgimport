@@ -134,7 +134,7 @@ msgstr "سجل إستيراد دليل البرامج الإلكترونية"
 
 #: ../plugin.py:1077 ../plugin.py:1083
 #, fuzzy
-msgid "EPGImport"
+msgid "EPG Import"
 msgstr "إستيراد دليل البرامج الإلكترونية"
 
 #: ../plugin.py:468

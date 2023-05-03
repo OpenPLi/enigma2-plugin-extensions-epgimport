@@ -130,7 +130,7 @@ msgid "EPG import now"
 msgstr "Завантаження ЕПГ в даний момент"
 
 #: ../plugin.py:1077 ../plugin.py:1083
-msgid "EPGImport"
+msgid "EPG Import"
 msgstr "Завантажувач ЕПГ"
 
 #: ../plugin.py:468

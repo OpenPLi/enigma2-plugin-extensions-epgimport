@@ -136,7 +136,7 @@ msgstr "Import EPG Logi"
 
 #: ../plugin.py:1077 ../plugin.py:1083
 #, fuzzy
-msgid "EPGImport"
+msgid "EPG Import"
 msgstr "EPG-Importer"
 
 #: ../plugin.py:468

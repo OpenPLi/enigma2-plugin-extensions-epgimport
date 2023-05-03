@@ -1026,7 +1026,7 @@ def getNextWakeup():
 
 def run_from_epg_menu(menuid, **kwargs):
 	if menuid == "epg" and config.plugins.epgimport.showinmainmenu.getValue():
-		return [(_("EPGImport"), main, "epgimporter", 45)]
+		return [(_("EPG Import"), main, "epgimporter", 45)]
 	else:
 		return []
 
@@ -1049,7 +1049,7 @@ extDescriptor = PluginDescriptor(name=_("EPG import now"), description=descripti
 def Plugins(**kwargs):
 	result = [
 		PluginDescriptor(name="EPGImport", description=description, where=[PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART], fnc=autostart, wakeupfnc=getNextWakeup),
-		PluginDescriptor(name=_("EPGImport"), description=description, where=[PluginDescriptor.WHERE_PLUGINMENU], icon="plugin.png", fnc=main),
+		PluginDescriptor(name=_("EPG Import"), description=description, where=[PluginDescriptor.WHERE_PLUGINMENU], icon="plugin.png", fnc=main),
 		PluginDescriptor(name="EPG importer", description=description, where=[PluginDescriptor.WHERE_MENU], fnc=run_from_epg_menu)
 	]
 	if config.plugins.epgimport.showinextensions.value:

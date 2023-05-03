@@ -153,8 +153,8 @@ msgid "EPG import now"
 msgstr "Importa adesso EPG"
 
 #: ../plugin.py:1077 ../plugin.py:1083
-msgid "EPGImport"
-msgstr "EPGImport"
+msgid "EPG Import"
+msgstr "EPG Import"
 
 #: ../plugin.py:468
 msgid ""

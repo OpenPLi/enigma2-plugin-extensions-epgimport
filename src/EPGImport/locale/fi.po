@@ -131,7 +131,7 @@ msgid "EPG import now"
 msgstr "Lataa nyt"
 
 #: ../plugin.py:1077 ../plugin.py:1083
-msgid "EPGImport"
+msgid "EPG Import"
 msgstr "EPG:n lataus"
 
 #: ../plugin.py:468

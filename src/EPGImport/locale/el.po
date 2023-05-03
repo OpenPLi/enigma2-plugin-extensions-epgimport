@@ -128,7 +128,7 @@ msgid "EPG import now"
 msgstr "Εισαγωγή EPG τώρα"
 
 #: ../plugin.py:1077 ../plugin.py:1083
-msgid "EPGImport"
+msgid "EPG Import"
 msgstr "Εισαγωγή EPG"
 
 #: ../plugin.py:468
