@@ -266,7 +266,7 @@ msgid "Select load EPG mode for services."
 msgstr "Выбор режима загрузки EPG для сервисов."
 
 #: ../plugin.py:359
-msgid "Show \"EPG import now\" in main menu"
+msgid "Show \"EPG import now\" in epg menu"
 msgstr "Показать \"Импорт EPG сейчас\" в главном меню"
 
 #: ../plugin.py:358

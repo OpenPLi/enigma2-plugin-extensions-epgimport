@@ -275,8 +275,8 @@ msgstr ""
 
 #: ../plugin.py:359
 #, fuzzy
-msgid "Show \"EPG import now\" in main menu"
-msgstr "Show in extensions"
+msgid "Show \"EPG import now\" in epg menu"
+msgstr "Show in EPG menu"
 
 #: ../plugin.py:358
 #, fuzzy

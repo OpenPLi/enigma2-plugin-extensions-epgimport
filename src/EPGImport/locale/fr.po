@@ -266,8 +266,8 @@ msgid "Select load EPG mode for services."
 msgstr "Sélectionnez la méthode de filtrage des services pour l'EPG."
 
 #: ../plugin.py:359
-msgid "Show \"EPG import now\" in main menu"
-msgstr "Afficher « Importer l’EPG maintenant » dans le menu principal"
+msgid "Show \"EPG import now\" in rpg menu"
+msgstr "Afficher « Importer l’EPG maintenant » dans le menu EPG"
 
 #: ../plugin.py:358
 msgid "Show \"EPGImport\" in extensions"
