@@ -279,12 +279,12 @@ msgid "Select load EPG mode for services."
 msgstr ""
 
 #: ../plugin.py:359
-msgid "Show \"EPG import now\" in EPG menu"
-msgstr "Toon 'Importeer de EPG nu' in het EPG menu"
+msgid "Show \"EPG import\" in EPG menu"
+msgstr "Toon de EPG-import in het EPG menu"
 
 #: ../plugin.py:358
-msgid "Show \"EPGImport\" in extensions"
-msgstr "Toon de EPG-import in het applicatiemenu"
+msgid "Show \"EPG import now\" in extensions"
+msgstr "Toon 'Importeer de EPG nu' in het applicatiemenu"
 
 #: ../plugin.py:506
 msgid "Show log"

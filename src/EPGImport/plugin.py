@@ -346,8 +346,8 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.cfg_loadepg_only = getConfigListEntry(_("Load EPG"), self.EPG.loadepg_only, _("Select load EPG mode for services."))
 		self.cfg_runboot_day = getConfigListEntry(_("Consider setting \"Days Profile\""), self.EPG.runboot_day, _("When you decide to load the EPG after GUI restart mention if the \"days profile\" must be take into consideration or not."))
 		self.cfg_runboot_restart = getConfigListEntry(_("Skip import on restart GUI"), self.EPG.runboot_restart, _("When you restart the GUI you can decide to skip or not the EPG data import."))
-		self.cfg_showinextensions = getConfigListEntry(_("Show \"EPGImport\" in extensions"), self.EPG.showinextensions, _("Display or not the EPGImport menu in the extension menu."))
-		self.cfg_showinmainmenu = getConfigListEntry(_("Show \"EPG import now\" in epg menu"), self.EPG.showinmainmenu, _("Display a shortcut \"EPG import now\" on your STB epg menu screen. This menu entry will immediately start the EPG update process when selected."))
+		self.cfg_showinextensions = getConfigListEntry(_("Show \"EPG import now\" in extensions"), self.EPG.showinextensions, _("Display a shortcut \"EPG import now\" in the extension menu. This menu entry will immediately start the EPG update process when selected."))
+		self.cfg_showinmainmenu = getConfigListEntry(_("Show \"EPG import\" in epg menu"), self.EPG.showinmainmenu, _("Display a shortcut \"EPG import\" in your STB epg menu screen. This allows you to access the configuration."))
 		self.cfg_longDescDays = getConfigListEntry(_("Load long descriptions up to X days"), self.EPG.longDescDays, _("Define the number of days that you want to get the full EPG data, reducing this number can help you to save memory usage on your box. But you are also limited with the EPG provider available data. You will not have 15 days EPG if it only provide 7 days data."))
 		self.cfg_parse_autotimer = getConfigListEntry(_("Run AutoTimer after import"), self.EPG.parse_autotimer, _("You can start automatically the plugin AutoTimer after the EPG data update to have it refreshing its scheduling after EPG data refresh."))
 		self.cfg_clear_oldepg = getConfigListEntry(_("Clearing current EPG before import"), config.plugins.epgimport.clear_oldepg, _("This will clear the current EPG data in memory before updating the EPG data. This allows you to always have a clean new EPG with the latest EPG data, for example in case of program changes between refresh, otherwise EPG data are cumulative."))
@@ -708,13 +708,6 @@ def main(session, **kwargs):
 	session.openWithCallback(doneConfiguring, EPGImportConfig)
 
 
-def run_from_main_menu(menuid, **kwargs):
-	if menuid == "epg" and config.plugins.epgimport.showinmainmenu.getValue():
-		return [(_("EPG import now"), start_import, "epgimporter", 45)]
-	else:
-		return []
-
-
 def doneConfiguring(retval=False):
 	if retval is True:
 		if autoStartTimer is not None:
@@ -1031,8 +1024,11 @@ def getNextWakeup():
 # we need this helper function to identify the descriptor
 
 
-def extensionsmenu(session, **kwargs):
-	main(session, **kwargs)
+def run_from_epg_menu(menuid, **kwargs):
+	if menuid == "epg" and config.plugins.epgimport.showinmainmenu.getValue():
+		return [(_("EPGImport"), main, "epgimporter", 45)]
+	else:
+		return []
 
 
 def setExtensionsmenu(el):
@@ -1047,14 +1043,14 @@ def setExtensionsmenu(el):
 
 description = _("Automated EPG Importer")
 config.plugins.epgimport.showinextensions.addNotifier(setExtensionsmenu, initial_call=False, immediate_feedback=False)
-extDescriptor = PluginDescriptor(name=_("EPGImport"), description=description, where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=extensionsmenu)
+extDescriptor = PluginDescriptor(name=_("EPG import now"), description=description, where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=start_import)
 
 
 def Plugins(**kwargs):
 	result = [
 		PluginDescriptor(name="EPGImport", description=description, where=[PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART], fnc=autostart, wakeupfnc=getNextWakeup),
 		PluginDescriptor(name=_("EPGImport"), description=description, where=[PluginDescriptor.WHERE_PLUGINMENU], icon="plugin.png", fnc=main),
-		PluginDescriptor(name="EPG importer", description=description, where=[PluginDescriptor.WHERE_MENU], fnc=run_from_main_menu)
+		PluginDescriptor(name="EPG importer", description=description, where=[PluginDescriptor.WHERE_MENU], fnc=run_from_epg_menu)
 	]
 	if config.plugins.epgimport.showinextensions.value:
 		result.append(extDescriptor)

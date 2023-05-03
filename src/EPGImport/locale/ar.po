@@ -270,11 +270,11 @@ msgstr ""
 
 #: ../plugin.py:359
 #, fuzzy
-msgid "Show \"EPG import now\" in epg menu"
+msgid "Show \"EPG import\" in epg menu"
 msgstr "عرض \"دليل البرامج الإلكترونية المستوردة\" في القائمة الرئيسية"
 
 #: ../plugin.py:358
-msgid "Show \"EPGImport\" in extensions"
+msgid "Show \"EPG import now\" in extensions"
 msgstr "عرض \"إستيراد دليل البرامج الإلكترونية\" في الملحقات"
 
 #: ../plugin.py:506

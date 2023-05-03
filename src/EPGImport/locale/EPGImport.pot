@@ -247,11 +247,11 @@ msgid "Select action"
 msgstr ""
 
 #: ../plugin.py:334
-msgid "Show \"EPG import now\" in epg menu"
+msgid "Show \"EPG import\" in epg menu"
 msgstr ""
 
 #: ../plugin.py:333
-msgid "Show \"EPGImport\" in extensions"
+msgid "Show \"EPG import now\" in extensions"
 msgstr ""
 
 #: ../plugin.py:479

@@ -256,11 +256,11 @@ msgid "Select load EPG mode for services."
 msgstr "Επιλέξτε τη μέθοδο φόρτωσης EPG για τις υπηρεσίες."
 
 #: ../plugin.py:359
-msgid "Show \"EPG import now\" in epg menu"
+msgid "Show \"EPG import\" in epg menu"
 msgstr "Εμφάνιση της επιλογής \"Εισαγωγή EPG τώρα\" στο κύριο μενού"
 
 #: ../plugin.py:358
-msgid "Show \"EPGImport\" in extensions"
+msgid "Show \"EPG import now\" in extensions"
 msgstr "Εμφάνιση της επιλογής \"Εισαγωγή EPG\" στις επεκτάσεις"
 
 #: ../plugin.py:506
