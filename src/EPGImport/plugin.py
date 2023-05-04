@@ -1026,7 +1026,7 @@ def getNextWakeup():
 
 def run_from_epg_menu(menuid, **kwargs):
 	if menuid == "epg" and config.plugins.epgimport.showinmainmenu.getValue():
-		return [(_("EPG Import"), main, "epgimporter", 45)]
+		return [(_("EPG Import"), main, "epgimporter", 90)]
 	else:
 		return []
 
