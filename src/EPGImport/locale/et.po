@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XMTV-Impoter for Enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-07 08:24+0100\n"
+"POT-Creation-Date: 2023-07-05 19:37+0200\n"
 "PO-Revision-Date: 2017-08-30 12:21+0300\n"
 "Last-Translator: rimas\n"
 "Language-Team: rimas\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 2.0.3\n"
 
-#: ../plugin.py:718
+#: ../plugin.py:691
 msgid ""
 "\n"
 "Import of epg data will start.\n"
@@ -26,117 +26,117 @@ msgstr ""
 "See võib kesta mõne minuti\n"
 "Kas see sobib?"
 
-#: ../plugin.py:718
+#: ../plugin.py:691
 msgid " events\n"
 msgstr " saadet\n"
 
-#: ../filtersServices.py:148
+#: ../filtersServices.py:151
 msgid "Add Channel"
 msgstr "Lisa kanal"
 
-#: ../filtersServices.py:147
+#: ../filtersServices.py:150
 msgid "Add Provider"
 msgstr "Lisa levitaja"
 
-#: ../filtersServices.py:258
+#: ../filtersServices.py:261
 msgid "All services provider"
 msgstr "Levitaja kõigile kanalitele"
 
-#: ../plugin.py:363
+#: ../plugin.py:354
 msgid "Also apply \"channel id\" filtering on custom.channels.xml"
 msgstr ""
 
-#: ../plugin.py:1075
+#: ../plugin.py:1044
 msgid "Automated EPG Importer"
 msgstr "Automaatne EPG import"
 
-#: ../plugin.py:347
+#: ../plugin.py:338
 msgid "Automatic import EPG"
 msgstr "Hangi EPG automaatselt"
 
-#: ../plugin.py:348
+#: ../plugin.py:339
 msgid "Automatic start time"
 msgstr "Automaatse käivituse aeg"
 
-#: ../plugin.py:316 ../plugin.py:545 ../plugin.py:625
+#: ../plugin.py:307 ../plugin.py:523 ../plugin.py:602
 msgid "Cancel"
 msgstr "Tühista"
 
-#: ../filtersServices.py:250
+#: ../filtersServices.py:253
 msgid "Channel Selection"
 msgstr "Kanalivalik"
 
-#: ../plugin.py:352
+#: ../plugin.py:343
 msgid "Choice days for start import"
 msgstr "Päev EPG hankimiseks"
 
-#: ../plugin.py:349
+#: ../plugin.py:340
 msgid "Choose the action to perform when the box is in deep standby and the automatic EPG update should normally start."
 msgstr ""
 
-#: ../plugin.py:671
+#: ../plugin.py:648
 msgid "Clear"
 msgstr "Kustuta"
 
-#: ../plugin.py:362
+#: ../plugin.py:353
 msgid "Clearing current EPG before import"
 msgstr "Aktiivse EPG eemaldamine enne importi"
 
-#: ../plugin.py:356
+#: ../plugin.py:347
 msgid "Consider setting \"Days Profile\""
 msgstr "Seadista \"päevade profiil\""
 
-#: ../plugin.py:620
+#: ../plugin.py:597
 msgid "Days Profile"
 msgstr "Päevade profiil"
 
-#: ../plugin.py:360
+#: ../plugin.py:351
 msgid "Define the number of days that you want to get the full EPG data, reducing this number can help you to save memory usage on your box. But you are also limited with the EPG provider available data. You will not have 15 days EPG if it only provide 7 days data."
 msgstr ""
 
-#: ../filtersServices.py:225
+#: ../filtersServices.py:228
 msgid "Delete all"
 msgstr "Kustuta  kõik"
 
-#: ../filtersServices.py:224
+#: ../filtersServices.py:227
 msgid "Delete selected"
 msgstr "Kustuta valik"
 
-#: ../plugin.py:359
-msgid "Display a shortcut \"EPG import now\" on your STB main screen. This menu entry will immediately start the EPG update process when selected."
+#: ../plugin.py:349
+msgid "Display a shortcut \"EPG import now\" in the extension menu. This menu entry will immediately start the EPG update process when selected."
 msgstr ""
 
-#: ../plugin.py:358
-msgid "Display or not the EPGImport menu in the extension menu."
+#: ../plugin.py:350
+msgid "Display a shortcut \"EPG import\" in your STB epg menu screen. This allows you to access the configuration."
 msgstr ""
 
-#: ../plugin.py:313
+#: ../plugin.py:1029 ../plugin.py:1052
+msgid "EPG Import"
+msgstr "EPG Import"
+
+#: ../plugin.py:304
 msgid "EPG Import Configuration"
 msgstr "Seadistamine"
 
-#: ../plugin.py:695
+#: ../plugin.py:647
 msgid "EPG Import Log"
 msgstr "EPG impordi logi"
 
-#: ../plugin.py:580
+#: ../plugin.py:522
 msgid "EPG Import Sources"
 msgstr "EPG impordi allikad"
 
-#: ../plugin.py:770
+#: ../plugin.py:736
 #, python-format
 msgid "EPG Import finished, %d events"
 msgstr "EPG hankimine lõpetatud, %d saadet"
 
-#: ../plugin.py:740
+#: ../plugin.py:1046
 #, fuzzy
 msgid "EPG import now"
 msgstr "EPG impordi logi"
 
-#: ../plugin.py:1077 ../plugin.py:1083
-msgid "EPG Import"
-msgstr "EPG Import"
-
-#: ../plugin.py:468
+#: ../plugin.py:446
 msgid ""
 "EPGImport\n"
 "Import of epg data is still in progress. Please wait."
@@ -144,7 +144,7 @@ msgstr ""
 "EPG import\n"
 "Epg hankimine on pooleli. Oota."
 
-#: ../plugin.py:484
+#: ../plugin.py:462
 msgid ""
 "EPGImport\n"
 "Import of epg data will start.\n"
@@ -156,7 +156,7 @@ msgstr ""
 "See võib kesta mõne minuti\n"
 "Kas see sobib?"
 
-#: ../plugin.py:493
+#: ../plugin.py:471
 msgid ""
 "EPGImport Plugin\n"
 "Failed to start:\n"
@@ -164,30 +164,30 @@ msgstr ""
 "EPGImport\n"
 "Käivitamine nurjus:\n"
 
-#: ../plugin.py:337
+#: ../plugin.py:328
 #, python-format
 msgid ""
 "Filtering: %s\n"
 "Please wait!"
 msgstr ""
 
-#: ../plugin.py:93
+#: ../plugin.py:91
 msgid "Friday"
 msgstr "Reede"
 
-#: ../plugin.py:508
+#: ../plugin.py:486
 msgid "Ignore services list"
 msgstr "Eiratav kanalinimekiri"
 
-#: ../filtersServices.py:162
+#: ../filtersServices.py:165
 msgid "Ignore services list(press OK to save)"
 msgstr "Eiratav (salvestamiseks vajuta OK)"
 
-#: ../plugin.py:568
+#: ../plugin.py:546
 msgid "Import current source"
 msgstr "Import valitud allikast"
 
-#: ../plugin.py:338
+#: ../plugin.py:329
 #, python-format
 msgid ""
 "Importing: %s\n"
@@ -196,178 +196,178 @@ msgstr ""
 "Import: %s\n"
 "%s saadet"
 
-#: ../plugin.py:718
+#: ../plugin.py:691
 msgid "Last import: "
 msgstr "Viimati: "
 
-#: ../plugin.py:463
+#: ../plugin.py:441
 #, python-format
 msgid "Last import: %s events"
 msgstr "Viimati: %s saadet"
 
-#: ../plugin.py:458
+#: ../plugin.py:436
 #, python-format
 msgid "Last: %s %s, %d events"
 msgstr "Viimati: %s %s, %d saadet"
 
-#: ../plugin.py:355
+#: ../plugin.py:346
 msgid "Load EPG"
 msgstr ""
 
-#: ../plugin.py:354
+#: ../plugin.py:345
 msgid "Load EPG only services in bouquets"
 msgstr "EPG ainult kanalitele lemmiknimekirjades"
 
-#: ../plugin.py:360
+#: ../plugin.py:351
 msgid "Load long descriptions up to X days"
 msgstr "Pikk saatetutvustus X päevaks"
 
-#: ../plugin.py:318
+#: ../plugin.py:309
 msgid "Manual"
 msgstr "Käsitsi"
 
-#: ../plugin.py:89
+#: ../plugin.py:87
 msgid "Monday"
 msgstr "Esmaspäev"
 
-#: ../plugin.py:479
+#: ../plugin.py:457
 msgid "No active EPG sources found, nothing to do"
 msgstr "EPG allikad on määramata. Midagi ei saa teha"
 
-#: ../plugin.py:81
+#: ../plugin.py:79
 msgid "Press OK"
 msgstr "Vajuta OK"
 
-#: ../filtersServices.py:191
+#: ../filtersServices.py:194
 msgid "Really delete all list?"
 msgstr "Kas kustutada kogu nimekiri?"
 
-#: ../plugin.py:350
+#: ../plugin.py:341
 msgid "Return to deep standby after import"
 msgstr "Pärast importi tagasi puhkeseisundisse"
 
-#: ../plugin.py:361
+#: ../plugin.py:352
 msgid "Run AutoTimer after import"
 msgstr "Käivita Autotaimer pärast importi"
 
-#: ../plugin.py:94
+#: ../plugin.py:92
 msgid "Saturday"
 msgstr "Laupäev"
 
-#: ../plugin.py:317 ../plugin.py:546 ../plugin.py:626 ../plugin.py:674
+#: ../plugin.py:308 ../plugin.py:524 ../plugin.py:603 ../plugin.py:651
 msgid "Save"
 msgstr "Salvesta"
 
-#: ../plugin.py:509 ../filtersServices.py:277
+#: ../plugin.py:487 ../filtersServices.py:280
 msgid "Select action"
 msgstr "Vali tegevus"
 
-#: ../plugin.py:355
+#: ../plugin.py:346
 msgid "Select load EPG mode for services."
 msgstr ""
 
-#: ../plugin.py:359
+#: ../plugin.py:349
+msgid "Show \"EPG import now\" in extensions"
+msgstr "Kuva \"EPG import now\" laienduste menüüs"
+
+#: ../plugin.py:350
 #, fuzzy
 msgid "Show \"EPG import\" in epg menu"
 msgstr "Kuva \"EPG import\" peamenüüs"
 
-#: ../plugin.py:358
-msgid "Show \"EPG import now\" in extensions"
-msgstr "Kuva \"EPG import now\" laienduste menüüs"
-
-#: ../plugin.py:506
+#: ../plugin.py:484
 msgid "Show log"
 msgstr "Kuva logi"
 
-#: ../plugin.py:357
+#: ../plugin.py:348
 msgid "Skip import on restart GUI"
 msgstr "Ära impordi pärast E2 taaskäivitust"
 
-#: ../plugin.py:319
+#: ../plugin.py:310
 msgid "Sources"
 msgstr "Allikad"
 
-#: ../plugin.py:353
+#: ../plugin.py:344
 msgid "Specify in which case the EPG must be automatically updated after the box has booted."
 msgstr ""
 
-#: ../plugin.py:348
+#: ../plugin.py:339
 msgid "Specify the time for the automatic EPG update."
 msgstr ""
 
-#: ../plugin.py:351
+#: ../plugin.py:342
 msgid "Standby at startup"
 msgstr "Käivitamine ooteseisundist"
 
-#: ../plugin.py:353
+#: ../plugin.py:344
 msgid "Start import after booting up"
 msgstr "Hangi EPG pärast alglaadimist"
 
-#: ../plugin.py:95
+#: ../plugin.py:93
 msgid "Sunday"
 msgstr "Pühapäev"
 
-#: ../plugin.py:351
+#: ../plugin.py:342
 msgid "The waked up box will be turned into standby after automatic EPG import wake up."
 msgstr ""
 
-#: ../plugin.py:363
+#: ../plugin.py:354
 msgid "This is for advanced users that are using the channel id filtering feature. If enabled, the filter rules defined into /etc/epgimport/channel_id_filter.conf will also be applied on your /etc/epgimport/custom.channels.xml file."
 msgstr ""
 
-#: ../plugin.py:362
+#: ../plugin.py:353
 msgid "This will clear the current EPG data in memory before updating the EPG data. This allows you to always have a clean new EPG with the latest EPG data, for example in case of program changes between refresh, otherwise EPG data are cumulative."
 msgstr ""
 
-#: ../plugin.py:350
+#: ../plugin.py:341
 msgid "This will turn back waked up box into deep-standby after automatic EPG import."
 msgstr ""
 
-#: ../plugin.py:92
+#: ../plugin.py:90
 msgid "Thursday"
 msgstr "Neljapäev"
 
-#: ../plugin.py:354
+#: ../plugin.py:345
 msgid "To save memory you can decide to only load EPG data for the services that you have in your bouquet files."
 msgstr ""
 
-#: ../plugin.py:90
+#: ../plugin.py:88
 msgid "Tuesday"
 msgstr "Teisipäev"
 
-#: ../plugin.py:91
+#: ../plugin.py:89
 msgid "Wednesday"
 msgstr "Kolmapäev"
 
-#: ../plugin.py:347
+#: ../plugin.py:338
 msgid "When enabled, it allows you to schedule an automatic EPG update at the given days and time."
 msgstr ""
 
-#: ../plugin.py:349
+#: ../plugin.py:340
 msgid "When in deep standby"
 msgstr "Puhkeseisundis"
 
-#: ../plugin.py:356
+#: ../plugin.py:347
 msgid "When you decide to load the EPG after GUI restart mention if the \"days profile\" must be take into consideration or not."
 msgstr ""
 
-#: ../plugin.py:357
+#: ../plugin.py:348
 msgid "When you restart the GUI you can decide to skip or not the EPG data import."
 msgstr ""
 
-#: ../plugin.py:701
+#: ../plugin.py:674
 msgid "Write to /tmp/epgimport.log"
 msgstr "Kirjuta /tmp/epgimport.log  faili"
 
-#: ../plugin.py:352
+#: ../plugin.py:343
 msgid "You can select the day(s) when the EPG update must be performed."
 msgstr ""
 
-#: ../plugin.py:361
+#: ../plugin.py:352
 msgid "You can start automatically the plugin AutoTimer after the EPG data update to have it refreshing its scheduling after EPG data refresh."
 msgstr ""
 
-#: ../plugin.py:645
+#: ../plugin.py:621
 msgid ""
 "You may not use this settings!\n"
 "At least one day a week should be included!"
@@ -375,7 +375,7 @@ msgstr ""
 "Seda seadistust ei saa kasutada!\n"
 "Tuleb valida vähemalt üks päev või nädal!"
 
-#: ../plugin.py:770
+#: ../plugin.py:736
 msgid ""
 "You must restart Enigma2 to load the EPG data,\n"
 "is this OK?"
@@ -383,39 +383,39 @@ msgstr ""
 "EPG laadimiseks tuleb Enigma2 taaskäivitada.\n"
 "Kas see sobib?"
 
-#: ../plugin.py:70
+#: ../plugin.py:68
 #, fuzzy
 msgid "all channels"
 msgstr "Lisa kanal"
 
-#: ../plugin.py:54
+#: ../plugin.py:52
 msgid "always"
 msgstr "alati"
 
-#: ../plugin.py:68
+#: ../plugin.py:66
 msgid "checking service reference(default)"
 msgstr ""
 
-#: ../plugin.py:57
+#: ../plugin.py:55
 msgid "never"
 msgstr "mitte kunagi"
 
-#: ../plugin.py:69
+#: ../plugin.py:67
 msgid "only IPTV channels"
 msgstr ""
 
-#: ../plugin.py:56
+#: ../plugin.py:54
 msgid "only automatic boot"
 msgstr "ainult automaatsel alglaadimisel"
 
-#: ../plugin.py:55
+#: ../plugin.py:53
 msgid "only manual boot"
 msgstr "ainult käsitsi alglaadimisel"
 
-#: ../plugin.py:65
+#: ../plugin.py:63
 msgid "skip the import"
 msgstr "ära hangi"
 
-#: ../plugin.py:64
+#: ../plugin.py:62
 msgid "wake up and import"
 msgstr "käivita ja impordi"
