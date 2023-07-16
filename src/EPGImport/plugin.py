@@ -12,11 +12,13 @@ from Components.Button import Button
 from Components.config import (ConfigClock, ConfigEnableDisable, ConfigNumber, ConfigSelection, ConfigSubDict,
                                ConfigSubsection, ConfigText, ConfigYesNo, NoSave, config, getConfigListEntry)
 from Components.ConfigList import ConfigListScreen
+from Components.Console import Console
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Plugins.Plugin import PluginDescriptor
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
+from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.Screen import Screen
 from Tools import Notifications
 from Tools.Directories import SCOPE_PLUGINS, fileExists, resolveFilename
@@ -67,6 +69,8 @@ config.plugins.epgimport.loadepg_only = ConfigSelection(default="default", choic
 		("iptv", _("only IPTV channels")),
 		("all", _("all channels"))
 		])
+config.plugins.epgimport.execute_shell = ConfigYesNo(default=False)
+config.plugins.epgimport.shell_name = ConfigText(default="")
 config.plugins.epgimport.standby_afterwakeup = ConfigYesNo(default=False)
 config.plugins.epgimport.shutdown = ConfigYesNo(default=False)
 config.plugins.epgimport.longDescDays = ConfigNumber(default=5)
@@ -352,6 +356,8 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.cfg_parse_autotimer = getConfigListEntry(_("Run AutoTimer after import"), self.EPG.parse_autotimer, _("You can start automatically the plugin AutoTimer after the EPG data update to have it refreshing its scheduling after EPG data refresh."))
 		self.cfg_clear_oldepg = getConfigListEntry(_("Clearing current EPG before import"), config.plugins.epgimport.clear_oldepg, _("This will clear the current EPG data in memory before updating the EPG data. This allows you to always have a clean new EPG with the latest EPG data, for example in case of program changes between refresh, otherwise EPG data are cumulative."))
 		self.cfg_filter_custom_channel = getConfigListEntry(_("Also apply \"channel id\" filtering on custom.channels.xml"), self.EPG.filter_custom_channel, _("This is for advanced users that are using the channel id filtering feature. If enabled, the filter rules defined into /etc/epgimport/channel_id_filter.conf will also be applied on your /etc/epgimport/custom.channels.xml file."))
+		self.cfg_execute_shell = getConfigListEntry(_("Execute shell command before import EPG"), self.EPG.execute_shell, _("When enabled, then you can run the desired script before starting the import, after which the import of the EPG will begin."))
+		self.cfg_shell_name = getConfigListEntry(_("Shell command name"), self.EPG.shell_name, _("Enter shell command name."))
 
 	def createSetup(self):
 		self.list = [self.cfg_enabled]
@@ -377,6 +383,9 @@ class EPGImportConfig(ConfigListScreen, Screen):
 			self.list.append(self.cfg_clear_oldepg)
 		self.list.append(self.cfg_filter_custom_channel)
 		self.list.append(self.cfg_longDescDays)
+		self.list.append(self.cfg_execute_shell)
+		if self.EPG.execute_shell.value:
+			self.list.append(self.cfg_shell_name)
 		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.py")):
 			try:
 				from Plugins.Extensions.AutoTimer.AutoTimer import AutoTimer
@@ -388,7 +397,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 
 	def newConfig(self):
 		cur = self["config"].getCurrent()
-		if cur in (self.cfg_enabled, self.cfg_shutdown, self.cfg_deepstandby, self.cfg_runboot, self.cfg_loadepg_only):
+		if cur in (self.cfg_enabled, self.cfg_shutdown, self.cfg_deepstandby, self.cfg_runboot, self.cfg_loadepg_only, self.cfg_execute_shell):
 			self.createSetup()
 
 	def keyGreen(self):
@@ -412,9 +421,18 @@ class EPGImportConfig(ConfigListScreen, Screen):
 
 	def keyOk(self):
 		ConfigListScreen.keyOK(self)
-		sel = self["config"].getCurrent()[1]
-		if sel and sel == self.EPG.day_profile:
-			self.session.open(EPGImportProfile)
+		sel = self["config"].getCurrent() and self["config"].getCurrent()[1]
+		if sel:
+			if sel == self.EPG.day_profile:
+				self.session.open(EPGImportProfile)
+			elif sel == self.EPG.shell_name:
+				self.session.openWithCallback(self.textEditCallback, VirtualKeyBoard, text=self.EPG.shell_name.value)
+
+	def textEditCallback(self, callback=None):
+		if callback != None:
+			self.EPG.shell_name.value = callback
+			self.EPG.shell_name.save()
+			self.createSetup()
 
 	def updateStatus(self):
 		text = ""
@@ -465,11 +483,17 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		if not confirmed:
 			return
 		try:
-			startImport()
+			if config.plugins.epgimport.execute_shell.value and config.plugins.epgimport.shell_name.value:
+				Console().eBatch([config.plugins.epgimport.shell_name.value], self.executeShellEnd, debug=True)
+			else:
+				startImport()
 		except Exception as e:
 			print("[EPGImport] Error at start:", e, file=log)
 			self.session.open(MessageBox, _("EPGImport Plugin\nFailed to start:\n") + str(e), MessageBox.TYPE_ERROR, timeout=15, close_on_any_key=True)
 		self.updateStatus()
+
+	def executeShellEnd(self, *args, **kwargs):
+		startImport()
 
 	def dosources(self):
 		self.session.openWithCallback(self.sourcesDone, EPGImportSources)
@@ -808,6 +832,7 @@ class AutoStartTimer:
 		self.pauseAfterFinishImportCheck = enigma.eTimer()
 		self.pauseAfterFinishImportCheck.callback.append(self.afterFinishImportCheck)
 		self.pauseAfterFinishImportCheck.startLongTimer(30)
+		self.container = None
 		self.update()
 
 	def getWakeTime(self):
@@ -853,7 +878,21 @@ class AutoStartTimer:
 		if sources:
 			sources.reverse()
 			epgimport.sources = sources
-			startImport()
+			if config.plugins.epgimport.execute_shell.value and config.plugins.epgimport.shell_name.value:
+				if self.container:
+					del self.container
+				self.container = enigma.eConsoleAppContainer()
+				self.container.appClosed.append(self.executeShellEnd)
+				if self.container.execute(config.plugins.epgimport.shell_name.value):
+					self.executeShellEnd(-1)
+			else:
+				startImport()
+
+	def executeShellEnd(self, retval):
+		if self.container:
+			self.container.appClosed.remove(self.executeShellEnd)
+			self.container = None
+		startImport()
 
 	def onTimer(self):
 		self.timer.stop()

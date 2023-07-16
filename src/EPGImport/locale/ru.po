@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-05 19:37+0200\n"
-"PO-Revision-Date: 2016-05-27 22:10+0300\n"
+"PO-Revision-Date: 2023-07-16 10:19+0300\n"
 "Last-Translator: Dimitrij <Dima-73@inbox.lv>\n"
 "Language-Team: LANGUAGE <Dima-73@inbox.lv>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #: ../plugin.py:691
 msgid ""
@@ -101,14 +101,13 @@ msgid "Delete selected"
 msgstr "Удалить выбранное"
 
 #: ../plugin.py:349
-#, fuzzy
 msgid "Display a shortcut \"EPG import now\" in the extension menu. This menu entry will immediately start the EPG update process when selected."
-msgstr "Показать строку \"Импортировать EPG сейчас\" в главном меню. При выборе этого пункта меню немедленно запускается процесс обновления EPG."
+msgstr "Показать строку \"Импорт EPG сейчас\" в меню дополнений. При выборе этого пункта меню немедленно запускается процесс обновления EPG."
 
 #: ../plugin.py:350
 #, fuzzy
 msgid "Display a shortcut \"EPG import\" in your STB epg menu screen. This allows you to access the configuration."
-msgstr "Показать строку \"Импортировать EPG сейчас\" в главном меню. При выборе этого пункта меню немедленно запускается процесс обновления EPG."
+msgstr "Показать строку \"EPG импорт\" в EPG меню. Это позволяет получить доступ к конфигурации."
 
 #: ../plugin.py:1029 ../plugin.py:1052
 msgid "EPG Import"
@@ -273,7 +272,7 @@ msgstr "Показать \"Импорт EPG сейчас\" в меню допо�
 
 #: ../plugin.py:350
 msgid "Show \"EPG import\" in epg menu"
-msgstr "Показать \"EPG импорт\" в главном меню"
+msgstr "Показать \"EPG импорт\" в EPG меню"
 
 #: ../plugin.py:484
 msgid "Show log"
@@ -418,3 +417,15 @@ msgstr "пропускать импорт"
 #: ../plugin.py:62
 msgid "wake up and import"
 msgstr "разбудить для импорта"
+
+msgid "Execute shell command before import EPG"
+msgstr "Выполнить shell команду перед импортом EPG"
+
+msgid "When enabled, then you can run the desired script before starting the import, after which the import of the EPG will begin."
+msgstr "Если включено, то перед запуском импорта можно выполнить нужный скрипт, после его окончания начнется импорт EPG."
+
+msgid "Shell command name"
+msgstr "Название shell команды"
+
+msgid "Enter shell command name."
+msgstr "Введите название shell команды."
