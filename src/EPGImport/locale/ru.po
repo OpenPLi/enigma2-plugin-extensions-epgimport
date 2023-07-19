@@ -105,7 +105,6 @@ msgid "Display a shortcut \"EPG import now\" in the extension menu. This menu en
 msgstr "Показать строку \"Импорт EPG сейчас\" в меню дополнений. При выборе этого пункта меню немедленно запускается процесс обновления EPG."
 
 #: ../plugin.py:354
-#, fuzzy
 msgid "Display a shortcut \"EPG import\" in your STB epg menu screen. This allows you to access the configuration."
 msgstr "Показать строку \"EPG импорт\" в EPG меню. Это позволяет получить доступ к конфигурации."
 
