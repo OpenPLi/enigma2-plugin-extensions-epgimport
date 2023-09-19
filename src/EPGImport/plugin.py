@@ -962,17 +962,18 @@ class AutoStartTimer:
 							print("[EPGImport] start wait_timer (10sec) for goto standby", file=log)
 							self.wait_timer.start(10000, True)
 
-	def standbyCounterChangedRunImport(self, configElement):
-		try:
-			if self.afterStandbyRunImport not in Screens.Standby.inStandby.onClose:
-				Screens.Standby.inStandby.onClose.append(self.afterStandbyRunImport)
-		except:
-			print("[EPGImport] error inStandby.onClose append afterStandbyRunImport", file=log)
-
 	def afterStandbyRunImport(self):
 		if config.plugins.epgimport.run_after_standby.value:
 			print("[EPGImport] start import after standby", file=log)
 			self.runImport()
+
+	def standbyCounterChangedRunImport(self, configElement):
+		if Screens.Standby.inStandby:
+			try:
+				if self.afterStandbyRunImport not in Screens.Standby.inStandby.onClose:
+					Screens.Standby.inStandby.onClose.append(self.afterStandbyRunImport)
+			except:
+				print("[EPGImport] error inStandby.onClose append afterStandbyRunImport", file=log)
 
 	def startStandby(self):
 		if Screens.Standby.inStandby:
@@ -1049,8 +1050,8 @@ def autostart(reason, session=None, **kwargs):
 	"called with reason=1 to during shutdown, with reason=0 at startup?"
 	global autoStartTimer
 	global _session
-	print("[EPGImport] autostart (%s) occured at" % reason, time.time(), file=log)
 	if reason == 0 and _session is None:
+		print("[EPGImport] autostart (%s) occured at" % reason, time.time(), file=log)
 		if session is not None:
 			_session = session
 			if autoStartTimer is None:
@@ -1066,8 +1067,6 @@ def autostart(reason, session=None, **kwargs):
 				os.remove("/tmp/enigmastandby")
 			except:
 				pass
-	else:
-		print("[EPGImport] Stop", file=log)
 
 
 def getNextWakeup():
