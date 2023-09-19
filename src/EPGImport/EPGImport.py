@@ -257,6 +257,9 @@ class EPGImport:
 
 	def afterDownload(self, result, filename, deleteFile=False):
 		print("[EPGImport] afterDownload", filename, file=log)
+		if not os.path.exists(filename):
+			self.downloadFail("File not exists")
+			return
 		try:
 			if not os.path.getsize(filename):
 				raise Exception("File is empty")
@@ -391,7 +394,8 @@ class EPGImport:
 
 	def downloadFail(self, failure):
 		print("[EPGImport] download failed:", failure, file=log)
-		self.source.urls.remove(self.source.url)
+		if self.source.url in self.source.urls:
+			self.source.urls.remove(self.source.url)
 		if self.source.urls:
 			print("[EPGImport] Attempting alternative URL", file=log)
 			self.source.url = random.choice(self.source.urls)
