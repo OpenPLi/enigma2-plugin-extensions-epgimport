@@ -440,3 +440,9 @@ msgstr "пропускать импорт"
 #: ../plugin.py:61
 msgid "wake up and import"
 msgstr "разбудить для импорта"
+
+msgid "Repeat import once through"
+msgstr "Повтор импорта один раз через"
+
+msgid "Repeat the import once through x hours (1 - 23, 0 - disabled) in this session only."
+msgstr "Повтор импорта EPG один раз через x часов (1 – 23, 0 – отключено) только в этой сессии."
