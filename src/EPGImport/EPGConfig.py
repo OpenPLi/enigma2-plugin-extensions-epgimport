@@ -168,8 +168,11 @@ class EPGChannel:
 			self.mtime = time.time()
 			return self.parse(filterCallback, downloadedFile, True)
 		elif (len(self.urls) == 1) and isLocalFile(self.urls[0]):
-			mtime = os.path.getmtime(self.urls[0])
-			if (not self.mtime) or (self.mtime < mtime):
+			try:
+				mtime = os.path.getmtime(self.urls[0])
+			except:
+				mtime = None
+			if (not self.mtime) or (mtime is not None and self.mtime < mtime):
 				self.parse(filterCallback, self.urls[0], True)
 				self.mtime = mtime
 
