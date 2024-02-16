@@ -112,6 +112,11 @@ class EPGChannel:
 			except ImportError:
 				from backports import lzma
 			fd = lzma.open(filename, 'rb')
+		elif filename.endswith('.zip'):
+			import zipfile
+			from six import BytesIO
+			zip_obj = zipfile.ZipFile(filename, 'r')
+			fd = BytesIO(zip_obj.open(zip_obj.namelist()[0]).read())
 		return fd
 
 	def parse(self, filterCallback, downloadedFile, FilterChannelEnabled):
