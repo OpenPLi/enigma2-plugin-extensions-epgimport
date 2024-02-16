@@ -184,7 +184,7 @@ class filtersServicesSetup(Screen):
 				self.RefList.addServices(ref)
 			else:
 				refstr = ':'.join(ref.toString().split(':')[:11])
-				if '1:0:' in refstr:
+				if any(x in refstr for x in ('1:0:', '4097:0:', '5001:0:', '5002:0:')):
 					self.RefList.addService(refstr)
 			self.updateList()
 			self.updateButtons()
