@@ -362,7 +362,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.cfg_execute_shell = getConfigListEntry(_("Execute shell command before import EPG"), self.EPG.execute_shell, _("When enabled, then you can run the desired script before starting the import, after which the import of the EPG will begin."))
 		self.cfg_shell_name = getConfigListEntry(dx + _("Shell command name"), self.EPG.shell_name, _("Enter shell command name."))
 		self.cfg_run_after_standby = getConfigListEntry(_("Start import after standby"), self.EPG.run_after_standby, _("Start import after resuming from standby mode."))
-		self.cfg_repeat_import = getConfigListEntry(dx + _("Repeat import once through"), self.EPG.repeat_import, _("Repeat the import once through x hours (1 - 23, 0 - disabled) in this session only."))
+		self.cfg_repeat_import = getConfigListEntry(dx + _("Hours after which the import is repeated"), self.EPG.repeat_import, _("Number of hours (1-23, or 0 for no repeat) after which the import is repeated. This value is not saved and will be reset when the GUI restarts."))
 
 	def createSetup(self):
 		self.list = [self.cfg_enabled]
