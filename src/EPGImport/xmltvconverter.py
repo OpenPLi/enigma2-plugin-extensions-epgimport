@@ -74,12 +74,16 @@ def get_xml_rating_string(elem):
 def enumerateProgrammes(fp):
 	"""Enumerates programme ElementTree nodes from file object 'fp'"""
 	for event, elem in iterparse(fp):
-		if elem.tag == 'programme':
-			yield elem
-			elem.clear()
-		elif elem.tag == 'channel':
-			# Throw away channel elements, save memory
-			elem.clear()
+		try:
+			if elem.tag == 'programme':
+				yield elem
+				elem.clear()
+			elif elem.tag == 'channel':
+				# Throw away channel elements, save memory
+				elem.clear()
+		except Exception as e:
+			print("[XMLTVConverter] enumerateProgrammes error:", e)
+			break
 
 
 class XMLTVConverter:
