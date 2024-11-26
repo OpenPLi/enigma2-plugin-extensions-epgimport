@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-03 18:06+0000\n"
-"PO-Revision-Date: 2023-10-03 15:31+0200\n"
+"POT-Creation-Date: 2024-11-26 16:57+0100\n"
+"PO-Revision-Date: 2024-11-26 16:59+0100\n"
 "Last-Translator: demosat\n"
 "Language-Team: LANGUAGE <dummy@dummy.fr>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: ../plugin.py:725
 msgid ""
@@ -184,7 +184,7 @@ msgstr "Vendredi"
 
 #: ../plugin.py:365
 msgid "Hours after which the import is repeated"
-msgstr ""
+msgstr "Heures après lesquelles l'importation est répétée"
 
 #: ../plugin.py:520
 msgid "Ignore services list"
@@ -247,7 +247,7 @@ msgstr "Aucune source EPG sélectionnée, rien à faire"
 
 #: ../plugin.py:365
 msgid "Number of hours (1-23, or 0 for no repeat) after which the import is repeated. This value is not saved and will be reset when the GUI restarts."
-msgstr ""
+msgstr "Nombre d'heures (1-23, ou 0 pour aucune répétition) après lesquelles l'importation est répétée. Cette valeur n'est pas enregistrée et sera réinitialisée au redémarrage de l'interface graphique."
 
 #: ../plugin.py:82
 msgid "Press OK"
@@ -273,7 +273,7 @@ msgstr "Samedi"
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: ../filtersServices.py:280 ../plugin.py:521
+#: ../plugin.py:521 ../filtersServices.py:280
 msgid "Select action"
 msgstr "Choisir une action"
 
