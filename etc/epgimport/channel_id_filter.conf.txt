@@ -26,7 +26,7 @@
 # -> filter is always applied to the data sources.
 # -> you can control in the GUI if you want it to be applied to your custom.channels.xml or not.
 #
-# Knowing that you can decide to exclude once for all the channel id reference with the given extension. 
+# Knowing that you can decide to exclude once for all the channel id reference with the given extension.
 # So if you want to exclude all the DK, FI, SE you can add the following lines without the #
 # .*\.dk
 # .*\.fi
