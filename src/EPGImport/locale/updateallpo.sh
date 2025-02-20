@@ -25,12 +25,12 @@ printf "Po files update/creation from script starting.\n"
 localgsed="sed"
 gsed --version 2> /dev/null | grep -q "GNU"
 if [ $? -eq 0 ]; then
-        localgsed="gsed"
+		localgsed="gsed"
 else
-        "$localgsed" --version | grep -q "GNU"
-        if [ $? -eq 0 ]; then
-                printf "GNU sed found: [%s]\n" $localgsed
-        fi
+		"$localgsed" --version | grep -q "GNU"
+		if [ $? -eq 0 ]; then
+				printf "GNU sed found: [%s]\n" $localgsed
+		fi
 fi
 
 languages=($(ls *.po | $localgsed 's/\.po//'))
