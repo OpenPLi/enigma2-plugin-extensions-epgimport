@@ -105,6 +105,7 @@ weekdays = [
 	_("Sunday"),
 ]
 
+
 # historically located (not a problem, we want to update it)
 CONFIG_PATH = '/etc/epgimport'
 
@@ -225,6 +226,7 @@ def channelFilter(ref):
 	if "%3a//" in ref.lower():
 		# print("URL detected in serviceref, not checking fake recording on serviceref:", ref, file=log)
 		return True
+
 	fakeRecService = NavigationInstance.instance.recordService(sref, True)
 	if fakeRecService:
 		fakeRecResult = fakeRecService.start(True)
@@ -258,14 +260,9 @@ def startImport():
 		print("[startImport] Already running, won't start again", file=log)
 
 
-##################################
+# #################################
 # Configuration GUI
-HD = False
-try:
-	if getDesktop(0).size().width() >= 1280:
-		HD = True
-except:
-	pass
+HD = True if getDesktop(0).size().width() == 1280 else False
 
 
 class EPGImportConfig(ConfigListScreen, Screen):
@@ -318,7 +315,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		Screen.__init__(self, session)
 		self.setTitle(_("EPG Import Configuration"))
 		self["status"] = Label()
-		self["statusbar"] = Label()
+		self["statusbar"] = Label(_("Last import: %s events") % config.plugins.extra_epgimport.last_import.value)
 		self["key_red"] = Button(_("Cancel"))
 		self["key_green"] = Button(_("Save"))
 		self["key_yellow"] = Button(_("Manual"))
@@ -343,8 +340,8 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.prev_onlybouquet = config.plugins.epgimport.import_onlybouquet.value
 		self.initConfig()
 		self.createSetup()
-		self.filterStatusTemplate = _("Filtering: %s\nPlease wait!")
-		self.importStatusTemplate = _("Importing: %s\n%s events")
+		self.filterStatusTemplate = _("Filtering:\n%s Please wait!")
+		self.importStatusTemplate = _("Importing:\n%s %s events")
 		self.updateTimer = eTimer()
 		self.updateTimer.callback.append(self.updateStatus)
 		self.updateTimer.start(2000)
@@ -413,7 +410,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.list.append(self.cfg_showinmainmenu)
 		self.list.append(self.cfg_showinextensions)
 		self["config"].list = self.list
-		self["config"].setList(self.list)
+		self["config"].l.setList(self.list)
 
 	def newConfig(self):
 		cur = self["config"].getCurrent()
@@ -429,9 +426,16 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		if self.EPG.shutdown.value:
 			self.EPG.standby_afterwakeup.value = False
 			self.EPG.repeat_import.value = 0
-		self.EPG.save()
+		# self.EPG.save()
 		if self.prev_onlybouquet != config.plugins.epgimport.import_onlybouquet.value or (autoStartTimer is not None and autoStartTimer.prev_multibouquet != config.usage.multibouquet.value):
 			EPGConfig.channelCache = {}
+		self.save()
+
+	def save(self):
+		if self["config"].isChanged():
+			for x in self["config"].list:
+				x[1].save()
+			self.session.open(MessageBox, _("Settings saved successfully !"), MessageBox.TYPE_INFO, timeout=5)
 		self.close(True)
 
 	def keyLeft(self):
@@ -663,15 +667,14 @@ class EPGImportProfile(ConfigListScreen, Screen):
 		)
 
 	def save(self):
-		if not config.plugins.extra_epgimport.day_import[0].value:
-			if not config.plugins.extra_epgimport.day_import[1].value:
-				if not config.plugins.extra_epgimport.day_import[2].value:
-					if not config.plugins.extra_epgimport.day_import[3].value:
-						if not config.plugins.extra_epgimport.day_import[4].value:
-							if not config.plugins.extra_epgimport.day_import[5].value:
-								if not config.plugins.extra_epgimport.day_import[6].value:
-									self.session.open(MessageBox, _("You may not use this settings!\nAt least one day a week should be included!"), MessageBox.TYPE_INFO, timeout=6)
-									return
+		if all(not config.plugins.extra_epgimport.day_import[i].value for i in range(7)):
+			self.session.open(
+				MessageBox,
+				_("You may not use this settings!\nAt least one day a week should be included!"),
+				MessageBox.TYPE_INFO,
+				timeout=6
+			)
+			return
 		ConfigListScreen.keySave(self)
 
 
@@ -724,10 +727,8 @@ class EPGImportLog(Screen):
 
 	def save(self):
 		try:
-			f = open('/tmp/epgimport.log', 'w')
-			f.write(log.getvalue())
-			self.session.open(MessageBox, _("Write to /tmp/epgimport.log"), MessageBox.TYPE_INFO, timeout=5, close_on_any_key=True)
-			f.close()
+			with open('/tmp/epgimport.log', 'w') as f:
+				f.write(self.log.getvalue())(MessageBox, _("Write to /tmp/epgimport.log"), MessageBox.TYPE_INFO, timeout=5, close_on_any_key=True)
 		except Exception as e:
 			self["list"].setText("Failed to write /tmp/epgimport.log:str" + str(e))
 		self.close(True)
@@ -852,7 +853,7 @@ def restartEnigma(confirmed):
 	_session.open(Screens.Standby.TryQuitMainloop, 3)
 
 
-##################################
+# #################################
 # Autostart section
 
 class AutoStartTimer:
@@ -927,12 +928,19 @@ class AutoStartTimer:
 					self.executeShellEnd(-1)
 			else:
 				startImport()
+		else:
+			self.session.open(MessageBox, _("No source file found !"), MessageBox.TYPE_INFO, timeout=5)
 
 	def executeShellEnd(self, retval):
-		if self.container:
-			self.container.appClosed.remove(self.executeShellEnd)
-			self.container = None
-		startImport()
+		if retval:
+			if self.container:
+				try:
+					self.container.appClosed.remove(self.executeShellEnd)
+				except:
+					self.container.appClosed_conn = None
+				self.container.kill()
+				self.container = None
+			startImport()
 
 	def onTimer(self):
 		self.autoStartImport.stop()
