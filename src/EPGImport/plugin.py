@@ -44,29 +44,38 @@ def calcDefaultStarttime():
 	return (5 * 60 * 60) + offset
 
 
-#Set default configuration
+# Set default configuration
 config.plugins.epgimport = ConfigSubsection()
 config.plugins.epgimport.enabled = ConfigEnableDisable(default=True)
 config.plugins.epgimport.repeat_import = ConfigInteger(default=0, limits=(0, 23))
-config.plugins.epgimport.runboot = ConfigSelection(default="4", choices=[
+config.plugins.epgimport.runboot = ConfigSelection(
+	default="4",
+	choices=[
 		("1", _("always")),
 		("2", _("only manual boot")),
 		("3", _("only automatic boot")),
 		("4", _("never"))
-		])
+	]
+)
 config.plugins.epgimport.runboot_restart = ConfigYesNo(default=False)
 config.plugins.epgimport.runboot_day = ConfigYesNo(default=False)
 config.plugins.epgimport.wakeup = ConfigClock(default=calcDefaultStarttime())
 config.plugins.epgimport.showinextensions = ConfigYesNo(default=True)
-config.plugins.epgimport.deepstandby = ConfigSelection(default="skip", choices=[
+config.plugins.epgimport.deepstandby = ConfigSelection(
+	default="skip",
+	choices=[
 		("wakeup", _("wake up and import")),
 		("skip", _("skip the import"))
-		])
-config.plugins.epgimport.loadepg_only = ConfigSelection(default="default", choices=[
+	]
+)
+config.plugins.epgimport.loadepg_only = ConfigSelection(
+	default="default",
+	choices=[
 		("default", _("checking service reference(default)")),
 		("iptv", _("only IPTV channels")),
 		("all", _("all channels"))
-		])
+	]
+)
 config.plugins.epgimport.execute_shell = ConfigYesNo(default=False)
 config.plugins.epgimport.shell_name = ConfigText(default="")
 config.plugins.epgimport.standby_afterwakeup = ConfigYesNo(default=False)
@@ -94,7 +103,7 @@ weekdays = [
 	_("Friday"),
 	_("Saturday"),
 	_("Sunday"),
-	]
+]
 
 # historically located (not a problem, we want to update it)
 CONFIG_PATH = '/etc/epgimport'
@@ -165,7 +174,7 @@ def getBouquetChannelList():
 		bouquet_rootstr = '1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.favourites.tv" ORDER BY bouquet'
 		bouquet_root = eServiceReference(bouquet_rootstr)
 		services = serviceHandler.list(bouquet_root)
-		if not services is None:
+		if services is not None:
 			while True:
 				service = services.getNext()
 				filterCounter += 1
@@ -315,17 +324,20 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self["key_yellow"] = Button(_("Manual"))
 		self["key_blue"] = Button(_("Sources"))
 		self["description"] = Label("")
-		self["setupActions"] = ActionMap(["SetupActions", "ColorActions", "TimerEditActions", "MovieSelectionActions"],
-		{
-			"red": self.keyCancel,
-			"green": self.keyGreen,
-			"yellow": self.doimport,
-			"blue": self.dosources,
-			"cancel": self.keyCancel,
-			"ok": self.keyOk,
-			"log": self.keyInfo,
-			"contextMenu": self.openMenu,
-		}, -1)
+		self["setupActions"] = ActionMap(
+			["SetupActions", "ColorActions", "TimerEditActions", "MovieSelectionActions"],
+			{
+				"red": self.keyCancel,
+				"green": self.keyGreen,
+				"yellow": self.doimport,
+				"blue": self.dosources,
+				"cancel": self.keyCancel,
+				"ok": self.keyOk,
+				"log": self.keyInfo,
+				"contextMenu": self.openMenu,
+			},
+			-1
+		)
 		ConfigListScreen.__init__(self, [], session)
 		self.lastImportResult = None
 		self.prev_onlybouquet = config.plugins.epgimport.import_onlybouquet.value
@@ -394,7 +406,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 			self.list.append(self.cfg_shell_name)
 		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.pyo")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.pyc")):
 			try:
-				from Plugins.Extensions.AutoTimer.AutoTimer import AutoTimer
+				# from Plugins.Extensions.AutoTimer.AutoTimer import AutoTimer
 				self.list.append(self.cfg_parse_autotimer)
 			except:
 				print("[EPGImport] AutoTimer plugin not installed correctly", file=log)
@@ -440,7 +452,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 				self.session.openWithCallback(self.textEditCallback, VirtualKeyBoard, text=self.EPG.shell_name.value)
 
 	def textEditCallback(self, callback=None):
-		if callback != None:
+		if callback is not None:
 			self.EPG.shell_name.value = callback
 			self.EPG.shell_name.save()
 			self.createSetup()
@@ -451,8 +463,8 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		if isFilterRunning == 1:
 			text = self.filterStatusTemplate % (str(filterCounter))
 		elif epgimport.isImportRunning():
-				src = epgimport.source
-				text = self.importStatusTemplate % (src.description, epgimport.eventCount)
+			src = epgimport.source
+			text = self.importStatusTemplate % (src.description, epgimport.eventCount)
 
 		self["status"].setText(text)
 		if lastImportResult and (lastImportResult != self.lastImportResult):
@@ -580,15 +592,18 @@ class EPGImportSources(Screen):
 			self["key_yellow"] = Button(_("Import current source"))
 		else:
 			self["key_yellow"] = Button()
-		self["setupActions"] = ActionMap(["SetupActions", "ColorActions"],
-		{
-			"red": self.cancel,
-			"green": self.save,
-			"yellow": self.do_import,
-			"save": self.save,
-			"cancel": self.cancel,
-			"ok": self["list"].toggleSelection,
-		}, -2)
+		self["setupActions"] = ActionMap(
+			["SetupActions", "ColorActions"],
+			{
+				"red": self.cancel,
+				"green": self.save,
+				"yellow": self.do_import,
+				"save": self.save,
+				"cancel": self.cancel,
+				"ok": self["list"].toggleSelection,
+			},
+			-2
+		)
 
 	def save(self):
 		# Make the entries unique through a set
@@ -635,14 +650,17 @@ class EPGImportProfile(ConfigListScreen, Screen):
 		ConfigListScreen.__init__(self, self.list)
 		self["key_red"] = Button(_("Cancel"))
 		self["key_green"] = Button(_("Save"))
-		self["setupActions"] = ActionMap(["SetupActions", "ColorActions"],
-		{
-			"red": self.keyCancel,
-			"green": self.save,
-			"save": self.save,
-			"cancel": self.keyCancel,
-			"ok": self.save,
-		}, -2)
+		self["setupActions"] = ActionMap(
+			["SetupActions", "ColorActions"],
+			{
+				"red": self.keyCancel,
+				"green": self.save,
+				"save": self.save,
+				"cancel": self.keyCancel,
+				"ok": self.save,
+			},
+			-2
+		)
 
 	def save(self):
 		if not config.plugins.extra_epgimport.day_import[0].value:
@@ -684,22 +702,25 @@ class EPGImportLog(Screen):
 		self["key_yellow"] = Button()
 		self["key_blue"] = Button(_("Save"))
 		self["list"] = ScrollLabel(log.getvalue())
-		self["actions"] = ActionMap(["DirectionActions", "OkCancelActions", "ColorActions"],
-		{
-			"red": self.clear,
-			"green": self.cancel,
-			"yellow": self.cancel,
-			"save": self.save,
-			"blue": self.save,
-			"cancel": self.cancel,
-			"ok": self.cancel,
-			"left": self["list"].pageUp,
-			"right": self["list"].pageDown,
-			"up": self["list"].pageUp,
-			"down": self["list"].pageDown,
-			"pageUp": self["list"].pageUp,
-			"pageDown": self["list"].pageDown
-		}, -2)
+		self["actions"] = ActionMap(
+			["DirectionActions", "OkCancelActions", "ColorActions"],
+			{
+				"red": self.clear,
+				"green": self.cancel,
+				"yellow": self.cancel,
+				"save": self.save,
+				"blue": self.save,
+				"cancel": self.cancel,
+				"ok": self.cancel,
+				"left": self["list"].pageUp,
+				"right": self["list"].pageDown,
+				"up": self["list"].pageUp,
+				"down": self["list"].pageDown,
+				"pageUp": self["list"].pageUp,
+				"pageDown": self["list"].pageDown
+			},
+			-2
+		)
 
 	def save(self):
 		try:
@@ -755,7 +776,7 @@ def doneImport(reboot=False, epgfile=None):
 	lastImportResult = (time.time(), epgimport.eventCount)
 	try:
 		start, count = lastImportResult
-		#localtime = time.asctime(time.localtime(time.time()))
+		# localtime = time.asctime(time.localtime(time.time()))
 		localtime = time.strftime('%d.%m.%Y - %H:%M:%S', (time.localtime(time.time())))
 		lastimport = "%s, %d" % (localtime, count)
 		config.plugins.extra_epgimport.last_import.value = lastimport

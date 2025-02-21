@@ -9,9 +9,9 @@ from __future__ import absolute_import
 
 import sys
 import threading
-try: #python2 only
-		from cStringIO import StringIO
-except: # both python2 and python3
+try:  # python2 only
+	from cStringIO import StringIO
+except:  # both python2 and python3
 	from io import StringIO
 
 logfile = StringIO()

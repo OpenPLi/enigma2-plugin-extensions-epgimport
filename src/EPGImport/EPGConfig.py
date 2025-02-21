@@ -2,9 +2,9 @@ from __future__ import absolute_import, print_function
 
 import gzip
 import os
-try: #python2
+try:  # python2
 	import cPickle as pickle
-except: #python3
+except:  # python3
 	import pickle
 import random
 import re
@@ -58,7 +58,7 @@ def set_channel_id_filter():
 					if clean_channel_id_line:
 						try:
 							# We compile indivually every line just to report error
-							re_test = re.compile(clean_channel_id_line)
+							re_test = re.compile(clean_channel_id_line)  # 're_test' is assigned to but never used [pyflakes]
 						except re.error:
 							print("[EPGImport] ERROR: " + clean_channel_id_line + " is not a valid regex. It will be ignored.", file=log)
 						else:
@@ -67,7 +67,7 @@ def set_channel_id_filter():
 		print("[EPGImport] INFO: no channel_id_filter.conf file found.", file=log)
 		# Return a dummy filter (empty line filter) all accepted except empty channel id
 		compiled_filter = re.compile("^$")
-		return(compiled_filter)
+		return (compiled_filter)
 	# Last char is | so remove it
 	full_filter = full_filter[:-1]
 	# all channel id are matched in lower case so creating the filter in lowercase too
@@ -86,7 +86,7 @@ def set_channel_id_filter():
 		else:
 			print("[EPGImport] INFO : final regex " + full_filter + " compiled successfully.", file=log)
 
-	return(compiled_filter)
+	return (compiled_filter)
 
 
 class EPGChannel:
@@ -168,7 +168,7 @@ class EPGChannel:
 		# and we don't have multiple download from server problem since it is always a local file.
 		if os.path.exists(customFile):
 			print("[EPGImport] Parsing channels from '%s'" % customFile, file=log)
-			self.parse(filterCallback, customFile, filterCustomChannel)
+			self.parse(filterCallback, customFile, filterCustomChannel)  # undefined name 'filterCustomChannel' [pyflakes]
 		if downloadedFile is not None:
 			self.mtime = time.time()
 			return self.parse(filterCallback, downloadedFile, True)
@@ -199,7 +199,7 @@ class EPGSource:
 	def __init__(self, path, elem, category=None, offset=0):
 		self.parser = elem.get('type')
 		nocheck = elem.get('nocheck')
-		if nocheck == None:
+		if nocheck is None:
 			self.nocheck = 0
 		elif nocheck == "1":
 			self.nocheck = 1
@@ -275,13 +275,13 @@ def storeUserSettings(filename=SETTINGS_FILE, sources=None):
 if __name__ == '__main__':
 	import sys
 	x = []
-	l = []
+	ls = []
 	path = '.'
 	if len(sys.argv) > 1:
 		path = sys.argv[1]
 	for p in enumSources(path):
 		t = (p.description, p.urls, p.parser, p.format, p.channels, p.nocheck)
-		l.append(t)
+		ls.append(t)
 		print(t)
 		x.append(p.description)
 	storeUserSettings('settings.pkl', [1, "twee"])
@@ -289,9 +289,9 @@ if __name__ == '__main__':
 	os.remove('settings.pkl')
 	for p in enumSources(path, x):
 		t = (p.description, p.urls, p.parser, p.format, p.channels, p.nocheck)
-		assert t in l
-		l.remove(t)
-	assert not l
+		assert t in ls
+		ls.remove(t)
+	assert not ls
 	for name, c in channelCache.items():
 		print("Update:", name)
 		c.update()

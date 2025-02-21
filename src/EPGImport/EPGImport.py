@@ -16,12 +16,12 @@ from twisted.internet import reactor, ssl, threads
 from twisted.internet._sslverify import ClientTLSOptions
 from twisted.web.client import downloadPage
 
-try: # python3
+try:  # python3
 	from http.client import HTTPException
 	from urllib.error import HTTPError, URLError
 	from urllib.parse import urlparse
 	from urllib.request import build_opener
-except: #python2
+except:  # python2
 	from httplib import HTTPException
 	from urllib2 import build_opener, HTTPError, URLError
 	from urlparse import urlparse
@@ -72,8 +72,11 @@ def getParser(name):
 
 def getTimeFromHourAndMinutes(hour, minute):
 	now = time.localtime()
-	begin = int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday,
-						hour, minute, 0, now.tm_wday, now.tm_yday, now.tm_isdst)))
+	begin = int(time.mktime((
+		now.tm_year, now.tm_mon, now.tm_mday,
+		hour, minute, 0, now.tm_wday,
+		now.tm_yday, now.tm_isdst
+	)))
 	return begin
 
 
@@ -159,7 +162,7 @@ class EPGImport:
 				print('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
 				dlderror = 1
 			except HTTPException as e:
-				print('[EPGImport] HTTPException in checkValidServer')
+				print('[EPGImport] HTTPException in checkValidServer' + str(e))
 				dlderror = 1
 			except Exception:
 				print('[EPGImport] Generic exception in checkValidServer')
@@ -325,7 +328,7 @@ class EPGImport:
 		if twisted.python.runtime.platform.supportsThreads():
 			print("[EPGImport] Using twisted thread", file=log)
 			threads.deferToThread(self.doThreadRead, filename).addCallback(lambda ignore: self.nextImport())
-			deleteFile = False # Thread will delete it
+			deleteFile = False  # Thread will delete it
 		else:
 			self.iterator = self.createIterator(filename)
 			reactor.addReader(self)
