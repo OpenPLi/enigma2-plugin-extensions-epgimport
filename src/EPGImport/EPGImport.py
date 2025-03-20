@@ -5,12 +5,12 @@
 from __future__ import absolute_import, print_function
 
 import gzip
-import os
 import random
 import time
 import six
 from datetime import datetime
-
+from os import unlink, symlink, statvfs
+from os.path import splitext, join, exists, getsize, split
 import twisted.python.runtime
 from twisted.internet import reactor, ssl, threads
 from twisted.internet._sslverify import ClientTLSOptions
@@ -50,15 +50,15 @@ CheckFile = "LastUpdate.txt"
 ServerStatusList = {}
 
 PARSERS = {
-	'xmltv': 'gen_xmltv',
-	'genxmltv': 'gen_xmltv',
+	"xmltv": "gen_xmltv",
+	"genxmltv": "gen_xmltv",
 }
 
 
 def relImport(name):
-	fullname = __name__.split('.')
+	fullname = __name__.split(".")
 	fullname[-1] = name
-	mod = __import__('.'.join(fullname))
+	mod = __import__(".".join(fullname))
 	for n in fullname[1:]:
 		mod = getattr(mod, n)
 	return mod
@@ -72,34 +72,31 @@ def getParser(name):
 
 def getTimeFromHourAndMinutes(hour, minute):
 	now = time.localtime()
-	begin = int(time.mktime((
-		now.tm_year, now.tm_mon, now.tm_mday,
-		hour, minute, 0, now.tm_wday,
-		now.tm_yday, now.tm_isdst
-	)))
+	begin = int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday,
+						hour, minute, 0, now.tm_wday, now.tm_yday, now.tm_isdst)))
 	return begin
 
 
 def bigStorage(minFree, default, *candidates):
 	try:
-		diskstat = os.statvfs(default)
+		diskstat = statvfs(default)
 		free = diskstat.f_bfree * diskstat.f_bsize
 		if (free > minFree) and (free > 50000000):
 			return default
 	except Exception as e:
 		print("[EPGImport] Failed to stat %s:" % default, e, file=log)
-	mounts = open('/proc/mounts', 'rb').readlines()
+	mounts = open("/proc/mounts", "rb").readlines()
 	# format: device mountpoint fstype options #
-	mountpoints = [x.split(' ', 2)[1] for x in mounts]
+	mountpoints = [x.split(" ", 2)[1] for x in mounts]
 	for candidate in candidates:
 		if candidate in mountpoints:
 			try:
-				diskstat = os.statvfs(candidate)
+				diskstat = statvfs(candidate)
 				free = diskstat.f_bfree * diskstat.f_bsize
 				if free > minFree:
 					return candidate
 			except:
-				pass
+				continue
 	return default
 
 
@@ -118,7 +115,7 @@ class OudeisImporter:
 
 def unlink_if_exists(filename):
 	try:
-		os.unlink(filename)
+		unlink(filename)
 	except:
 		pass
 
@@ -141,12 +138,12 @@ class EPGImport:
 
 	def checkValidServer(self, serverurl):
 		print("[EPGImport] checkValidServer serverurl %s" % serverurl, file=log)
-		dirname, filename = os.path.split(serverurl)
+		dirname, filename = split(serverurl)
 		if six.PY3:
 			dirname = dirname.decode()
 		FullString = dirname + "/" + CheckFile
 		req = build_opener()
-		req.addheaders = [('User-Agent', 'Twisted Client')]
+		req.addheaders = [("User-Agent", "Twisted Client")]
 		dlderror = 0
 		if dirname in ServerStatusList:
 			# If server is know return its status immediately
@@ -156,23 +153,23 @@ class EPGImport:
 			try:
 				response = req.open(FullString, timeout=5)
 			except HTTPError as e:
-				print('[EPGImport] HTTPError in checkValidServer= ' + str(e.code))
+				print("[EPGImport] HTTPError in checkValidServer= " + str(e.code))
 				dlderror = 1
 			except URLError as e:
-				print('[EPGImport] URLError in checkValidServer= ' + str(e.reason))
+				print("[EPGImport] URLError in checkValidServer= " + str(e.reason))
 				dlderror = 1
 			except HTTPException as e:
-				print('[EPGImport] HTTPException in checkValidServer' + str(e))
+				print("[EPGImport] HTTPException in checkValidServer", str(e))
 				dlderror = 1
 			except Exception:
-				print('[EPGImport] Generic exception in checkValidServer')
+				print("[EPGImport] Generic exception in checkValidServer")
 				dlderror = 1
 
 			if not dlderror:
 				if six.PY3:
-					LastTime = response.read().decode().strip('\n')
+					LastTime = response.read().decode().strip("\n")
 				else:
-					LastTime = response.read().strip('\n')
+					LastTime = response.read().strip("\n")
 				try:
 					FileDate = datetime.strptime(LastTime, date_format)
 				except ValueError:
@@ -198,9 +195,9 @@ class EPGImport:
 
 	def beginImport(self, longDescUntil=None):
 		'Starts importing using Enigma reactor. Set self.sources before calling this.'
-		if hasattr(self.epgcache, 'importEvents'):
+		if hasattr(self.epgcache, "importEvents"):
 			self.storage = self.epgcache
-		elif hasattr(self.epgcache, 'importEvent'):
+		elif hasattr(self.epgcache, "importEvent"):
 			self.storage = OudeisImporter(self.epgcache)
 		else:
 			print("[EPGImport] oudeis patch not detected, using epg.dat instead.")
@@ -224,60 +221,52 @@ class EPGImport:
 		self.fetchUrl(self.source.url)
 
 	def fetchUrl(self, filename):
-		if filename.startswith('http:') or filename.startswith('https:') or filename.startswith('ftp:'):
+		if filename.startswith("http:") or filename.startswith("https:") or filename.startswith("ftp:"):
 			self.do_download(filename, self.afterDownload, self.downloadFail)
 		else:
 			self.afterDownload(None, filename, deleteFile=False)
 
-	def createIterator(self, filename):
-		self.source.channels.update(self.channelFilter, filename)
-		return getParser(self.source.parser).iterator(self.fd, self.source.channels.items, self.source.offset)
-
-	def readEpgDatFile(self, filename, deleteFile=False):
-		if not hasattr(self.epgcache, 'load'):
-			print("[EPGImport] Cannot load EPG.DAT files on unpatched enigma. Need CrossEPG patch.", file=log)
-			return
-		unlink_if_exists(HDD_EPG_DAT)
-		try:
-			if filename.endswith('.gz'):
-				print("[EPGImport] Uncompressing", filename, file=log)
-				import shutil
-				fd = gzip.open(filename, 'rb')
-				epgdat = open(HDD_EPG_DAT, 'wb')
-				shutil.copyfileobj(fd, epgdat)
-				del fd
-				epgdat.close()
-				del epgdat
+	def do_download(self, sourcefile, afterDownload, downloadFail):
+		path = bigStorage(9000000, "/tmp", "/media/cf", "/media/mmc", "/media/usb", "/media/hdd")
+		filename = join(path, "epgimport")
+		ext = splitext(sourcefile)[1]
+		# Keep sensible extension, in particular the compression type
+		if ext and len(ext) < 6:
+			filename += ext
+		sourcefile = sourcefile.encode("utf-8")
+		sslcf = SNIFactory(sourcefile) if sourcefile.decode().startswith("https:") else None
+		print("[EPGImport] Downloading: " + sourcefile.decode() + " to local path: " + filename, file=log)
+		if self.source.nocheck == 1:
+			print("[EPGImport] Not cheching the server since nocheck is set for it: " + sourcefile.decode(), file=log)
+			downloadPage(sourcefile, filename, timeout=90, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
+			return filename
+		else:
+			if self.checkValidServer(sourcefile) == 1:
+				downloadPage(sourcefile, filename, timeout=90, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
+				return filename
 			else:
-				if filename != HDD_EPG_DAT:
-					os.symlink(filename, HDD_EPG_DAT)
-			print("[EPGImport] Importing", HDD_EPG_DAT, file=log)
-			self.epgcache.load()
-			if deleteFile:
-				unlink_if_exists(filename)
-		except Exception as e:
-			print("[EPGImport] Failed to import %s:" % filename, e, file=log)
+				self.downloadFail("checkValidServer reject the server")
 
 	def afterDownload(self, result, filename, deleteFile=False):
 		print("[EPGImport] afterDownload", filename, file=log)
-		if not os.path.exists(filename):
+		if not exists(filename):
 			self.downloadFail("File not exists")
 			return
 		try:
-			if not os.path.getsize(filename):
+			if not getsize(filename):
 				raise Exception("File is empty")
 		except Exception as e:
 			self.downloadFail(e)
 			return
-		if self.source.parser == 'epg.dat':
+		if self.source.parser == "epg.dat":
 			if twisted.python.runtime.platform.supportsThreads():
 				print("[EPGImport] Using twisted thread for DAT file", file=log)
 				threads.deferToThread(self.readEpgDatFile, filename, deleteFile).addCallback(lambda ignore: self.nextImport())
 			else:
 				self.readEpgDatFile(filename, deleteFile)
 				return
-		if filename.endswith('.gz'):
-			self.fd = gzip.open(filename, 'rb')
+		if filename.endswith(".gz"):
+			self.fd = gzip.open(filename, "rb")
 			try:
 				# read a bit to make sure it's a gzip file
 				self.fd.read(10)
@@ -286,12 +275,12 @@ class EPGImport:
 				print("[EPGImport] File downloaded is not a valid gzip file", filename, file=log)
 				self.downloadFail(e)
 				return
-		elif filename.endswith('.xz') or filename.endswith('.lzma'):
+		elif filename.endswith(".xz") or filename.endswith(".lzma"):
 			try:
 				import lzma
 			except ImportError:
 				from backports import lzma
-			self.fd = lzma.open(filename, 'rb')
+			self.fd = lzma.open(filename, "rb")
 			try:
 				# read a bit to make sure it's an xz file
 				self.fd.read(10)
@@ -301,11 +290,11 @@ class EPGImport:
 				self.downloadFail(e)
 				return
 		else:
-			self.fd = open(filename, 'rb')
-		if deleteFile and self.source.parser != 'epg.dat':
+			self.fd = open(filename, "rb")
+		if deleteFile and self.source.parser != "epg.dat":
 			try:
 				print("[EPGImport] unlink", filename, file=log)
-				os.unlink(filename)
+				unlink(filename)
 			except Exception as e:
 				print("[EPGImport] warning: Could not remove '%s' intermediate" % filename, e, file=log)
 		self.channelFiles = self.source.channels.downloadables()
@@ -316,11 +305,22 @@ class EPGImport:
 			self.channelFiles.remove(filename)
 			self.do_download(filename, self.afterChannelDownload, self.channelDownloadFail)
 
+	def downloadFail(self, failure):
+		print("[EPGImport] download failed:", failure, file=log)
+		if self.source.url in self.source.urls:
+			self.source.urls.remove(self.source.url)
+		if self.source.urls:
+			print("[EPGImport] Attempting alternative URL", file=log)
+			self.source.url = random.choice(self.source.urls)
+			self.fetchUrl(self.source.url)
+		else:
+			self.nextImport()
+
 	def afterChannelDownload(self, result, filename, deleteFile=True):
 		print("[EPGImport] afterChannelDownload", filename, file=log)
 		if filename:
 			try:
-				if not os.path.getsize(filename):
+				if not getsize(filename):
 					raise Exception("File is empty")
 			except Exception as e:
 				self.channelDownloadFail(e)
@@ -334,9 +334,48 @@ class EPGImport:
 			reactor.addReader(self)
 		if deleteFile and filename:
 			try:
-				os.unlink(filename)
+				unlink(filename)
 			except Exception as e:
 				print("[EPGImport] warning: Could not remove '%s' intermediate" % filename, e, file=log)
+
+	def channelDownloadFail(self, failure):
+		print("[EPGImport] download channel failed:", failure, file=log)
+		if self.channelFiles:
+			filename = random.choice(self.channelFiles)
+			self.channelFiles.remove(filename)
+			self.do_download(filename, self.afterChannelDownload, self.channelDownloadFail)
+		else:
+			print("[EPGImport] no more alternatives for channels", file=log)
+			self.nextImport()
+
+	def createIterator(self, filename):
+		self.source.channels.update(self.channelFilter, filename)
+		return getParser(self.source.parser).iterator(self.fd, self.source.channels.items, self.source.offset)
+
+	def readEpgDatFile(self, filename, deleteFile=False):
+		if not hasattr(self.epgcache, "load"):
+			print("[EPGImport] Cannot load EPG.DAT files on unpatched enigma. Need CrossEPG patch.", file=log)
+			return
+		unlink_if_exists(HDD_EPG_DAT)
+		try:
+			if filename.endswith(".gz"):
+				print("[EPGImport] Uncompressing", filename, file=log)
+				import shutil
+				fd = gzip.open(filename, "rb")
+				epgdat = open(HDD_EPG_DAT, "wb")
+				shutil.copyfileobj(fd, epgdat)
+				del fd
+				epgdat.close()
+				del epgdat
+			else:
+				if filename != HDD_EPG_DAT:
+					symlink(filename, HDD_EPG_DAT)
+			print("[EPGImport] Importing", HDD_EPG_DAT, file=log)
+			self.epgcache.load()
+			if deleteFile:
+				unlink_if_exists(filename)
+		except Exception as e:
+			print("[EPGImport] Failed to import %s:" % filename, e, file=log)
 
 	def fileno(self):
 		if self.fd is not None:
@@ -351,14 +390,14 @@ class EPGImport:
 					r, d = data
 					if d[0] > self.longDescUntil:
 						# Remove long description (save RAM memory)
-						d = d[:4] + ('',) + d[5:]
+						d = d[:4] + ("",) + d[5:]
 					self.storage.importEvents(r, (d,))
 				except Exception as e:
 					print("[EPGImport] ### importEvents exception:", e, file=log)
 		print("[EPGImport] ### thread is ready ### Events:", self.eventCount, file=log)
 		if filename:
 			try:
-				os.unlink(filename)
+				unlink(filename)
 			except Exception as e:
 				print("[EPGImport] warning: Could not remove '%s' intermediate" % filename, e, file=log)
 
@@ -373,7 +412,7 @@ class EPGImport:
 					r, d = data
 					if d[0] > self.longDescUntil:
 						# Remove long description (save RAM memory)
-						d = d[:4] + ('',) + d[5:]
+						d = d[:4] + ("",) + d[5:]
 					self.storage.importEvents(r, (d,))
 				except Exception as e:
 					print("[EPGImport] importEvents exception:", e, file=log)
@@ -385,29 +424,8 @@ class EPGImport:
 		# This happens because enigma calls us after removeReader
 		print("[EPGImport] connectionLost", failure, file=log)
 
-	def channelDownloadFail(self, failure):
-		print("[EPGImport] download channel failed:", failure, file=log)
-		if self.channelFiles:
-			filename = random.choice(self.channelFiles)
-			self.channelFiles.remove(filename)
-			self.do_download(filename, self.afterChannelDownload, self.channelDownloadFail)
-		else:
-			print("[EPGImport] no more alternatives for channels", file=log)
-			self.nextImport()
-
-	def downloadFail(self, failure):
-		print("[EPGImport] download failed:", failure, file=log)
-		if self.source.url in self.source.urls:
-			self.source.urls.remove(self.source.url)
-		if self.source.urls:
-			print("[EPGImport] Attempting alternative URL", file=log)
-			self.source.url = random.choice(self.source.urls)
-			self.fetchUrl(self.source.url)
-		else:
-			self.nextImport()
-
 	def logPrefix(self):
-		return '[EPGImport]'
+		return "[EPGImport]"
 
 	def closeReader(self):
 		if self.fd is not None:
@@ -420,7 +438,7 @@ class EPGImport:
 		self.closeReader()
 		self.iterator = None
 		self.source = None
-		if hasattr(self.storage, 'epgfile'):
+		if hasattr(self.storage, "epgfile"):
 			needLoad = self.storage.epgfile
 		else:
 			needLoad = None
@@ -433,18 +451,18 @@ class EPGImport:
 					print("[EPGImport] no Oudeis patch, load(%s) required" % needLoad, file=log)
 					reboot = True
 					try:
-						if hasattr(self.epgcache, 'load'):
+						if hasattr(self.epgcache, "load"):
 							print("[EPGImport] attempt load() patch", file=log)
 							if needLoad != HDD_EPG_DAT:
-								os.symlink(needLoad, HDD_EPG_DAT)
+								symlink(needLoad, HDD_EPG_DAT)
 							self.epgcache.load()
 							reboot = False
 							unlink_if_exists(needLoad)
 					except Exception as e:
 						print("[EPGImport] load() failed:", e, file=log)
-				elif hasattr(self.epgcache, 'save'):
+				elif hasattr(self.epgcache, "save"):
 					self.epgcache.save()
-			elif hasattr(self.epgcache, 'timeUpdated'):
+			elif hasattr(self.epgcache, "timeUpdated"):
 				self.epgcache.timeUpdated()
 			if self.onDone:
 				self.onDone(reboot=reboot, epgfile=needLoad)
@@ -453,24 +471,3 @@ class EPGImport:
 
 	def isImportRunning(self):
 		return self.source is not None
-
-	def do_download(self, sourcefile, afterDownload, downloadFail):
-		path = bigStorage(9000000, '/tmp', '/media/cf', '/media/mmc', '/media/usb', '/media/hdd')
-		filename = os.path.join(path, 'epgimport')
-		ext = os.path.splitext(sourcefile)[1]
-		# Keep sensible extension, in particular the compression type
-		if ext and len(ext) < 6:
-			filename += ext
-		sourcefile = sourcefile.encode('utf-8')
-		sslcf = SNIFactory(sourcefile) if sourcefile.decode().startswith('https:') else None
-		print("[EPGImport] Downloading: " + sourcefile.decode() + " to local path: " + filename, file=log)
-		if self.source.nocheck == 1:
-			print("[EPGImport] Not cheching the server since nocheck is set for it: " + sourcefile.decode(), file=log)
-			downloadPage(sourcefile, filename, timeout=90, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
-			return filename
-		else:
-			if self.checkValidServer(sourcefile) == 1:
-				downloadPage(sourcefile, filename, timeout=90, contextFactory=sslcf).addCallbacks(afterDownload, downloadFail, callbackArgs=(filename, True))
-				return filename
-			else:
-				self.downloadFail("checkValidServer reject the server")
