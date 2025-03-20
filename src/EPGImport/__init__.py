@@ -1,21 +1,22 @@
-import gettext
-
+from __future__ import absolute_import, print_function
 from Components.Language import language
-from Tools.Directories import SCOPE_PLUGINS, resolveFilename
+from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+from gettext import bindtextdomain, dgettext, gettext
 
 PluginLanguageDomain = "EPGImport"
 PluginLanguagePath = "Extensions/EPGImport/locale"
 
 
 def localeInit():
-    gettext.bindtextdomain(PluginLanguageDomain, resolveFilename(SCOPE_PLUGINS, PluginLanguagePath))
+	bindtextdomain(PluginLanguageDomain, resolveFilename(SCOPE_PLUGINS, PluginLanguagePath))
 
 
 def _(txt):
-    t = gettext.dgettext(PluginLanguageDomain, txt)
-    if t == txt:
-        t = gettext.gettext(txt)
-    return t
+	if dgettext(PluginLanguageDomain, txt):
+		return dgettext(PluginLanguageDomain, txt)
+	else:
+		print("%s fallback to default translation for %s" % (PluginLanguageDomain, txt))
+		return gettext(txt)
 
 
 localeInit()
