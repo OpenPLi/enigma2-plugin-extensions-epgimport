@@ -11,18 +11,10 @@ from . import log
 # %Y%m%d%H%M%S
 
 
-def quickptime(date_str):
-	return time.struct_time((
-		int(date_str[0:4]),    # year
-		int(date_str[4:6]),    # month
-		int(date_str[6:8]),    # day
-		int(date_str[8:10]),   # hour
-		int(date_str[10:12]),  # minute
-		0,                     # second
-		-1,                    # weekday (not used)
-		-1,                    # yearday (not used)
-		0                      # daylight savings time (not used)
-	))
+def quickptime(str):
+	return time.struct_time((int(str[0:4]), int(str[4:6]), int(str[6:8]),
+				 int(str[8:10]), int(str[10:12]), 0,
+				 -1, -1, 0))
 
 
 def get_time_utc(timestring, fdateparse):

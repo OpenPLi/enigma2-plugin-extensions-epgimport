@@ -58,8 +58,8 @@ class epgdatclass:
 
 	def checkPath(self, path):
 		f = os.popen('mount', "r")
-		for ls in f:
-			if ls.find(path) != -1:
+		for ln in f:
+			if ln.find(path) != -1:
 				return True
 		return False
 

@@ -10,9 +10,7 @@ from datetime import datetime
 
 try:
 	from . import dreamcrc
-
-	def crc32_dreambox(d, t):
-		return dreamcrc.crc32(d, t) & 0xffffffff
+	crc32_dreambox = lambda d, t: dreamcrc.crc32(d, t) & 0xffffffff
 	print("[EPGImport] using C module, yay")
 except:
 	print("[EPGImport] failed to load C implementation, sorry")
