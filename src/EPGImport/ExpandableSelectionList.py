@@ -88,13 +88,13 @@ class ExpandableSelectionList(MenuList):
 
 	def updateFlatList(self):
 		# Update the view of the items by flattening the tree
-		ls = []
+		ln = []
 		for cat in self.tree:
-			ls.append(cat)
+			ln.append(cat)
 			if isExpanded(cat):
 				for item in cat[0][2]:
-					ls.append(entry(*item))
-		self.setList(ls)
+					ln.append(entry(*item))
+		self.setList(ln)
 
 	def toggleSelection(self):
 		idx = self.getSelectedIndex()
