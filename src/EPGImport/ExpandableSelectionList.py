@@ -19,7 +19,7 @@ def loadSettings():
 	x, y, w, h = parameters.get("ExpandableListIcon", applySkinFactor(0, 2, 30, 25))
 	cat_icon_loc = (x, y, w, h)
 
-	indent = x + w # indentation for the selection list entries
+	indent = x + w  # indentation for the selection list entries
 
 	# selection list (skin parameters also used in enigma2)
 	x, y, w, h = parameters.get("SelectionListDescr", applySkinFactor(25, 3, 650, 30))
@@ -88,13 +88,13 @@ class ExpandableSelectionList(MenuList):
 
 	def updateFlatList(self):
 		# Update the view of the items by flattening the tree
-		l = []
+		ln = []
 		for cat in self.tree:
-			l.append(cat)
+			ln.append(cat)
 			if isExpanded(cat):
 				for item in cat[0][2]:
-					l.append(entry(*item))
-		self.setList(l)
+					ln.append(entry(*item))
+		self.setList(ln)
 
 	def toggleSelection(self):
 		idx = self.getSelectedIndex()

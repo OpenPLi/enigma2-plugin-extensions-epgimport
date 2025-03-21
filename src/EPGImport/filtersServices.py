@@ -26,14 +26,14 @@ def getProviderName(ref):
 	provider_root = eServiceReference(rootstr)
 	serviceHandler = eServiceCenter.getInstance()
 	providerlist = serviceHandler.list(provider_root)
-	if not providerlist is None:
+	if providerlist is not None:
 		while True:
 			provider = providerlist.getNext()
 			if not provider.valid():
 				break
 			if provider.flags & eServiceReference.isDirectory:
 				servicelist = serviceHandler.list(provider)
-				if not servicelist is None:
+				if servicelist is not None:
 					while True:
 						service = servicelist.getNext()
 						if not service.valid():
@@ -61,7 +61,7 @@ class FiltersList():
 			if line[0] in '#;\n':
 				continue
 			ref = line.strip()
-			if not ref in self.services:
+			if ref not in self.services:
 				self.services.append(ref)
 		cfg.close()
 
@@ -91,13 +91,13 @@ class FiltersList():
 
 	def addService(self, ref):
 		if isinstance(ref, str):
-			if not ref in self.services:
+			if ref not in self.services:
 				self.services.append(ref)
 
 	def addServices(self, services):
 		if isinstance(services, list):
 			for s in services:
-				if not s in self.services:
+				if s not in self.services:
 					self.services.append(s)
 
 	def delService(self, ref):
@@ -265,7 +265,7 @@ class filtersServicesSelection(ChannelSelectionBase):
 						if choice[1] == "providerlist":
 							serviceHandler = eServiceCenter.getInstance()
 							servicelist = serviceHandler.list(ref)
-							if not servicelist is None:
+							if servicelist is not None:
 								providerlist = []
 								while True:
 									service = servicelist.getNext()
@@ -282,7 +282,7 @@ class filtersServicesSelection(ChannelSelectionBase):
 				self.enterPath(ref)
 		elif (ref.flags & 7) == 7:
 			self.enterPath(ref)
-		elif not 'provider' in ref.toString() and not self.providers and not (ref.flags & (64 | 128)) and '%3a//' not in ref.toString():
+		elif 'provider' not in ref.toString() and not self.providers and not (ref.flags & (64 | 128)) and '%3a//' not in ref.toString():
 			if ref.valid():
 				self.close(ref)
 
