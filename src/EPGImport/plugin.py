@@ -659,6 +659,7 @@ class EPGImportProfile(ConfigListScreen, Screen):
 			"ok": self.save,
 		}, -2)
 
+	def save(self):
 		if all(not config.plugins.extra_epgimport.day_import[i].value for i in range(7)):
 			self.session.open(
 				MessageBox,
