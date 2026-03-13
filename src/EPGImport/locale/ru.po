@@ -448,3 +448,6 @@ msgstr "пропускать импорт"
 #: ../plugin.py:62
 msgid "wake up and import"
 msgstr "разбудить для импорта"
+
+msgid "Settings saved successfully !"
+msgstr "Настройки успешно сохранены!"

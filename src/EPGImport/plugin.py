@@ -329,6 +329,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		ConfigListScreen.__init__(self, [], session)
 		self.lastImportResult = None
 		self.prev_onlybouquet = config.plugins.epgimport.import_onlybouquet.value
+		self.autoTimerInstalled = fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.pyo")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.pyc"))
 		self.initConfig()
 		self.createSetup()
 		self.filterStatusTemplate = _("Filtering: %s\nPlease wait!")
@@ -392,12 +393,8 @@ class EPGImportConfig(ConfigListScreen, Screen):
 		self.list.append(self.cfg_execute_shell)
 		if self.EPG.execute_shell.value:
 			self.list.append(self.cfg_shell_name)
-		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.pyo")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.pyc")):
-			try:
-				# from Plugins.Extensions.AutoTimer.AutoTimer import AutoTimer
-				self.list.append(self.cfg_parse_autotimer)
-			except:
-				print("[EPGImport] AutoTimer plugin not installed correctly", file=log)
+		if self.autoTimerInstalled:
+			self.list.append(self.cfg_parse_autotimer)
 		self.list.append(self.cfg_showinmainmenu)
 		self.list.append(self.cfg_showinextensions)
 		self["config"].list = self.list
@@ -410,7 +407,7 @@ class EPGImportConfig(ConfigListScreen, Screen):
 
 	def keyGreen(self):
 		self.updateTimer.stop()
-		if self.EPG.parse_autotimer.value and (not fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.pyo")) or not fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/AutoTimer/plugin.pyc"))):
+		if self.EPG.parse_autotimer.value and not self.autoTimerInstalled:
 			self.EPG.parse_autotimer.value = False
 		if self.EPG.deepstandby.value == "skip" and self.EPG.shutdown.value:
 			self.EPG.shutdown.value = False
