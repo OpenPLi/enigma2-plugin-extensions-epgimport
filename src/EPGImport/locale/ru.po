@@ -451,3 +451,6 @@ msgstr "разбудить для импорта"
 
 msgid "Settings saved successfully !"
 msgstr "Настройки успешно сохранены!"
+
+msgid "Failed to write /tmp/epgimport.log\n"
+msgstr "Ошибка записи в /tmp/epgimport.log\n"
