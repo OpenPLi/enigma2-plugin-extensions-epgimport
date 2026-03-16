@@ -687,7 +687,6 @@ class EPGImportLog(Screen):
 		</screen>"""
 
 	def __init__(self, session):
-		self.session = session
 		Screen.__init__(self, session)
 		self.setTitle(_("EPG Import Log"))
 		self["key_red"] = Button(_("Clear"))
@@ -715,16 +714,13 @@ class EPGImportLog(Screen):
 	def save(self):
 		try:
 			with open("/tmp/epgimport.log", "w") as f:
-				f.write(self.log.getvalue())
+				f.write(log.getvalue())
 			msg = _("Write to /tmp/epgimport.log")
-			self.session.open(
-				MessageBox,
-				msg,
-				MessageBox.TYPE_INFO,
-				timeout=10
-			)
+			sec = 5
 		except Exception as e:
-			self["list"].setText("Failed to write /tmp/epgimport.log:str" + str(e))
+			msg = _(("Failed to write /tmp/epgimport.log\n") + str(e))
+			sec = 10
+		self.session.open(MessageBox, msg, MessageBox.TYPE_INFO, timeout=sec)
 		self.close(True)
 
 	def cancel(self):
